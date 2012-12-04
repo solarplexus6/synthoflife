@@ -1,6 +1,8 @@
 import Window (dimensions)
 import Mouse (clicks,position)
+import Time (every)
 import Automaton
+import Set(insert, singleton, toList)
 
 repeat a n = map (\_ -> a) [1..n]
 
@@ -8,14 +10,19 @@ clickLocations = foldp (:) [] (sampleOn clicks position)
 
 placeholder w h col text = color col $ container w h middle $ plainText text
 
-data GameOfLife = GameOfLife [(Int, Int)]
-type State = GameOfLife
+type GameOfLife = Set (Int, Int)
+--type State = GameOfLife
+
+--gofCell=   ((filled (rgb 255 102 0) .) .) . rect
+gofCell w h (x,y) =   filled (rgb 255 102 0) $ rect w h (x,y)
+--noCell =   ((filled (rgb 64 64 64) .) .) . rect
+noCell w h (x,y)  = filled (rgb 64 64 64) $ rect w h (x,y)
 
 gofAutomaton =
-    let fstep (x,y) fs = 
-        let out = (filled (rgb 255 102 0) (rect 10 10 (x/5, y/5))):fs 
+    let fstep (x,y) cells = 
+        let out = (x/5, y/5):cells
         in (out,out)
-    in init' [filled (rgb 255 102 0) (rect 10 10 (0,0)) ] fstep
+    in init' ([(0,0)]) fstep
 
 synthCtrl w h = placeholder w h blue "Sythesizer controls"
 golCtrl w h = placeholder w h (rgb 56 56 56) "GoL controls"
@@ -24,10 +31,11 @@ sequencer w h = let { steps = 16.0
                     ; cellSize = toFloat(w)/steps
                     ; coordinates = map (\x -> cellSize*toFloat(x) - cellSize*0.5) [1..steps]
                     ; grid = concatMap (\c -> zip (repeat c steps) coordinates) coordinates
-                    ; inactiveCells = map (filled (rgb 64 64 64) . rect (cellSize*0.8) (cellSize*0.8)) $ grid }
+                    ; inactiveCells = map (noCell (cellSize*0.8) (cellSize*0.8)) $ grid }
                 in
-                    lift (\activeCells -> collage w h $ inactiveCells ++ activeCells) 
+                    lift (\activeCells -> collage w h $ inactiveCells ++ (map (gofCell (cellSize*0.8) (cellSize*0.8)) activeCells))
                     $ run gofAutomaton $ sampleOn clicks position
+--                    $ run gofAutomaton $ (every 1)
 
 percent x p = (x * p) `div` 100
 
