@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="UTF-8"><title>Main</title><style type="text/css">html,head,body { padding:0; margin:0; }body { font-family: helvetica, arial, sans-serif; }</style></head><body><script type="text/javascript" src="..\lib\elm-runtime"></script><script type="text/javascript">
+try{
+
+for(var i in Elm) { this[i] = Elm[i]; }
+if (Elm.Main) throw "Module name collision, 'Main' is already defined."; 
+Elm.Main=function(){
+ try{if (!(Elm.Prelude instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'Prelude' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ try{if (!(Elm.Window instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'Window' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ var dimensions=Elm.Window.dimensions;
+ try{if (!(Elm.Mouse instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'Mouse' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ var clicks=Elm.Mouse.clicks;
+ var position=Elm.Mouse.position;
+ try{if (!(Elm.Time instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'Time' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ var every=Elm.Time.every;
+ try{if (!(Elm.Automaton instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'Automaton' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ var hiddenVars=[];
+ for(var i in Elm.Automaton){
+  if (hiddenVars.indexOf(i) >= 0) continue;
+  this[i]=Elm.Automaton[i];}
+ try{if (!(Elm.Dict instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'Dict' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ var Dict=Elm.Dict;
+ var clickLocations_1=foldp(function(x_23){
+  return function(y_24){
+   return ["Cons",x_23,y_24];};})(["Nil"])(sampleOn(clicks)(position));
+ var exploder_4=["Cons",["Tuple2",8,8],["Cons",["Tuple2",7,9],["Cons",["Tuple2",8,9],["Cons",["Tuple2",9,9],["Cons",["Tuple2",7,10],["Cons",["Tuple2",9,10],["Cons",["Tuple2",8,11],["Nil"]]]]]]]];
+ var cycleExploder_5=["Cons",["Tuple2",8,8],["Cons",["Tuple2",8,12],["Cons",["Tuple2",6,8],["Cons",["Tuple2",6,9],["Cons",["Tuple2",6,10],["Cons",["Tuple2",6,11],["Cons",["Tuple2",6,12],["Cons",["Tuple2",10,8],["Cons",["Tuple2",10,9],["Cons",["Tuple2",10,10],["Cons",["Tuple2",10,11],["Cons",["Tuple2",10,12],["Nil"]]]]]]]]]]]]];
+ var adjacentOffsets_6=["Cons",["Tuple2",-1,0],["Cons",["Tuple2",-1,-1],["Cons",["Tuple2",0,-1],["Cons",["Tuple2",1,-1],["Cons",["Tuple2",1,0],["Cons",["Tuple2",1,1],["Cons",["Tuple2",0,1],["Cons",["Tuple2",-1,1],["Nil"]]]]]]]]];
+ var gofAutomaton_10=function(){
+  var gof_50=gofFromList_9(cycleExploder_5);
+  function fstep_49(pos_51){
+   return function(initGof_52){
+    return function(){
+     var empty_54=gofFromList_9(concatMap(flip(emptyNghb_8)(initGof_52))(Dict.values(initGof_52)));
+     var survived_55=Dict.foldl(function(key_61){
+      return function(cell_62){
+       return function(gof__63){
+        return (survives_53(cell_62)(initGof_52)?Dict.insert(key_61)(cell_62)(gof__63):gof__63);};};})(Dict.empty)(initGof_52);
+     var newborn_56=Dict.foldl(function(key_64){
+      return function(empty_65){
+       return function(gof__66){
+        return (eq(countNghb_7(empty_65)(initGof_52),3)?Dict.insert(key_64)(empty_65)(gof__66):gof__66);};};})(Dict.empty)(empty_54);
+     var out_57=Dict.union(survived_55)(newborn_56);
+     function survives_53(cell_58){
+      return function(gof_59){
+       return function(){
+        var count_60=countNghb_7(cell_58)(gof_59);
+        return (eq(count_60,2)||eq(count_60,3));}();};};
+     return ["Tuple2",Dict.values(out_57),out_57];}();};};
+  return init_(gof_50)(fstep_49);}();
+ var main_19=lift2(view_18)(dimensions)(sequencer_16(400)(400));
+ function repeat_0(a_20){
+  return function(n_21){
+   return map(function(__22){
+    return a_20;})(function(){
+    var lo=1;
+    var hi=n_21;
+    var lst=["Nil"];if(lo<=hi){do{
+    var lst=["Cons",hi,lst];}while(hi-->lo)}
+    return lst;}());};};
+ function placeholder_2(w_25){
+  return function(h_26){
+   return function(col_27){
+    return function(text_28){
+     return color(col_27)(container(w_25)(h_26)(middle)(plainText(text_28)));};};};};
+ function dictSize_3(d_29){
+  return Dict.foldl(function(__30){
+   return function(__31){
+    return function(y_32){
+     return (1+y_32);};};})(0)(d_29);};
+ function countNghb_7(Tuple2$xy_33){
+  return function(gof_34){
+   return function(){
+   switch(Tuple2$xy_33[0]){
+    case "Tuple2":
+    return foldl(function(Tuple2$nxny_37){
+     return function(s_38){
+      return function(){
+      switch(Tuple2$nxny_37[0]){
+       case "Tuple2":
+       return (Dict.member(show(["Tuple2",(Tuple2$xy_33[1]+Tuple2$nxny_37[1]),(Tuple2$xy_33[2]+Tuple2$nxny_37[2])]))(gof_34)?(1+s_38):s_38);
+      }
+      throw "Non-exhaustive pattern match in case";}();};})(0)(adjacentOffsets_6);
+   }
+   throw "Non-exhaustive pattern match in case";}();};};
+ function emptyNghb_8(Tuple2$xy_41){
+  return function(gof_42){
+   return function(){
+   switch(Tuple2$xy_41[0]){
+    case "Tuple2":
+    return filter(function(x){
+     return not(flip(Dict.member)(gof_42)(show(x)));})(map(function(Tuple2$nxny_45){
+     return function(){
+     switch(Tuple2$nxny_45[0]){
+      case "Tuple2":
+      return ["Tuple2",(Tuple2$xy_41[1]+Tuple2$nxny_45[1]),(Tuple2$xy_41[2]+Tuple2$nxny_45[2])];
+     }
+     throw "Non-exhaustive pattern match in case";}();})(adjacentOffsets_6));
+   }
+   throw "Non-exhaustive pattern match in case";}();};};
+ function gofFromList_9(xs_48){
+  return Dict.fromList(zip(map(show)(xs_48))(xs_48));};
+ function gofCell_11(w_67){
+  return function(h_68){
+   return function(Tuple2$xy_69){
+    return function(){
+    switch(Tuple2$xy_69[0]){
+     case "Tuple2":
+     return filled(rgb(255)(102)(0))(rect(w_67)(h_68)(["Tuple2",Tuple2$xy_69[1],Tuple2$xy_69[2]]));
+    }
+    throw "Non-exhaustive pattern match in case";}();};};};
+ function noCell_12(w_72){
+  return function(h_73){
+   return function(Tuple2$xy_74){
+    return function(){
+    switch(Tuple2$xy_74[0]){
+     case "Tuple2":
+     return filled(rgb(64)(64)(64))(rect(w_72)(h_73)(["Tuple2",Tuple2$xy_74[1],Tuple2$xy_74[2]]));
+    }
+    throw "Non-exhaustive pattern match in case";}();};};};
+ function synthCtrl_13(w_77){
+  return function(h_78){
+   return placeholder_2(w_77)(h_78)(blue)(Value.str("Sythesizer controls"));};};
+ function golCtrl_14(w_79){
+  return function(h_80){
+   return placeholder_2(w_79)(h_80)(rgb(56)(56)(56))(Value.str("GoL controls"));};};
+ function presets_15(w_81){
+  return function(h_82){
+   return placeholder_2(w_81)(h_82)(rgb(56)(56)(56))(Value.str("Presets"));};};
+ function sequencer_16(w_83){
+  return function(h_84){
+   return function(){
+    var steps_85=16;
+    var cellSize_86=(toFloat(w_83)/steps_85);
+    var grid_88=concatMap(function(c_91){
+     return zip(repeat_0(c_91)(steps_85))(map(coordinate_87)(function(){
+      var lo=1;
+      var hi=steps_85;
+      var lst=["Nil"];if(lo<=hi){do{
+      var lst=["Cons",hi,lst];}while(hi-->lo)}
+      return lst;}()));})(map(coordinate_87)(function(){
+     var lo=1;
+     var hi=steps_85;
+     var lst=["Nil"];if(lo<=hi){do{
+     var lst=["Cons",hi,lst];}while(hi-->lo)}
+     return lst;}()));
+    var inactiveCells_89=map(noCell_12((cellSize_86*0.8))((cellSize_86*0.8)))(grid_88);
+    function coordinate_87(x_90){
+     return ((cellSize_86*toFloat(x_90))-(cellSize_86*0.5));};
+    return lift(function(activeCells_92){
+     return collage(w_83)(h_84)(Value.append(inactiveCells_89,map(gofCell_11((cellSize_86*0.8))((cellSize_86*0.8)))(map(function(Tuple2$xy_93){
+      return function(){
+      switch(Tuple2$xy_93[0]){
+       case "Tuple2":
+       return ["Tuple2",coordinate_87(Tuple2$xy_93[1]),coordinate_87(Tuple2$xy_93[2])];
+      }
+      throw "Non-exhaustive pattern match in case";}();})(activeCells_92))));})(run(gofAutomaton_10)(every(0.1)));}();};};
+ function percent_17(x_96){
+  return function(p_97){
+   return div((x_96*p_97))(100);};};
+ function view_18(Tuple2$wh_98){
+  return function(seqView_99){
+   return function(){
+   switch(Tuple2$wh_98[0]){
+    case "Tuple2":
+    return function(){
+     var layout_w_102=div((5*Tuple2$wh_98[1]))(6);
+     var game_h_103=div((3*Tuple2$wh_98[2]))(5);
+     return container(Tuple2$wh_98[1])(Tuple2$wh_98[2])(middle)(color(grey)(above(container(layout_w_102)(game_h_103)(middle)(flow(right)(["Cons",golCtrl_14(percent_17(layout_w_102)(12))(percent_17(game_h_103)(80)),["Cons",seqView_99,["Cons",presets_15(percent_17(layout_w_102)(12))(percent_17(game_h_103)(80)),["Nil"]]]])))(synthCtrl_13(layout_w_102)(div(Tuple2$wh_98[2])(6)))));}();
+   }
+   throw "Non-exhaustive pattern match in case";}();};};
+ return {repeat:repeat_0,clickLocations:clickLocations_1,placeholder:placeholder_2,dictSize:dictSize_3,exploder:exploder_4,cycleExploder:cycleExploder_5,adjacentOffsets:adjacentOffsets_6,countNghb:countNghb_7,emptyNghb:emptyNghb_8,gofFromList:gofFromList_9,gofAutomaton:gofAutomaton_10,gofCell:gofCell_11,noCell:noCell_12,synthCtrl:synthCtrl_13,golCtrl:golCtrl_14,presets:presets_15,sequencer:sequencer_16,percent:percent_17,view:view_18,main:main_19};}();
+Elm.main=function(){
+ return Elm.Main.main;};
+} catch (e) {Elm.main=function() {var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>above, clicks, dimensions, every, position</span>');document.body.innerHTML = Text.monospace(msg);throw e;};}</script><div id="widthChecker" style="width:100%; height:1px; position:absolute; top:-1px;"></div><div id="content"></div><script type="text/javascript">Dispatcher.initialize()</script><noscript><p>Sythesizer controls</p><p>GoL controls</p><p>Presets</p></noscript></body></html>
