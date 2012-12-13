@@ -9,10 +9,11 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , main = require('./controllers/main')
+  , preset = require('./controllers/presets')
   , mongoose = require('mongoose')
   , app = express();
 
-// MongoDB
+MongoDB
 mongoose.connect('mongodb://127.0.0.1/SofDB');
 
 mongoose.connection.on('open', function() {
@@ -36,6 +37,7 @@ app.configure('development', function(){
 });
 
 app.get('/', main.index);
+app.get('/preset/:sn', preset.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

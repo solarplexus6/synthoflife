@@ -1,8 +1,7 @@
 var Preset = require('../models/preset.js');
 
-// index listing of widgets at /widgets/
 exports.index = function(req, res) {
-   City.find({}, function(err, docs) {
-      res.render('presets/index', {title : 'Presets'});
-   });
+    console.log(req.url);
+    var filePath = require('path').normalize(__dirname + "/../public/main.html");
+    res.sendfile(filePath);
 };
