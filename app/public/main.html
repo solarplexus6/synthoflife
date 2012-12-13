@@ -1,5 +1,18 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style type="text/css">html,head,body { padding:0; margin:0; }body { font-family: helvetica, arial, sans-serif; }</style></head><body><script type="text/javascript" src="..\lib\elm-runtime"></script><script type="text/javascript">
+<html><head><meta charset="UTF-8"><title>Main</title><style type="text/css">html,head,body { padding:0; margin:0; }body { font-family: helvetica, arial, sans-serif; }</style></head><body><script type="text/javascript" src="..\lib\elm-runtime.js"></script><script type="text/javascript">document.body.onload = function() {
+    var e = document.createEvent('Event');
+    e.initEvent('provideHost', true, true);
+    e.value = window.location.host;
+    document.dispatchEvent(e);
+
+    var presetSn = window.location.pathname.match(/\/preset\/(.*)/);
+    if (presetSn != null){
+    	e = document.createEvent('Event');
+	    e.initEvent('providePresetUrl', true, true);
+	    e.value = "http://" + window.location.host + "/api" + presetSn[0];
+	    document.dispatchEvent(e);
+    }
+}
 try{
 
 for(var i in Elm) { this[i] = Elm[i]; }
@@ -20,156 +33,186 @@ Elm.Main=function(){
   this[i]=Elm.Automaton[i];}
  try{if (!(Elm.Dict instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'Dict' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
  var Dict=Elm.Dict;
- var clickLocations_1=foldp(function(x_23){
-  return function(y_24){
-   return ["Cons",x_23,y_24];};})(["Nil"])(sampleOn(clicks)(position));
- var exploder_4=["Cons",["Tuple2",8,8],["Cons",["Tuple2",7,9],["Cons",["Tuple2",8,9],["Cons",["Tuple2",9,9],["Cons",["Tuple2",7,10],["Cons",["Tuple2",9,10],["Cons",["Tuple2",8,11],["Nil"]]]]]]]];
- var cycleExploder_5=["Cons",["Tuple2",8,8],["Cons",["Tuple2",8,12],["Cons",["Tuple2",6,8],["Cons",["Tuple2",6,9],["Cons",["Tuple2",6,10],["Cons",["Tuple2",6,11],["Cons",["Tuple2",6,12],["Cons",["Tuple2",10,8],["Cons",["Tuple2",10,9],["Cons",["Tuple2",10,10],["Cons",["Tuple2",10,11],["Cons",["Tuple2",10,12],["Nil"]]]]]]]]]]]]];
- var adjacentOffsets_6=["Cons",["Tuple2",-1,0],["Cons",["Tuple2",-1,-1],["Cons",["Tuple2",0,-1],["Cons",["Tuple2",1,-1],["Cons",["Tuple2",1,0],["Cons",["Tuple2",1,1],["Cons",["Tuple2",0,1],["Cons",["Tuple2",-1,1],["Nil"]]]]]]]]];
- var gofAutomaton_10=function(){
-  var gof_50=gofFromList_9(cycleExploder_5);
-  function fstep_49(pos_51){
-   return function(initGof_52){
+ try{if (!(Elm.JavaScript instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'JavaScript' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ var hiddenVars=[];
+ for(var i in Elm.JavaScript){
+  if (hiddenVars.indexOf(i) >= 0) continue;
+  this[i]=Elm.JavaScript[i];}
+ try{if (!(Elm.JSON instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'JSON' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ var hiddenVars=[];
+ for(var i in Elm.JSON){
+  if (hiddenVars.indexOf(i) >= 0) continue;
+  this[i]=Elm.JSON[i];}
+ try{if (!(Elm.HTTP instanceof Object)) throw 'module not found'; } catch(e) {throw "Module 'HTTP' is missing. Compile with --make flag or load missing module in a separate JavaScript file.";}
+ var sendGet=Elm.HTTP.sendGet;
+ var clickLocations_1=foldp(function(x_28){
+  return function(y_29){
+   return ["Cons",x_28,y_29];};})(["Nil"])(sampleOn(clicks)(position));
+ var jsHost_3 = Elm.Signal.constant(castStringToJSString(Value.str("")));
+ Value.addListener(document, 'provideHost', function(e) { Dispatcher.notify(jsHost_3.id, e.value); });
+ var presetUrl_4 = Elm.Signal.constant(castStringToJSString(Value.str("")));
+ Value.addListener(document, 'providePresetUrl', function(e) { Dispatcher.notify(presetUrl_4.id, e.value); });
+ var host_5=lift(castJSStringToString)(jsHost_3);
+ var presetSignal_6=sendGet(lift(castJSStringToString)(presetUrl_4));
+ var exploder_8=["Cons",["Tuple2",8,8],["Cons",["Tuple2",7,9],["Cons",["Tuple2",8,9],["Cons",["Tuple2",9,9],["Cons",["Tuple2",7,10],["Cons",["Tuple2",9,10],["Cons",["Tuple2",8,11],["Nil"]]]]]]]];
+ var cycleExploder_9=["Cons",["Tuple2",8,8],["Cons",["Tuple2",8,12],["Cons",["Tuple2",6,8],["Cons",["Tuple2",6,9],["Cons",["Tuple2",6,10],["Cons",["Tuple2",6,11],["Cons",["Tuple2",6,12],["Cons",["Tuple2",10,8],["Cons",["Tuple2",10,9],["Cons",["Tuple2",10,10],["Cons",["Tuple2",10,11],["Cons",["Tuple2",10,12],["Nil"]]]]]]]]]]]]];
+ var adjacentOffsets_10=["Cons",["Tuple2",-1,0],["Cons",["Tuple2",-1,-1],["Cons",["Tuple2",0,-1],["Cons",["Tuple2",1,-1],["Cons",["Tuple2",1,0],["Cons",["Tuple2",1,1],["Cons",["Tuple2",0,1],["Cons",["Tuple2",-1,1],["Nil"]]]]]]]]];
+ var gofAutomaton_14=function(){
+  var gof_55=gofFromList_13(cycleExploder_9);
+  function fstep_54(pos_56){
+   return function(initGof_57){
     return function(){
-     var empty_54=gofFromList_9(concatMap(flip(emptyNghb_8)(initGof_52))(Dict.values(initGof_52)));
-     var survived_55=Dict.foldl(function(key_61){
-      return function(cell_62){
-       return function(gof__63){
-        return (survives_53(cell_62)(initGof_52)?Dict.insert(key_61)(cell_62)(gof__63):gof__63);};};})(Dict.empty)(initGof_52);
-     var newborn_56=Dict.foldl(function(key_64){
-      return function(empty_65){
-       return function(gof__66){
-        return (eq(countNghb_7(empty_65)(initGof_52),3)?Dict.insert(key_64)(empty_65)(gof__66):gof__66);};};})(Dict.empty)(empty_54);
-     var out_57=Dict.union(survived_55)(newborn_56);
-     function survives_53(cell_58){
-      return function(gof_59){
+     var empty_59=gofFromList_13(concatMap(flip(emptyNghb_12)(initGof_57))(Dict.values(initGof_57)));
+     var survived_60=Dict.foldl(function(key_66){
+      return function(cell_67){
+       return function(gof__68){
+        return (survives_58(cell_67)(initGof_57)?Dict.insert(key_66)(cell_67)(gof__68):gof__68);};};})(Dict.empty)(initGof_57);
+     var newborn_61=Dict.foldl(function(key_69){
+      return function(empty_70){
+       return function(gof__71){
+        return (eq(countNghb_11(empty_70)(initGof_57),3)?Dict.insert(key_69)(empty_70)(gof__71):gof__71);};};})(Dict.empty)(empty_59);
+     var out_62=Dict.union(survived_60)(newborn_61);
+     function survives_58(cell_63){
+      return function(gof_64){
        return function(){
-        var count_60=countNghb_7(cell_58)(gof_59);
-        return (eq(count_60,2)||eq(count_60,3));}();};};
-     return ["Tuple2",Dict.values(out_57),out_57];}();};};
-  return init_(gof_50)(fstep_49);}();
- var main_19=lift2(view_18)(dimensions)(sequencer_16(400)(400));
- function repeat_0(a_20){
-  return function(n_21){
-   return map(function(__22){
-    return a_20;})(function(){
+        var count_65=countNghb_11(cell_63)(gof_64);
+        return (eq(count_65,2)||eq(count_65,3));}();};};
+     return ["Tuple2",Dict.values(out_62),out_62];}();};};
+  return init_(gof_55)(fstep_54);}();
+ var main_24=lift3(view_23)(dimensions)(sequencer_20(400)(400))(presetSignal_6);
+ function repeat_0(a_25){
+  return function(n_26){
+   return map(function(__27){
+    return a_25;})(function(){
     var lo=1;
-    var hi=n_21;
+    var hi=n_26;
     var lst=["Nil"];if(lo<=hi){do{
     var lst=["Cons",hi,lst];}while(hi-->lo)}
     return lst;}());};};
- function placeholder_2(w_25){
-  return function(h_26){
-   return function(col_27){
-    return function(text_28){
-     return color(col_27)(container(w_25)(h_26)(middle)(plainText(text_28)));};};};};
- function dictSize_3(d_29){
-  return Dict.foldl(function(__30){
-   return function(__31){
-    return function(y_32){
-     return (1+y_32);};};})(0)(d_29);};
- function countNghb_7(Tuple2$xy_33){
-  return function(gof_34){
+ function placeholder_2(w_30){
+  return function(h_31){
+   return function(col_32){
+    return function(text_33){
+     return color(col_32)(container(w_30)(h_31)(middle)(plainText(text_33)));};};};};
+ function dictSize_7(d_34){
+  return Dict.foldl(function(__35){
+   return function(__36){
+    return function(y_37){
+     return (1+y_37);};};})(0)(d_34);};
+ function countNghb_11(Tuple2$xy_38){
+  return function(gof_39){
    return function(){
-   switch(Tuple2$xy_33[0]){
+   switch(Tuple2$xy_38[0]){
     case "Tuple2":
-    return foldl(function(Tuple2$nxny_37){
-     return function(s_38){
+    return foldl(function(Tuple2$nxny_42){
+     return function(s_43){
       return function(){
-      switch(Tuple2$nxny_37[0]){
+      switch(Tuple2$nxny_42[0]){
        case "Tuple2":
-       return (Dict.member(show(["Tuple2",(Tuple2$xy_33[1]+Tuple2$nxny_37[1]),(Tuple2$xy_33[2]+Tuple2$nxny_37[2])]))(gof_34)?(1+s_38):s_38);
+       return (Dict.member(show(["Tuple2",(Tuple2$xy_38[1]+Tuple2$nxny_42[1]),(Tuple2$xy_38[2]+Tuple2$nxny_42[2])]))(gof_39)?(1+s_43):s_43);
       }
-      throw "Non-exhaustive pattern match in case";}();};})(0)(adjacentOffsets_6);
+      throw "Non-exhaustive pattern match in case";}();};})(0)(adjacentOffsets_10);
    }
    throw "Non-exhaustive pattern match in case";}();};};
- function emptyNghb_8(Tuple2$xy_41){
-  return function(gof_42){
+ function emptyNghb_12(Tuple2$xy_46){
+  return function(gof_47){
    return function(){
-   switch(Tuple2$xy_41[0]){
+   switch(Tuple2$xy_46[0]){
     case "Tuple2":
     return filter(function(x){
-     return not(flip(Dict.member)(gof_42)(show(x)));})(map(function(Tuple2$nxny_45){
+     return not(flip(Dict.member)(gof_47)(show(x)));})(map(function(Tuple2$nxny_50){
      return function(){
-     switch(Tuple2$nxny_45[0]){
+     switch(Tuple2$nxny_50[0]){
       case "Tuple2":
-      return ["Tuple2",(Tuple2$xy_41[1]+Tuple2$nxny_45[1]),(Tuple2$xy_41[2]+Tuple2$nxny_45[2])];
+      return ["Tuple2",(Tuple2$xy_46[1]+Tuple2$nxny_50[1]),(Tuple2$xy_46[2]+Tuple2$nxny_50[2])];
      }
-     throw "Non-exhaustive pattern match in case";}();})(adjacentOffsets_6));
+     throw "Non-exhaustive pattern match in case";}();})(adjacentOffsets_10));
    }
    throw "Non-exhaustive pattern match in case";}();};};
- function gofFromList_9(xs_48){
-  return Dict.fromList(zip(map(show)(xs_48))(xs_48));};
- function gofCell_11(w_67){
-  return function(h_68){
-   return function(Tuple2$xy_69){
-    return function(){
-    switch(Tuple2$xy_69[0]){
-     case "Tuple2":
-     return filled(rgb(255)(102)(0))(rect(w_67)(h_68)(["Tuple2",Tuple2$xy_69[1],Tuple2$xy_69[2]]));
-    }
-    throw "Non-exhaustive pattern match in case";}();};};};
- function noCell_12(w_72){
+ function gofFromList_13(xs_53){
+  return Dict.fromList(zip(map(show)(xs_53))(xs_53));};
+ function gofCell_15(w_72){
   return function(h_73){
    return function(Tuple2$xy_74){
     return function(){
     switch(Tuple2$xy_74[0]){
      case "Tuple2":
-     return filled(rgb(64)(64)(64))(rect(w_72)(h_73)(["Tuple2",Tuple2$xy_74[1],Tuple2$xy_74[2]]));
+     return filled(rgb(255)(102)(0))(rect(w_72)(h_73)(["Tuple2",Tuple2$xy_74[1],Tuple2$xy_74[2]]));
     }
     throw "Non-exhaustive pattern match in case";}();};};};
- function synthCtrl_13(w_77){
+ function noCell_16(w_77){
   return function(h_78){
-   return placeholder_2(w_77)(h_78)(blue)(Value.str("Sythesizer controls"));};};
- function golCtrl_14(w_79){
-  return function(h_80){
-   return placeholder_2(w_79)(h_80)(rgb(56)(56)(56))(Value.str("GoL controls"));};};
- function presets_15(w_81){
-  return function(h_82){
-   return placeholder_2(w_81)(h_82)(rgb(56)(56)(56))(Value.str("Presets"));};};
- function sequencer_16(w_83){
-  return function(h_84){
+   return function(Tuple2$xy_79){
+    return function(){
+    switch(Tuple2$xy_79[0]){
+     case "Tuple2":
+     return filled(rgb(64)(64)(64))(rect(w_77)(h_78)(["Tuple2",Tuple2$xy_79[1],Tuple2$xy_79[2]]));
+    }
+    throw "Non-exhaustive pattern match in case";}();};};};
+ function synthCtrl_17(w_82){
+  return function(h_83){
+   return placeholder_2(w_82)(h_83)(blue)(Value.str("Sythesizer controls"));};};
+ function golCtrl_18(w_84){
+  return function(h_85){
+   return placeholder_2(w_84)(h_85)(rgb(56)(56)(56))(Value.str("GoL controls"));};};
+ function presets_19(w_86){
+  return function(h_87){
+   return placeholder_2(w_86)(h_87)(rgb(56)(56)(56))(Value.str("Presets"));};};
+ function sequencer_20(w_88){
+  return function(h_89){
    return function(){
-    var steps_85=16;
-    var cellSize_86=(toFloat(w_83)/steps_85);
-    var grid_88=concatMap(function(c_91){
-     return zip(repeat_0(c_91)(steps_85))(map(coordinate_87)(function(){
+    var steps_90=16;
+    var cellSize_91=(toFloat(w_88)/steps_90);
+    var grid_93=concatMap(function(c_96){
+     return zip(repeat_0(c_96)(steps_90))(map(coordinate_92)(function(){
       var lo=1;
-      var hi=steps_85;
+      var hi=steps_90;
       var lst=["Nil"];if(lo<=hi){do{
       var lst=["Cons",hi,lst];}while(hi-->lo)}
-      return lst;}()));})(map(coordinate_87)(function(){
+      return lst;}()));})(map(coordinate_92)(function(){
      var lo=1;
-     var hi=steps_85;
+     var hi=steps_90;
      var lst=["Nil"];if(lo<=hi){do{
      var lst=["Cons",hi,lst];}while(hi-->lo)}
      return lst;}()));
-    var inactiveCells_89=map(noCell_12((cellSize_86*0.8))((cellSize_86*0.8)))(grid_88);
-    function coordinate_87(x_90){
-     return ((cellSize_86*toFloat(x_90))-(cellSize_86*0.5));};
-    return lift(function(activeCells_92){
-     return collage(w_83)(h_84)(Value.append(inactiveCells_89,map(gofCell_11((cellSize_86*0.8))((cellSize_86*0.8)))(map(function(Tuple2$xy_93){
+    var inactiveCells_94=map(noCell_16((cellSize_91*0.8))((cellSize_91*0.8)))(grid_93);
+    function coordinate_92(x_95){
+     return ((cellSize_91*toFloat(x_95))-(cellSize_91*0.5));};
+    return lift(function(activeCells_97){
+     return collage(w_88)(h_89)(Value.append(inactiveCells_94,map(gofCell_15((cellSize_91*0.8))((cellSize_91*0.8)))(map(function(Tuple2$xy_98){
       return function(){
-      switch(Tuple2$xy_93[0]){
+      switch(Tuple2$xy_98[0]){
        case "Tuple2":
-       return ["Tuple2",coordinate_87(Tuple2$xy_93[1]),coordinate_87(Tuple2$xy_93[2])];
+       return ["Tuple2",coordinate_92(Tuple2$xy_98[1]),coordinate_92(Tuple2$xy_98[2])];
       }
-      throw "Non-exhaustive pattern match in case";}();})(activeCells_92))));})(run(gofAutomaton_10)(every(0.1)));}();};};
- function percent_17(x_96){
-  return function(p_97){
-   return div((x_96*p_97))(100);};};
- function view_18(Tuple2$wh_98){
-  return function(seqView_99){
-   return function(){
-   switch(Tuple2$wh_98[0]){
-    case "Tuple2":
+      throw "Non-exhaustive pattern match in case";}();})(activeCells_97))));})(run(gofAutomaton_14)(every(0.1)));}();};};
+ function percent_21(x_101){
+  return function(p_102){
+   return div((x_101*p_102))(100);};};
+ function handleResponse_22(res_103){
+  return function(){
+  switch(res_103[0]){
+   case "Failure":
+   return JSON.empty;
+   case "Success":
+   return fromString(res_103[1]);
+   case "Waiting":
+   return JSON.empty;
+  }
+  throw "Non-exhaustive pattern match in case";}();};
+ function view_23(Tuple2$wh_105){
+  return function(seqView_106){
+   return function(preset_107){
     return function(){
-     var layout_w_102=div((5*Tuple2$wh_98[1]))(6);
-     var game_h_103=div((3*Tuple2$wh_98[2]))(5);
-     return container(Tuple2$wh_98[1])(Tuple2$wh_98[2])(middle)(color(grey)(above(container(layout_w_102)(game_h_103)(middle)(flow(right)(["Cons",golCtrl_14(percent_17(layout_w_102)(12))(percent_17(game_h_103)(80)),["Cons",seqView_99,["Cons",presets_15(percent_17(layout_w_102)(12))(percent_17(game_h_103)(80)),["Nil"]]]])))(synthCtrl_13(layout_w_102)(div(Tuple2$wh_98[2])(6)))));}();
-   }
-   throw "Non-exhaustive pattern match in case";}();};};
- return {repeat:repeat_0,clickLocations:clickLocations_1,placeholder:placeholder_2,dictSize:dictSize_3,exploder:exploder_4,cycleExploder:cycleExploder_5,adjacentOffsets:adjacentOffsets_6,countNghb:countNghb_7,emptyNghb:emptyNghb_8,gofFromList:gofFromList_9,gofAutomaton:gofAutomaton_10,gofCell:gofCell_11,noCell:noCell_12,synthCtrl:synthCtrl_13,golCtrl:golCtrl_14,presets:presets_15,sequencer:sequencer_16,percent:percent_17,view:view_18,main:main_19};}();
+    switch(Tuple2$wh_105[0]){
+     case "Tuple2":
+     return function(){
+      var layout_w_110=div((5*Tuple2$wh_105[1]))(6);
+      var game_h_111=div((3*Tuple2$wh_105[2]))(5);
+      return container(Tuple2$wh_105[1])(Tuple2$wh_105[2])(middle)(color(grey)(above(above(container(layout_w_110)(game_h_111)(middle)(flow(right)(["Cons",golCtrl_18(percent_21(layout_w_110)(12))(percent_21(game_h_111)(80)),["Cons",seqView_106,["Cons",presets_19(percent_21(layout_w_110)(12))(percent_21(game_h_111)(80)),["Nil"]]]])))(synthCtrl_17(layout_w_110)(div(Tuple2$wh_105[2])(6))))(asText(findArray(Value.str("pattern"))(handleResponse_22(preset_107))))));}();
+    }
+    throw "Non-exhaustive pattern match in case";}();};};};
+ return {repeat:repeat_0,clickLocations:clickLocations_1,placeholder:placeholder_2,jsHost:jsHost_3,presetUrl:presetUrl_4,host:host_5,presetSignal:presetSignal_6,dictSize:dictSize_7,exploder:exploder_8,cycleExploder:cycleExploder_9,adjacentOffsets:adjacentOffsets_10,countNghb:countNghb_11,emptyNghb:emptyNghb_12,gofFromList:gofFromList_13,gofAutomaton:gofAutomaton_14,gofCell:gofCell_15,noCell:noCell_16,synthCtrl:synthCtrl_17,golCtrl:golCtrl_18,presets:presets_19,sequencer:sequencer_20,percent:percent_21,handleResponse:handleResponse_22,view:view_23,main:main_24};}();
 Elm.main=function(){
  return Elm.Main.main;};
-} catch (e) {Elm.main=function() {var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>above, clicks, dimensions, every, position</span>');document.body.innerHTML = Text.monospace(msg);throw e;};}</script><div id="widthChecker" style="width:100%; height:1px; position:absolute; top:-1px;"></div><div id="content"></div><script type="text/javascript">Dispatcher.initialize()</script><noscript><p>Sythesizer controls</p><p>GoL controls</p><p>Presets</p></noscript></body></html>
+} catch (e) {Elm.main=function() {var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>Failure, JSON.empty, Success, Waiting, above, clicks, dimensions, every, position, sendGet</span>');document.body.innerHTML = Text.monospace(msg);throw e;};}</script><div id="widthChecker" style="width:100%; height:1px; position:absolute; top:-1px;"></div><div id="content"></div><script type="text/javascript">Dispatcher.initialize()</script><noscript><p>Sythesizer controls</p><p>GoL controls</p><p>Presets</p><p>pattern</p></noscript></body></html>

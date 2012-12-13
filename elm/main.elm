@@ -3,12 +3,27 @@ import Mouse (clicks,position)
 import Time (every)
 import Automaton
 import Dict as Dict
+import JavaScript
+import JSON
+import HTTP(sendGet)
 
 repeat a n = map (\_ -> a) [1..n]
 
 clickLocations = foldp (:) [] (sampleOn clicks position)
 
 placeholder w h col text = color col $ container w h middle $ plainText text
+
+foreign import jsevent "provideHost"
+  (castStringToJSString "")
+     jsHost :: Signal JSString
+
+foreign import jsevent "providePresetUrl"
+  (castStringToJSString "")
+     presetUrl :: Signal JSString
+
+host = lift castJSStringToString jsHost
+presetSignal = sendGet $ lift castJSStringToString presetUrl
+
 dictSize d = Dict.foldl (\_ _ y -> y+1) 0 d
 
 --type GameOfLife = Dict String (Int, Int) -- Dict nie obsluguje pary jako klucz
@@ -63,7 +78,13 @@ sequencer w h = let { steps = 16
 
 percent x p = (x * p) `div` 100
 
-view (w,h) seqView =
+handleResponse res =
+    case res of {
+        Success obj -> fromString obj
+    ;   Waiting -> JSON.empty
+    ;   Failure _ _ -> JSON.empty }
+
+view (w,h) seqView preset =
     let {
         layout_w = (w * 5) `div` 6
     ;   game_h = (h * 3) `div` 5
@@ -78,5 +99,7 @@ view (w,h) seqView =
                 ])
             `above`
             synthCtrl layout_w (h `div` 6)
+            `above`
+            asText (findArray "pattern" $ handleResponse preset)
 
-main = lift2 view dimensions $ sequencer 400 400
+main = lift3 view dimensions (sequencer 400 400) presetSignal
