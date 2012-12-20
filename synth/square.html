@@ -1,0 +1,167 @@
+<html>
+<head>
+<!-- <script src="jquery-1.7.1.min.js" language="javascript"></script>  -->
+<script src="http://code.jquery.com/jquery-1.7.1.min.js" language="javascript"></script> 
+<script src="faustui.js"></script> 
+<title>
+Title
+</title>
+
+<!-- Our javascript code -->
+<script type="text/javascript">
+
+// init() once the page has finished loading.
+window.onload = init;
+
+
+
+
+function square_wave() {
+	
+	this.iRec0 = new Int32Array(2);
+	this.fhslider0;
+	this.fhslider1;
+	this.fSamplingFreq;
+	
+	this.metadata = function(m) { 
+	}
+
+	this.getNumInputs = function() { return 0; }
+	this.getNumOutputs = function() { return 1; }
+	
+	this.classInit = function(samplingFreq) {
+	}
+	
+	this.instanceInit = function(samplingFreq) {
+		this.fSamplingFreq = samplingFreq;
+		this.fhslider0 = 1;
+		for (var i = 0; (i < 2); i = (i + 1)) {
+			this.iRec0[i] = 0;
+			
+		}
+		this.fhslider1 = 0.5;
+		
+	}
+	
+	this.init = function(samplingFreq) {
+		this.classInit(samplingFreq);
+		this.instanceInit(samplingFreq);
+	}
+	
+	this.buildUserInterface = function(ui_interface) {
+		ui_interface.openVerticalBox("square");
+		ui_interface.addHorizontalSlider("Cyclic ratio", function handler(obj) { function setval(val) { obj.fhslider1 = val; } return setval; }(this), 0.5, 0, 1, 0.1);
+		ui_interface.addHorizontalSlider("Period", function handler(obj) { function setval(val) { obj.fhslider0 = val; } return setval; }(this), 1, 0.1, 100, 0.1);
+		ui_interface.closeBox();
+		
+	}
+	
+	this.compute = function(count, inputs, outputs) {
+		var output0 = outputs[0];
+		var iSlow0 = (44.1 * this.fhslider0);
+		var fSlow1 = (this.fhslider1 * iSlow0);
+		for (var i = 0; (i < count); i = (i + 1)) {
+			this.iRec0[0] = (1 + (this.iRec0[1] % iSlow0));
+			output0[i] = ((2 * ((this.iRec0[0] - 1) < fSlow1)) - 1);
+			this.iRec0[1] = this.iRec0[0];
+			
+		}
+		
+	}
+	
+}
+
+
+<!-- WebAudio API -->
+
+process_square_wave = function(obj) 
+{
+    function process_aux_square_wave(event) 
+    {
+        var count;
+        
+        /*
+        if (event.inputBuffer.numberOfChannels < dsp.getNumInputs()) {
+            console.log("Incorrect number of input %d instead of %d", event.inputBuffer.numberOfChannels, dsp.getNumInputs());
+            return;
+        }
+        */
+        
+        if (event.outputBuffer.numberOfChannels < obj.dsp.getNumOutputs()) {
+            console.log("Incorrect number of output %d instead of %d", event.outputBuffer.numberOfChannels, obj.dsp.getNumOutputs());
+            return;
+        }
+         
+        for (var i = 0; i < obj.dsp.getNumInputs(); i++) {
+            obj.inputs[i] = event.inputBuffer.getChannelData(i);
+            if (obj.inputs[i] != null) {
+                count = obj.inputs[i].length;
+            }
+        }
+        
+        for (var i = 0; i < obj.dsp.getNumOutputs(); i++) {
+            obj.outputs[i] = event.outputBuffer.getChannelData(i);
+            if (obj.outputs[i] != null) {
+                count = obj.outputs[i].length;
+            }
+        }
+        
+        obj.dsp.compute(count, obj.inputs, obj.outputs);
+
+    }
+    return process_aux_square_wave;
+}
+
+function create_square_wave(audio_context, user_interface, meta_interface, buffer_size)
+{
+    this.dsp = new square_wave();
+    
+    this.dsp.init(audio_context.sampleRate);
+    this.dsp.buildUserInterface(user_interface);
+    this.dsp.metadata(meta_interface);
+    
+    this.inputs = new Array(this.dsp.getNumInputs());
+    this.outputs = new Array(this.dsp.getNumOutputs());
+    
+    console.log(audio_context.sampleRate);
+    console.log(this.dsp.getNumInputs());
+    console.log(this.dsp.getNumOutputs());
+    
+    this.processor = audio_context.createJavaScriptNode(buffer_size, this.dsp.getNumInputs(), this.dsp.getNumOutputs());
+    this.processor.onaudioprocess = process_square_wave(this);
+    
+    return this.processor;
+}
+
+var context;
+var ui;
+var meta;
+var source;
+var faustdsp;
+
+function initAudio(buffer_size) 
+{
+    context = new webkitAudioContext();
+    
+    meta = new Meta(document.getElementById("FaustMeta"));
+    ui = new JUI(document.getElementById("FaustUI"));
+    
+    faustdsp = new create_square_wave(context, ui, meta, buffer_size);
+    faustdsp.connect(context.destination);
+}
+
+function init() 
+{
+    initAudio(4096);
+}
+
+</script>
+</head>
+<body>
+
+<h1><center> Faust process </center></h1>
+<center><div id="FaustMeta"></center> </div>
+<p>
+<center><div id="FaustUI"></center> </div>
+</body>
+</html>

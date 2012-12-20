@@ -16,20 +16,36 @@
 --main = asText $ (countNghb target gof, survives target gof, emptyNghb target gof)
 
 
---import Dict
+--import Set
 
 --dict = fromList [1,2]
---dict = fromList [(1,2),(2,3)]
---dict = Set.singleton 1 2
---
---main = asText $ values dict
+--dict = fromList [(1,2),(2,3), (1,3)]
+--dict = Set.singleton (1,2)
+
+--main = asText $ toList dict
 
 
-import JavaScript
+--import JavaScript
 
-foreign import jsevent "providePresetUrl"
-  (castStringToJSString "")
-     presetUrl :: Signal JSString
+--foreign import jsevent "providePresetUrl"
+--  (castStringToJSString "")
+--     presetUrl :: Signal JSString
 
-host = lift castJSStringToString presetUrl
-main = lift asText host
+--host = lift castJSStringToString presetUrl
+--main = lift asText host
+
+
+import GameOfLife as GameOfLife
+import Time (every)
+import Automaton
+
+cycleExploder = [(8,8), (8,12), (6,8), (6,9), (6,10), (6,11), (6,12), (10,8), (10,9), (10,10), (10,11), (10,12) ]
+
+golAutomaton =
+    let fstep _ initGol =
+            let out = GameOfLife.step initGol
+            in (GameOfLife.toList out, out)
+        gol = GameOfLife.fromList cycleExploder 
+    in init' gol fstep
+
+main = lift (asText) $ run golAutomaton $ (every 100)

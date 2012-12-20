@@ -1,6 +1,9 @@
 $elmRuntime = "..\lib\elm-runtime.js"
-$mainPath = ".\elm\main"
+$elmFolder = "elm"
+$main = "main"
 $appMainPath = ".\app\public\"
 
-&elm --make ($mainPath+".elm") -r $elmRuntime -i .\elm\JsHelper.js
-Copy-Item ($mainPath+".html") $appMainPath
+Push-Location $elmFolder
+&elm --make ($main+".elm") -r $elmRuntime -i JsHelper.js
+Pop-Location
+Copy-Item (".\$elmFolder\$main.html") $appMainPath
