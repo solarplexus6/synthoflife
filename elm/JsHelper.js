@@ -1,3 +1,4 @@
+gol = [];
 document.body.onload = function() {
     var e = document.createEvent('Event');
     e.initEvent('provideHost', true, true);
@@ -11,4 +12,8 @@ document.body.onload = function() {
 	    e.value = "http://" + window.location.host + "/api" + presetSn[0];
 	    document.dispatchEvent(e);
     }
+
+    document.addEventListener('onGolStep', function(e) {
+        gol = e.value;
+    });
 }

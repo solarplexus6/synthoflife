@@ -15,20 +15,23 @@ clickLocations = foldp (:) [] (sampleOn clicks position)
 placeholder w h col text = color col $ container w h middle $ plainText text
 
 foreign import jsevent "provideHost"
-  (castStringToJSString "")
-     jsHost :: Signal JSString
+    (castStringToJSString "")
+        jsHost :: Signal JSString
 
 foreign import jsevent "providePresetUrl"
-  (castStringToJSString "")
-     presetUrl :: Signal JSString
+    (castStringToJSString "")
+        presetUrl :: Signal JSString
 
 host = lift castJSStringToString jsHost
 presetSignal = sendGet $ lift castJSStringToString presetUrl
-getPoint asocList = 
+
+data Preset = Preset String String [(Int, Int)]
+
+getPoint asocList =
     case asocList of
         (_, JsonNumber x):[(_, JsonNumber y)] -> Just (x,y)
         _ -> Nothing
-getValue obj = 
+getValue obj =
     case obj of
         JsonObject a -> a
         _ -> JSON.empty
@@ -47,14 +50,22 @@ cycleExploder = [(8,8), (8,12), (6,8), (6,9), (6,10), (6,11), (6,12), (10,8), (1
 
 golAutomaton =
     let fstep input stateGol =
-            let gol = 
+            let gol =
                 case input of
                     [] -> stateGol
                     _ -> GameOfLife.fromList input
                 out = GameOfLife.step gol
             in (GameOfLife.toList out, out)
-        gol = GameOfLife.fromList cycleExploder 
+        gol = GameOfLife.fromList cycleExploder
     in init' gol fstep
+
+mainGol = run golAutomaton $ patternSignal `merge` (lift (\_ -> []) $ every 500)
+
+foreign export jsevent "onGolStep"
+    exportGol :: Signal (JSArray (JSTuple2 JSNumber JSNumber))
+
+exportGol = lift (\gol -> castListToJSArray $
+                            map (\(x,y) -> castTupleToJSTuple2 (castIntToJSNumber x,castIntToJSNumber y) ) gol) mainGol
 
 --gofCell=   ((filled (rgb 255 102 0) .) .) . rect
 gofCell w h (x,y) =   filled (rgb 255 102 0) $ rect w h (x,y)
@@ -71,8 +82,8 @@ sequencer w h = let { steps = 16
                     ; inactiveCells = map (noCell (cellSize*0.8) (cellSize*0.8)) $ grid }
                 in
                     lift (\activeCells -> collage w h $ inactiveCells ++ (map (gofCell (cellSize*0.8) (cellSize*0.8)) $ map (\(x,y) -> (coordinate x, coordinate y)) activeCells))
-                    $ run golAutomaton $ patternSignal `merge` (lift (\_ -> []) $ every 100)
---                    $ run gofAutomaton $ sampleOn clicks position
+                    $ mainGol
+--                    $ run golAutomaton $ sampleOn clicks position
 
 percent x p = (x * p) `div` 100
 
