@@ -1,148 +1,203 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style type="text/css">html,head,body { padding:0; margin:0; }body { font-family: helvetica, arial, sans-serif; }</style></head><body><script type="text/javascript" src="..\lib\elm-runtime.js"></script>
-<!-- <script src="http://code.jquery.com/jquery-1.7.1.min.js" language="javascript"></script> -->
-<script src="..\lib\faustui.js"></script>
-<script type="text/javascript">
-<!-- Faust -->
-function square_wave() {
+<html><head><meta charset="UTF-8"><title>Main</title><style type="text/css">html,head,body { padding:0; margin:0; }body { font-family: helvetica, arial, sans-serif; }</style></head><body><script type="text/javascript" src="..\lib\elm-runtime.js"></script><script type="text/javascript"><!-- UI builder -->
 
-  this.iRec0 = new Int32Array(2);
-  this.fhslider0;
-  this.fhslider1;
-  this.fSamplingFreq;
-
-  this.metadata = function(m) {
-  }
-
-  this.getNumInputs = function() { return 0; }
-  this.getNumOutputs = function() { return 1; }
-
-  this.classInit = function(samplingFreq) {
-  }
-
-  this.instanceInit = function(samplingFreq) {
-    this.fSamplingFreq = samplingFreq;
-    this.fhslider0 = 1;
-    for (var i = 0; (i < 2); i = (i + 1)) {
-      this.iRec0[i] = 0;
-
+function UI(){
+    this.openHorizontalBox = function(label) 
+    {
+        console.log("openHorizontalBox: " + label);
     }
-    this.fhslider1 = 0.5;
-
-  }
-
-  this.init = function(samplingFreq) {
-    this.classInit(samplingFreq);
-    this.instanceInit(samplingFreq);
-  }
-
-  this.buildUserInterface = function(ui_interface) {
-    // ui_interface.openVerticalBox("square");
-    // ui_interface.addHorizontalSlider("Cyclic ratio", function handler(obj) { function setval(val) { obj.fhslider1 = val; } return setval; }(this), 0.5, 0, 1, 0.1);
-    // ui_interface.addHorizontalSlider("Period", function handler(obj) { function setval(val) { obj.fhslider0 = val; } return setval; }(this), 1, 0.1, 100, 0.1);
-    // ui_interface.closeBox();
-
-  }
-
-  this.compute = function(count, inputs, outputs) {
-    var output0 = outputs[0];
-    var iSlow0 = (44.1 * this.fhslider0);
-    var fSlow1 = (this.fhslider1 * iSlow0);
-    for (var i = 0; (i < count); i = (i + 1)) {
-      this.iRec0[0] = (1 + (this.iRec0[1] % iSlow0));
-      output0[i] = ((2 * ((this.iRec0[0] - 1) < fSlow1)) - 1);
-      this.iRec0[1] = this.iRec0[0];
-
+    
+    this.openVerticalBox = function(label) 
+    {
+        console.log("openVerticalBox: " + label);
+    }
+    
+    this.closeBox = function() 
+    {
+        console.log("closeBox");
+    }
+    
+    this.addButton = function(label, handler) 
+    {
+       console.log("addButton: " + label);
+    }
+    
+    this.addCheckButton = function(label, handler) 
+    {
+        console.log("addCheckButton: " + label);
+    }
+    
+    this.addVerticalSlider = function(label, handler, init, min, max, step) 
+    {
+        console.log("addVerticalSlider: " + label);
+    }
+    
+    this.addHorizontalSlider = function(label, handler, init, min, max, step) 
+    {
+        console.log("addHorizontalSlider: " + label);
+        
+        document.addEventListener(label + ' changed', function(e) {
+            handler(e.value);
+        });
+    }
+    
+    this.addNumEntry = function(label, handler, init, min, max, step) 
+    {
+        console.log("addNumEntry: " + label);    
     }
 
-  }
+    this.addHorizontalBargraph = function(label, handler,  min, max) 
+    {
+        console.log("addHorizontalBargraph: " + label);
+    }
+    
+    this.addVerticalBargraph = function(label, handler,  min, max) 
+    {
+         console.log("addVerticalBargraph: " + label);
+    }
+    
+    this.declare = function(handler, key, value) 
+    {
+         console.log("declare");
+    }
 
+    return this;
+}
+
+<!-- Faust DSP-->
+
+
+
+
+function dsp() {
+	
+	this.iRec0 = new Int32Array(2);
+	this.fhslider0;
+	this.fhslider1;
+	this.fSamplingFreq;
+	
+	this.metadata = function(m) { 
+	}
+
+	this.getNumInputs = function() { return 0; }
+	this.getNumOutputs = function() { return 1; }
+	
+	this.classInit = function(samplingFreq) {
+	}
+	
+	this.instanceInit = function(samplingFreq) {
+		this.fSamplingFreq = samplingFreq;
+		this.fhslider0 = 1;
+		for (var i = 0; (i < 2); i = (i + 1)) {
+			this.iRec0[i] = 0;
+			
+		}
+		this.fhslider1 = 0.5;
+		
+	}
+	
+	this.init = function(samplingFreq) {
+		this.classInit(samplingFreq);
+		this.instanceInit(samplingFreq);
+	}
+	
+	this.buildUserInterface = function(ui_interface) {
+		ui_interface.openVerticalBox("synth");
+		ui_interface.addHorizontalSlider("Cyclic ratio", function handler(obj) { function setval(val) { obj.fhslider1 = val; } return setval; }(this), 0.5, 0, 1, 0.1);
+		ui_interface.addHorizontalSlider("Period", function handler(obj) { function setval(val) { obj.fhslider0 = val; } return setval; }(this), 1, 0.1, 100, 0.1);
+		ui_interface.closeBox();
+		
+	}
+	
+	this.compute = function(count, inputs, outputs) {
+		var output0 = outputs[0];
+		var iSlow0 = (44.1 * this.fhslider0);
+		var fSlow1 = (this.fhslider1 * iSlow0);
+		for (var i = 0; (i < count); i = (i + 1)) {
+			this.iRec0[0] = (1 + (this.iRec0[1] % iSlow0));
+			output0[i] = ((2 * ((this.iRec0[0] - 1) < fSlow1)) - 1);
+			this.iRec0[1] = this.iRec0[0];
+			
+		}
+		
+	}
+	
 }
 
 
 <!-- WebAudio API -->
 
-process_square_wave = function(obj)
+process_dsp = function(obj) 
 {
-    function process_aux_square_wave(event)
+    function process_aux_dsp(event) 
     {
         var count;
-
+        
         /*
         if (event.inputBuffer.numberOfChannels < dsp.getNumInputs()) {
             console.log("Incorrect number of input %d instead of %d", event.inputBuffer.numberOfChannels, dsp.getNumInputs());
             return;
         }
         */
-
+        
         if (event.outputBuffer.numberOfChannels < obj.dsp.getNumOutputs()) {
             console.log("Incorrect number of output %d instead of %d", event.outputBuffer.numberOfChannels, obj.dsp.getNumOutputs());
             return;
         }
-
+         
         for (var i = 0; i < obj.dsp.getNumInputs(); i++) {
             obj.inputs[i] = event.inputBuffer.getChannelData(i);
             if (obj.inputs[i] != null) {
                 count = obj.inputs[i].length;
             }
         }
-
+        
         for (var i = 0; i < obj.dsp.getNumOutputs(); i++) {
             obj.outputs[i] = event.outputBuffer.getChannelData(i);
             if (obj.outputs[i] != null) {
                 count = obj.outputs[i].length;
             }
         }
-
+        
         obj.dsp.compute(count, obj.inputs, obj.outputs);
 
     }
-    return process_aux_square_wave;
+    return process_aux_dsp;
 }
 
-function create_square_wave(audio_context, user_interface, meta_interface, buffer_size)
+function create_dsp(audio_context, user_interface, meta_interface, buffer_size)
 {
-    this.dsp = new square_wave();
-
+    this.dsp = new dsp();
+    
     this.dsp.init(audio_context.sampleRate);
     this.dsp.buildUserInterface(user_interface);
     this.dsp.metadata(meta_interface);
-
+    
     this.inputs = new Array(this.dsp.getNumInputs());
     this.outputs = new Array(this.dsp.getNumOutputs());
-
+    
     console.log(audio_context.sampleRate);
     console.log(this.dsp.getNumInputs());
     console.log(this.dsp.getNumOutputs());
-
+    
     this.processor = audio_context.createJavaScriptNode(buffer_size, this.dsp.getNumInputs(), this.dsp.getNumOutputs());
-    this.processor.onaudioprocess = process_square_wave(this);
-
+    this.processor.onaudioprocess = process_dsp(this);
+    
     return this;
 }
 
-var context;
-var ui;
-var meta;
-var source;
-var faustdsp;
-
-function initAudio(buffer_size)
+function initAudio(buffer_size) 
 {
     context = new webkitAudioContext();
+    
+    ui = new UI();
+    meta = null;
 
-    ui = new JUI(document.getElementById("41"));
-
-    faustdsp = new create_square_wave(context, ui, meta, buffer_size);
+    faustdsp = new create_dsp(context, ui, meta, buffer_size);
     faustdsp.processor.connect(context.destination);
 }
-
-<!-- /Faust -->
-
 gol = [];
-document.body.onload = function() {
-    initAudio(4096);
-
+function initHelper() {
     var e = document.createEvent('Event');
     e.initEvent('provideHost', true, true);
     e.value = window.location.host;
@@ -158,12 +213,18 @@ document.body.onload = function() {
 
     document.addEventListener('onGolStep', function(e) {
         gol = e.value;
-        faustdsp.dsp.fhslider0 = gol.length;
+        e = document.createEvent('Event');
+        e.initEvent('Period changed', true, true);
+        e.value = gol.length;
+        document.dispatchEvent(e);
     });
+}document.body.onload = function() {
+    initAudio(4096);
+    initHelper();
 }
 try{
 
-if (Elm.GameOfLife) throw "Module name collision, 'GameOfLife' is already defined.";
+if (Elm.GameOfLife) throw "Module name collision, 'GameOfLife' is already defined."; 
 Elm.GameOfLife=function(){
  var $op={};
  for(Elm['i'] in Elm){eval('var '+Elm['i']+'=Elm[Elm.i];');}
@@ -243,7 +304,7 @@ var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern b
 document.body.innerHTML = Elm.Text.monospace(msg);throw e;};}
 try{
 
-if (Elm.Main) throw "Module name collision, 'Main' is already defined.";
+if (Elm.Main) throw "Module name collision, 'Main' is already defined."; 
 Elm.Main=function(){
  var $op={};
  for(Elm['i'] in Elm){eval('var '+Elm['i']+'=Elm[Elm.i];');}
@@ -317,40 +378,44 @@ Elm.Main=function(){
   throw ("Module 'GameOfLife' is missing. Compile with --make flag or load missing module in a separate JavaScript file.");
  }
  var GameOfLife=Elm.GameOfLife;
+ function Preset_7(a1){
+  return function(a2){
+   return function(a3){
+    return ['Preset',a1,a2,a3];};};}
  var jsHost_3=Elm.Signal.constant(castStringToJSString(Value.str('')));
  Value.addListener(document, 'provideHost', function(e) { Dispatcher.notify(jsHost_3.id, e.value); });
  var presetUrl_4=Elm.Signal.constant(castStringToJSString(Value.str('')));
  Value.addListener(document, 'providePresetUrl', function(e) { Dispatcher.notify(presetUrl_4.id, e.value); });
- function repeat_0(a_25){
-  return function(n_26){
-   return map(function(__27){
-    return a_25;})(function(){
+ function repeat_0(a_26){
+  return function(n_27){
+   return map(function(__28){
+    return a_26;})(function(){
     var lo=1;
-    var hi=n_26;
+    var hi=n_27;
     var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
     return lst;}());};}
- function placeholder_2(w_30){
-  return function(h_31){
-   return function(col_32){
-    return function(text_33){
-     return color(col_32)(container(w_30)(h_31)(middle)(plainText(text_33)));};};};}
- function getPoint_7(asocList_34){
+ function placeholder_2(w_31){
+  return function(h_32){
+   return function(col_33){
+    return function(text_34){
+     return color(col_33)(container(w_31)(h_32)(middle)(plainText(text_34)));};};};}
+ function getPoint_8(asocList_35){
   return function(){
-  switch(asocList_34[0]){
+  switch(asocList_35[0]){
    case 'Cons':
-   switch(asocList_34[1][0]){
+   switch(asocList_35[1][0]){
     case 'Tuple2':
-    switch(asocList_34[1][2][0]){
+    switch(asocList_35[1][2][0]){
      case 'JsonNumber':
-     switch(asocList_34[2][0]){
+     switch(asocList_35[2][0]){
       case 'Cons':
-      switch(asocList_34[2][1][0]){
+      switch(asocList_35[2][1][0]){
        case 'Tuple2':
-       switch(asocList_34[2][1][2][0]){
+       switch(asocList_35[2][1][2][0]){
         case 'JsonNumber':
-        switch(asocList_34[2][2][0]){
+        switch(asocList_35[2][2][0]){
          case 'Nil':
-         return Just(['Tuple2',asocList_34[1][2][1],asocList_34[2][1][2][1]]);
+         return Just(['Tuple2',asocList_35[1][2][1],asocList_35[2][1][2][1]]);
         }break;
        }break;
       }break;
@@ -359,128 +424,128 @@ Elm.Main=function(){
    }break;
   }
   return Nothing;}();}
- function getValue_8(obj_37){
+ function getValue_9(obj_38){
   return function(){
-  switch(obj_37[0]){
+  switch(obj_38[0]){
    case 'JsonObject':
-   return obj_37[1];
+   return obj_38[1];
   }
   return JSON.empty;}();}
- function handleResponse_9(res_39){
+ function handleResponse_10(res_40){
   return function(){
-  switch(res_39[0]){
+  switch(res_40[0]){
    case 'Failure':
    return JSON.empty;
    case 'Success':
-   return JSON.fromString(res_39[1]);
+   return JSON.fromString(res_40[1]);
    case 'Waiting':
    return JSON.empty;
   }
   throw "Non-exhaustive pattern match in case";}();}
- function gofCell_16(w_54){
-  return function(h_55){
-   return function(Tuple2$xy_56){
+ function gofCell_17(w_55){
+  return function(h_56){
+   return function(Tuple2$xy_57){
     return function(){
-    switch(Tuple2$xy_56[0]){
+    switch(Tuple2$xy_57[0]){
      case 'Tuple2':
-     return filled(rgb(255)(102)(0))(rect(w_54)(h_55)(['Tuple2',Tuple2$xy_56[1],Tuple2$xy_56[2]]));
+     return filled(rgb(255)(102)(0))(rect(w_55)(h_56)(['Tuple2',Tuple2$xy_57[1],Tuple2$xy_57[2]]));
     }
     throw "Non-exhaustive pattern match in case";}();};};}
- function noCell_17(w_59){
-  return function(h_60){
-   return function(Tuple2$xy_61){
+ function noCell_18(w_60){
+  return function(h_61){
+   return function(Tuple2$xy_62){
     return function(){
-    switch(Tuple2$xy_61[0]){
+    switch(Tuple2$xy_62[0]){
      case 'Tuple2':
-     return filled(rgb(64)(64)(64))(rect(w_59)(h_60)(['Tuple2',Tuple2$xy_61[1],Tuple2$xy_61[2]]));
+     return filled(rgb(64)(64)(64))(rect(w_60)(h_61)(['Tuple2',Tuple2$xy_62[1],Tuple2$xy_62[2]]));
     }
     throw "Non-exhaustive pattern match in case";}();};};}
- function synthCtrl_18(w_64){
-  return function(h_65){
-   return placeholder_2(w_64)(h_65)(blue)(Value.str('Sythesizer controls'));};}
- function golCtrl_19(w_66){
-  return function(h_67){
-   return placeholder_2(w_66)(h_67)(rgb(56)(56)(56))(Value.str('GoL controls'));};}
- function presets_20(w_68){
-  return function(h_69){
-   return placeholder_2(w_68)(h_69)(rgb(56)(56)(56))(Value.str('Presets'));};}
- function sequencer_21(w_70){
-  return function(h_71){
+ function synthCtrl_19(w_65){
+  return function(h_66){
+   return placeholder_2(w_65)(h_66)(blue)(Value.str('Sythesizer controls'));};}
+ function golCtrl_20(w_67){
+  return function(h_68){
+   return placeholder_2(w_67)(h_68)(rgb(56)(56)(56))(Value.str('GoL controls'));};}
+ function presets_21(w_69){
+  return function(h_70){
+   return placeholder_2(w_69)(h_70)(rgb(56)(56)(56))(Value.str('Presets'));};}
+ function sequencer_22(w_71){
+  return function(h_72){
    return function(){
-    var steps_72=16;
-    var cellSize_73=(toFloat(w_70)/steps_72);
-    var grid_75=concatMap(function(c_78){
-     return zip(repeat_0(c_78)(steps_72))(map(coordinate_74)(function(){
+    var steps_73=16;
+    var cellSize_74=(toFloat(w_71)/steps_73);
+    var grid_76=concatMap(function(c_79){
+     return zip(repeat_0(c_79)(steps_73))(map(coordinate_75)(function(){
       var lo=1;
-      var hi=steps_72;
+      var hi=steps_73;
       var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
-      return lst;}()));})(map(coordinate_74)(function(){
+      return lst;}()));})(map(coordinate_75)(function(){
      var lo=1;
-     var hi=steps_72;
+     var hi=steps_73;
      var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
      return lst;}()));
-    var inactiveCells_76=map(noCell_17((cellSize_73*0.8))((cellSize_73*0.8)))(grid_75);
-    function coordinate_74(x_77){
-     return ((cellSize_73*toFloat(x_77))-(cellSize_73*0.5));}
-    return lift(function(activeCells_79){
-     return collage(w_70)(h_71)(Value.append(inactiveCells_76,map(gofCell_16((cellSize_73*0.8))((cellSize_73*0.8)))(map(function(Tuple2$xy_80){
+    var inactiveCells_77=map(noCell_18((cellSize_74*0.8))((cellSize_74*0.8)))(grid_76);
+    function coordinate_75(x_78){
+     return ((cellSize_74*toFloat(x_78))-(cellSize_74*0.5));}
+    return lift(function(activeCells_80){
+     return collage(w_71)(h_72)(Value.append(inactiveCells_77,map(gofCell_17((cellSize_74*0.8))((cellSize_74*0.8)))(map(function(Tuple2$xy_81){
       return function(){
-      switch(Tuple2$xy_80[0]){
+      switch(Tuple2$xy_81[0]){
        case 'Tuple2':
-       return ['Tuple2',coordinate_74(Tuple2$xy_80[1]),coordinate_74(Tuple2$xy_80[2])];
+       return ['Tuple2',coordinate_75(Tuple2$xy_81[1]),coordinate_75(Tuple2$xy_81[2])];
       }
-      throw "Non-exhaustive pattern match in case";}();})(activeCells_79))));})(mainGol_14);}();};}
- function percent_22(x_83){
-  return function(p_84){
-   return div((x_83*p_84))(100);};}
- function view_23(Tuple2$wh_85){
-  return function(seqView_86){
-   return function(pattern_87){
+      throw "Non-exhaustive pattern match in case";}();})(activeCells_80))));})(mainGol_15);}();};}
+ function percent_23(x_84){
+  return function(p_85){
+   return div((x_84*p_85))(100);};}
+ function view_24(Tuple2$wh_86){
+  return function(seqView_87){
+   return function(pattern_88){
     return function(){
-    switch(Tuple2$wh_85[0]){
+    switch(Tuple2$wh_86[0]){
      case 'Tuple2':
      return function(){
-      var layout_w_90=div((5*Tuple2$wh_85[1]))(6);
-      var game_h_91=div((3*Tuple2$wh_85[2]))(5);
-      return container(Tuple2$wh_85[1])(Tuple2$wh_85[2])(middle)(color(grey)(above(above(container(layout_w_90)(game_h_91)(middle)(flow(right)(['Cons',golCtrl_19(percent_22(layout_w_90)(12))(percent_22(game_h_91)(80)),['Cons',seqView_86,['Cons',presets_20(percent_22(layout_w_90)(12))(percent_22(game_h_91)(80)),['Nil']]]])))(synthCtrl_18(layout_w_90)(div(Tuple2$wh_85[2])(6))))(asText(pattern_87))));}();
+      var layout_w_91=div((5*Tuple2$wh_86[1]))(6);
+      var game_h_92=div((3*Tuple2$wh_86[2]))(5);
+      return container(Tuple2$wh_86[1])(Tuple2$wh_86[2])(middle)(color(grey)(above(above(container(layout_w_91)(game_h_92)(middle)(flow(right)(['Cons',golCtrl_20(percent_23(layout_w_91)(12))(percent_23(game_h_92)(80)),['Cons',seqView_87,['Cons',presets_21(percent_23(layout_w_91)(12))(percent_23(game_h_92)(80)),['Nil']]]])))(synthCtrl_19(layout_w_91)(div(Tuple2$wh_86[2])(6))))(asText(pattern_88))));}();
     }
     throw "Non-exhaustive pattern match in case";}();};};}
- var clickLocations_1=foldp(function(x_28){
-  return function(y_29){
-   return ['Cons',x_28,y_29];};})(['Nil'])(sampleOn(clicks)(position));
+ var clickLocations_1=foldp(function(x_29){
+  return function(y_30){
+   return ['Cons',x_29,y_30];};})(['Nil'])(sampleOn(clicks)(position));
  var host_5=lift(castJSStringToString)(jsHost_3);
  var presetSignal_6=sendGet(lift(castJSStringToString)(presetUrl_4));
- var patternSignal_10=lift(function(preset_41){
-  return mapMaybe(function(obj_42){
-   return getPoint_7(JSON.toList(getValue_8(obj_42)));})(JSON.findArray(Value.str('pattern'))(handleResponse_9(preset_41)));})(presetSignal_6);
- var exploder_11=['Cons',['Tuple2',8,8],['Cons',['Tuple2',7,9],['Cons',['Tuple2',8,9],['Cons',['Tuple2',9,9],['Cons',['Tuple2',7,10],['Cons',['Tuple2',9,10],['Cons',['Tuple2',8,11],['Nil']]]]]]]];
- var cycleExploder_12=['Cons',['Tuple2',8,8],['Cons',['Tuple2',8,12],['Cons',['Tuple2',6,8],['Cons',['Tuple2',6,9],['Cons',['Tuple2',6,10],['Cons',['Tuple2',6,11],['Cons',['Tuple2',6,12],['Cons',['Tuple2',10,8],['Cons',['Tuple2',10,9],['Cons',['Tuple2',10,10],['Cons',['Tuple2',10,11],['Cons',['Tuple2',10,12],['Nil']]]]]]]]]]]]];
- var golAutomaton_13=function(){
-  var gol_44=GameOfLife.fromList(cycleExploder_12);
-  function fstep_43(input_45){
-   return function(stateGol_46){
+ var patternSignal_11=lift(function(preset_42){
+  return mapMaybe(function(obj_43){
+   return getPoint_8(JSON.toList(getValue_9(obj_43)));})(JSON.findArray(Value.str('pattern'))(handleResponse_10(preset_42)));})(presetSignal_6);
+ var exploder_12=['Cons',['Tuple2',8,8],['Cons',['Tuple2',7,9],['Cons',['Tuple2',8,9],['Cons',['Tuple2',9,9],['Cons',['Tuple2',7,10],['Cons',['Tuple2',9,10],['Cons',['Tuple2',8,11],['Nil']]]]]]]];
+ var cycleExploder_13=['Cons',['Tuple2',8,8],['Cons',['Tuple2',8,12],['Cons',['Tuple2',6,8],['Cons',['Tuple2',6,9],['Cons',['Tuple2',6,10],['Cons',['Tuple2',6,11],['Cons',['Tuple2',6,12],['Cons',['Tuple2',10,8],['Cons',['Tuple2',10,9],['Cons',['Tuple2',10,10],['Cons',['Tuple2',10,11],['Cons',['Tuple2',10,12],['Nil']]]]]]]]]]]]];
+ var golAutomaton_14=function(){
+  var gol_45=GameOfLife.fromList(cycleExploder_13);
+  function fstep_44(input_46){
+   return function(stateGol_47){
     return function(){
-     var gol_47=function(){
-     switch(input_45[0]){
+     var gol_48=function(){
+     switch(input_46[0]){
       case 'Nil':
-      return stateGol_46;
+      return stateGol_47;
      }
-     return GameOfLife.fromList(input_45);}();
-     var out_48=GameOfLife.step(gol_47);
-     return ['Tuple2',GameOfLife.toList(out_48),out_48];}();};}
-  return init_(gol_44)(fstep_43);}();
- var mainGol_14=run(golAutomaton_13)(merge(patternSignal_10)(lift(function(__49){
+     return GameOfLife.fromList(input_46);}();
+     var out_49=GameOfLife.step(gol_48);
+     return ['Tuple2',GameOfLife.toList(out_49),out_49];}();};}
+  return init_(gol_45)(fstep_44);}();
+ var mainGol_15=run(golAutomaton_14)(merge(patternSignal_11)(lift(function(__50){
   return ['Nil'];})(every(500))));
- var exportGol_15=lift(function(gol_50){
-  return castListToJSArray(map(function(Tuple2$xy_51){
+ var exportGol_16=lift(function(gol_51){
+  return castListToJSArray(map(function(Tuple2$xy_52){
    return function(){
-   switch(Tuple2$xy_51[0]){
+   switch(Tuple2$xy_52[0]){
     case 'Tuple2':
-    return castTupleToJSTuple2(['Tuple2',castIntToJSNumber(Tuple2$xy_51[1]),castIntToJSNumber(Tuple2$xy_51[2])]);
+    return castTupleToJSTuple2(['Tuple2',castIntToJSNumber(Tuple2$xy_52[1]),castIntToJSNumber(Tuple2$xy_52[2])]);
    }
-   throw "Non-exhaustive pattern match in case";}();})(gol_50));})(mainGol_14);
- var main_24=lift3(view_23)(dimensions)(sequencer_21(400)(400))(patternSignal_10);
- lift(function(v) { var e = document.createEvent('Event');e.initEvent('onGolStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportGol_15);
+   throw "Non-exhaustive pattern match in case";}();})(gol_51));})(mainGol_15);
+ var main_25=lift3(view_24)(dimensions)(sequencer_22(400)(400))(patternSignal_11);
+ lift(function(v) { var e = document.createEvent('Event');e.initEvent('onGolStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportGol_16);
  return {$op : {},
  repeat:repeat_0,
  clickLocations:clickLocations_1,
@@ -489,24 +554,25 @@ Elm.Main=function(){
  presetUrl:presetUrl_4,
  host:host_5,
  presetSignal:presetSignal_6,
- getPoint:getPoint_7,
- getValue:getValue_8,
- handleResponse:handleResponse_9,
- patternSignal:patternSignal_10,
- exploder:exploder_11,
- cycleExploder:cycleExploder_12,
- golAutomaton:golAutomaton_13,
- mainGol:mainGol_14,
- exportGol:exportGol_15,
- gofCell:gofCell_16,
- noCell:noCell_17,
- synthCtrl:synthCtrl_18,
- golCtrl:golCtrl_19,
- presets:presets_20,
- sequencer:sequencer_21,
- percent:percent_22,
- view:view_23,
- main:main_24};}();
+ Preset:Preset_7,
+ getPoint:getPoint_8,
+ getValue:getValue_9,
+ handleResponse:handleResponse_10,
+ patternSignal:patternSignal_11,
+ exploder:exploder_12,
+ cycleExploder:cycleExploder_13,
+ golAutomaton:golAutomaton_14,
+ mainGol:mainGol_15,
+ exportGol:exportGol_16,
+ gofCell:gofCell_17,
+ noCell:noCell_18,
+ synthCtrl:synthCtrl_19,
+ golCtrl:golCtrl_20,
+ presets:presets_21,
+ sequencer:sequencer_22,
+ percent:percent_23,
+ view:view_24,
+ main:main_25};}();
 Elm.main=function(){
  return Elm.Main.main;};
 } catch (e) {

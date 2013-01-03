@@ -1,5 +1,5 @@
 gol = [];
-document.body.onload = function() {
+function initHelper() {
     var e = document.createEvent('Event');
     e.initEvent('provideHost', true, true);
     e.value = window.location.host;
@@ -15,5 +15,9 @@ document.body.onload = function() {
 
     document.addEventListener('onGolStep', function(e) {
         gol = e.value;
+        e = document.createEvent('Event');
+        e.initEvent('Period changed', true, true);
+        e.value = gol.length;
+        document.dispatchEvent(e);
     });
 }
