@@ -197,6 +197,7 @@ function initAudio(buffer_size)
     faustdsp.processor.connect(context.destination);
 }
 gol = [];
+row = [];
 function initHelper() {
     var e = document.createEvent('Event');
     e.initEvent('provideHost', true, true);
@@ -213,10 +214,17 @@ function initHelper() {
 
     document.addEventListener('onGolStep', function(e) {
         gol = e.value;
-        e = document.createEvent('Event');
-        e.initEvent('Period changed', true, true);
-        e.value = gol.length;
-        document.dispatchEvent(e);
+    });
+
+    document.addEventListener('onSequencerStep', function(e) {
+        row = e.value;
+
+        console.log('Row:', row[0][0], row);
+
+        ep = document.createEvent('Event');
+        ep.initEvent('Period changed', true, true);
+        ep.value = 0.1 + row.length;
+        document.dispatchEvent(ep);
     });
 }document.body.onload = function() {
     initAudio(4096);
@@ -386,36 +394,36 @@ Elm.Main=function(){
  Value.addListener(document, 'provideHost', function(e) { Dispatcher.notify(jsHost_3.id, e.value); });
  var presetUrl_4=Elm.Signal.constant(castStringToJSString(Value.str('')));
  Value.addListener(document, 'providePresetUrl', function(e) { Dispatcher.notify(presetUrl_4.id, e.value); });
- function repeat_0(a_26){
-  return function(n_27){
-   return map(function(__28){
-    return a_26;})(function(){
+ function repeat_0(a_33){
+  return function(n_34){
+   return map(function(__35){
+    return a_33;})(function(){
     var lo=1;
-    var hi=n_27;
+    var hi=n_34;
     var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
     return lst;}());};}
- function placeholder_2(w_31){
-  return function(h_32){
-   return function(col_33){
-    return function(text_34){
-     return color(col_33)(container(w_31)(h_32)(middle)(plainText(text_34)));};};};}
- function getPoint_8(asocList_35){
+ function placeholder_2(w_38){
+  return function(h_39){
+   return function(col_40){
+    return function(text_41){
+     return color(col_40)(container(w_38)(h_39)(middle)(plainText(text_41)));};};};}
+ function getPoint_8(asocList_42){
   return function(){
-  switch(asocList_35[0]){
+  switch(asocList_42[0]){
    case 'Cons':
-   switch(asocList_35[1][0]){
+   switch(asocList_42[1][0]){
     case 'Tuple2':
-    switch(asocList_35[1][2][0]){
+    switch(asocList_42[1][2][0]){
      case 'JsonNumber':
-     switch(asocList_35[2][0]){
+     switch(asocList_42[2][0]){
       case 'Cons':
-      switch(asocList_35[2][1][0]){
+      switch(asocList_42[2][1][0]){
        case 'Tuple2':
-       switch(asocList_35[2][1][2][0]){
+       switch(asocList_42[2][1][2][0]){
         case 'JsonNumber':
-        switch(asocList_35[2][2][0]){
+        switch(asocList_42[2][2][0]){
          case 'Nil':
-         return Just(['Tuple2',asocList_35[1][2][1],asocList_35[2][1][2][1]]);
+         return Just(['Tuple2',asocList_42[1][2][1],asocList_42[2][1][2][1]]);
         }break;
        }break;
       }break;
@@ -424,128 +432,176 @@ Elm.Main=function(){
    }break;
   }
   return Nothing;}();}
- function getValue_9(obj_38){
+ function getValue_9(obj_45){
   return function(){
-  switch(obj_38[0]){
+  switch(obj_45[0]){
    case 'JsonObject':
-   return obj_38[1];
+   return obj_45[1];
   }
   return JSON.empty;}();}
- function handleResponse_10(res_40){
+ function handleResponse_10(res_47){
   return function(){
-  switch(res_40[0]){
+  switch(res_47[0]){
    case 'Failure':
    return JSON.empty;
    case 'Success':
-   return JSON.fromString(res_40[1]);
+   return JSON.fromString(res_47[1]);
    case 'Waiting':
    return JSON.empty;
   }
   throw "Non-exhaustive pattern match in case";}();}
- function gofCell_17(w_55){
-  return function(h_56){
-   return function(Tuple2$xy_57){
-    return function(){
-    switch(Tuple2$xy_57[0]){
-     case 'Tuple2':
-     return filled(rgb(255)(102)(0))(rect(w_55)(h_56)(['Tuple2',Tuple2$xy_57[1],Tuple2$xy_57[2]]));
-    }
-    throw "Non-exhaustive pattern match in case";}();};};}
- function noCell_18(w_60){
-  return function(h_61){
-   return function(Tuple2$xy_62){
-    return function(){
-    switch(Tuple2$xy_62[0]){
-     case 'Tuple2':
-     return filled(rgb(64)(64)(64))(rect(w_60)(h_61)(['Tuple2',Tuple2$xy_62[1],Tuple2$xy_62[2]]));
-    }
-    throw "Non-exhaustive pattern match in case";}();};};}
- function synthCtrl_19(w_65){
-  return function(h_66){
-   return placeholder_2(w_65)(h_66)(blue)(Value.str('Sythesizer controls'));};}
- function golCtrl_20(w_67){
-  return function(h_68){
-   return placeholder_2(w_67)(h_68)(rgb(56)(56)(56))(Value.str('GoL controls'));};}
- function presets_21(w_69){
-  return function(h_70){
-   return placeholder_2(w_69)(h_70)(rgb(56)(56)(56))(Value.str('Presets'));};}
- function sequencer_22(w_71){
-  return function(h_72){
+ function castPointListToJSArray_17(xs_58){
+  return castListToJSArray(map(function(Tuple2$xy_59){
    return function(){
-    var steps_73=16;
-    var cellSize_74=(toFloat(w_71)/steps_73);
-    var grid_76=concatMap(function(c_79){
-     return zip(repeat_0(c_79)(steps_73))(map(coordinate_75)(function(){
+   switch(Tuple2$xy_59[0]){
+    case 'Tuple2':
+    return castTupleToJSTuple2(['Tuple2',castIntToJSNumber(Tuple2$xy_59[1]),castIntToJSNumber(Tuple2$xy_59[2])]);
+   }
+   throw "Non-exhaustive pattern match in case";}();})(xs_58));}
+ function gofCell_24(w_83){
+  return function(h_84){
+   return function(Tuple2$xy_85){
+    return function(){
+    switch(Tuple2$xy_85[0]){
+     case 'Tuple2':
+     return filled(rgb(255)(102)(0))(rect(w_83)(h_84)(['Tuple2',Tuple2$xy_85[1],Tuple2$xy_85[2]]));
+    }
+    throw "Non-exhaustive pattern match in case";}();};};}
+ function noCell_25(w_88){
+  return function(h_89){
+   return function(Tuple2$xy_90){
+    return function(){
+    switch(Tuple2$xy_90[0]){
+     case 'Tuple2':
+     return filled(rgb(64)(64)(64))(rect(w_88)(h_89)(['Tuple2',Tuple2$xy_90[1],Tuple2$xy_90[2]]));
+    }
+    throw "Non-exhaustive pattern match in case";}();};};}
+ function synthCtrl_26(w_93){
+  return function(h_94){
+   return placeholder_2(w_93)(h_94)(blue)(Value.str('Sythesizer controls'));};}
+ function golCtrl_27(w_95){
+  return function(h_96){
+   return placeholder_2(w_95)(h_96)(rgb(56)(56)(56))(Value.str('GoL controls'));};}
+ function presets_28(w_97){
+  return function(h_98){
+   return placeholder_2(w_97)(h_98)(rgb(56)(56)(56))(Value.str('Presets'));};}
+ function sequencer_29(w_99){
+  return function(h_100){
+   return function(){
+    var cellSize_101=(toFloat(w_99)/sequencerSteps_19);
+    var grid_103=concatMap(function(c_106){
+     return zip(repeat_0(c_106)(sequencerSteps_19))(map(coordinate_102)(function(){
       var lo=1;
-      var hi=steps_73;
+      var hi=sequencerSteps_19;
       var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
-      return lst;}()));})(map(coordinate_75)(function(){
+      return lst;}()));})(map(coordinate_102)(function(){
      var lo=1;
-     var hi=steps_73;
+     var hi=sequencerSteps_19;
      var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
      return lst;}()));
-    var inactiveCells_77=map(noCell_18((cellSize_74*0.8))((cellSize_74*0.8)))(grid_76);
-    function coordinate_75(x_78){
-     return ((cellSize_74*toFloat(x_78))-(cellSize_74*0.5));}
-    return lift(function(activeCells_80){
-     return collage(w_71)(h_72)(Value.append(inactiveCells_77,map(gofCell_17((cellSize_74*0.8))((cellSize_74*0.8)))(map(function(Tuple2$xy_81){
+    var inactiveCells_104=map(noCell_25((cellSize_101*0.8))((cellSize_101*0.8)))(grid_103);
+    function coordinate_102(x_105){
+     return ((cellSize_101*toFloat(x_105))-(cellSize_101*0.5));}
+    return lift(function(activeCells_107){
+     return collage(w_99)(h_100)(Value.append(inactiveCells_104,map(gofCell_24((cellSize_101*0.8))((cellSize_101*0.8)))(map(function(Tuple2$xy_108){
       return function(){
-      switch(Tuple2$xy_81[0]){
+      switch(Tuple2$xy_108[0]){
        case 'Tuple2':
-       return ['Tuple2',coordinate_75(Tuple2$xy_81[1]),coordinate_75(Tuple2$xy_81[2])];
+       return ['Tuple2',coordinate_102(Tuple2$xy_108[1]),coordinate_102(Tuple2$xy_108[2])];
       }
-      throw "Non-exhaustive pattern match in case";}();})(activeCells_80))));})(mainGol_15);}();};}
- function percent_23(x_84){
-  return function(p_85){
-   return div((x_84*p_85))(100);};}
- function view_24(Tuple2$wh_86){
-  return function(seqView_87){
-   return function(pattern_88){
+      throw "Non-exhaustive pattern match in case";}();})(activeCells_107))));})(mainGol_16);}();};}
+ function percent_30(x_111){
+  return function(p_112){
+   return div((x_111*p_112))(100);};}
+ function view_31(Tuple2$wh_113){
+  return function(seqView_114){
+   return function(pattern_115){
     return function(){
-    switch(Tuple2$wh_86[0]){
+    switch(Tuple2$wh_113[0]){
      case 'Tuple2':
      return function(){
-      var layout_w_91=div((5*Tuple2$wh_86[1]))(6);
-      var game_h_92=div((3*Tuple2$wh_86[2]))(5);
-      return container(Tuple2$wh_86[1])(Tuple2$wh_86[2])(middle)(color(grey)(above(above(container(layout_w_91)(game_h_92)(middle)(flow(right)(['Cons',golCtrl_20(percent_23(layout_w_91)(12))(percent_23(game_h_92)(80)),['Cons',seqView_87,['Cons',presets_21(percent_23(layout_w_91)(12))(percent_23(game_h_92)(80)),['Nil']]]])))(synthCtrl_19(layout_w_91)(div(Tuple2$wh_86[2])(6))))(asText(pattern_88))));}();
+      var layout_w_118=div((5*Tuple2$wh_113[1]))(6);
+      var game_h_119=div((3*Tuple2$wh_113[2]))(5);
+      return container(Tuple2$wh_113[1])(Tuple2$wh_113[2])(middle)(color(grey)(above(above(container(layout_w_118)(game_h_119)(middle)(flow(right)(['Cons',golCtrl_27(percent_30(layout_w_118)(12))(percent_30(game_h_119)(80)),['Cons',seqView_114,['Cons',presets_28(percent_30(layout_w_118)(12))(percent_30(game_h_119)(80)),['Nil']]]])))(synthCtrl_26(layout_w_118)(div(Tuple2$wh_113[2])(6))))(asText(pattern_115))));}();
     }
     throw "Non-exhaustive pattern match in case";}();};};}
- var clickLocations_1=foldp(function(x_29){
-  return function(y_30){
-   return ['Cons',x_29,y_30];};})(['Nil'])(sampleOn(clicks)(position));
+ var clickLocations_1=foldp(function(x_36){
+  return function(y_37){
+   return ['Cons',x_36,y_37];};})(['Nil'])(sampleOn(clicks)(position));
  var host_5=lift(castJSStringToString)(jsHost_3);
  var presetSignal_6=sendGet(lift(castJSStringToString)(presetUrl_4));
- var patternSignal_11=lift(function(preset_42){
-  return mapMaybe(function(obj_43){
-   return getPoint_8(JSON.toList(getValue_9(obj_43)));})(JSON.findArray(Value.str('pattern'))(handleResponse_10(preset_42)));})(presetSignal_6);
+ var patternSignal_11=lift(function(preset_49){
+  return mapMaybe(function(obj_50){
+   return getPoint_8(JSON.toList(getValue_9(obj_50)));})(JSON.findArray(Value.str('pattern'))(handleResponse_10(preset_49)));})(presetSignal_6);
  var exploder_12=['Cons',['Tuple2',8,8],['Cons',['Tuple2',7,9],['Cons',['Tuple2',8,9],['Cons',['Tuple2',9,9],['Cons',['Tuple2',7,10],['Cons',['Tuple2',9,10],['Cons',['Tuple2',8,11],['Nil']]]]]]]];
  var cycleExploder_13=['Cons',['Tuple2',8,8],['Cons',['Tuple2',8,12],['Cons',['Tuple2',6,8],['Cons',['Tuple2',6,9],['Cons',['Tuple2',6,10],['Cons',['Tuple2',6,11],['Cons',['Tuple2',6,12],['Cons',['Tuple2',10,8],['Cons',['Tuple2',10,9],['Cons',['Tuple2',10,10],['Cons',['Tuple2',10,11],['Cons',['Tuple2',10,12],['Nil']]]]]]]]]]]]];
  var golAutomaton_14=function(){
-  var gol_45=GameOfLife.fromList(cycleExploder_13);
-  function fstep_44(input_46){
-   return function(stateGol_47){
+  var gol_52=GameOfLife.fromList(cycleExploder_13);
+  function fstep_51(input_53){
+   return function(stateGol_54){
     return function(){
-     var gol_48=function(){
-     switch(input_46[0]){
+     var gol_55=function(){
+     switch(input_53[0]){
       case 'Nil':
-      return stateGol_47;
+      return stateGol_54;
      }
-     return GameOfLife.fromList(input_46);}();
-     var out_49=GameOfLife.step(gol_48);
-     return ['Tuple2',GameOfLife.toList(out_49),out_49];}();};}
-  return init_(gol_45)(fstep_44);}();
- var mainGol_15=run(golAutomaton_14)(merge(patternSignal_11)(lift(function(__50){
-  return ['Nil'];})(every(500))));
- var exportGol_16=lift(function(gol_51){
-  return castListToJSArray(map(function(Tuple2$xy_52){
-   return function(){
-   switch(Tuple2$xy_52[0]){
-    case 'Tuple2':
-    return castTupleToJSTuple2(['Tuple2',castIntToJSNumber(Tuple2$xy_52[1]),castIntToJSNumber(Tuple2$xy_52[2])]);
-   }
-   throw "Non-exhaustive pattern match in case";}();})(gol_51));})(mainGol_15);
- var main_25=lift3(view_24)(dimensions)(sequencer_22(400)(400))(patternSignal_11);
- lift(function(v) { var e = document.createEvent('Event');e.initEvent('onGolStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportGol_16);
+     return GameOfLife.fromList(input_53);}();
+     var out_56=GameOfLife.step(gol_55);
+     return ['Tuple2',GameOfLife.toList(out_56),out_56];}();};}
+  return init_(gol_52)(fstep_51);}();
+ var golSpeed_15=500;
+ var mainGol_16=run(golAutomaton_14)(merge(patternSignal_11)(lift(function(__57){
+  return ['Nil'];})(every(golSpeed_15))));
+ var exportGol_18=lift(castPointListToJSArray_17)(mainGol_16);
+ var sequencerSteps_19=16;
+ var sequencerSpeed_20=1100;
+ var sequencerAutomaton_21=function(){
+  function fstep_62(input_63){
+   return function(Tuple2$stateGolstateStep_64){
+    return function(){
+    switch(Tuple2$stateGolstateStep_64[0]){
+     case 'Tuple2':
+     return function(){
+      var Tuple3$golstepnew_67=function(){
+      switch(input_63[0]){
+       case 'Nil':
+       return ['Tuple3',Tuple2$stateGolstateStep_64[1],(1+mod(Tuple2$stateGolstateStep_64[2])(sequencerSteps_19)),true];
+      }
+      return ['Tuple3',input_63,Tuple2$stateGolstateStep_64[2],false];}();
+      var gol_68=function(){
+      switch(Tuple3$golstepnew_67[0]){
+       case 'Tuple3':
+       return Tuple3$golstepnew_67[1];
+      }
+      throw "Non-exhaustive pattern match in case";}();
+      var step_69=function(){
+      switch(Tuple3$golstepnew_67[0]){
+       case 'Tuple3':
+       return Tuple3$golstepnew_67[2];
+      }
+      throw "Non-exhaustive pattern match in case";}();
+      var new_70=function(){
+      switch(Tuple3$golstepnew_67[0]){
+       case 'Tuple3':
+       return Tuple3$golstepnew_67[3];
+      }
+      throw "Non-exhaustive pattern match in case";}();
+      return ['Tuple2',['Tuple2',filter(function(Tuple2$x__80){
+       return function(){
+       switch(Tuple2$x__80[0]){
+        case 'Tuple2':
+        return eq(Tuple2$x__80[1],step_69);
+       }
+       throw "Non-exhaustive pattern match in case";}();})(gol_68),new_70],['Tuple2',gol_68,step_69]];}();
+    }
+    throw "Non-exhaustive pattern match in case";}();};}
+  return init_(['Tuple2',['Nil'],0])(fstep_62);}();
+ var sequencerSignal_22=lift(fst)(keepIf(snd)(['Tuple2',['Nil'],true])(run(sequencerAutomaton_21)(merge(mainGol_16)(lift(function(__82){
+  return ['Nil'];})(every(sequencerSpeed_20))))));
+ var exportSequencer_23=lift(castPointListToJSArray_17)(sequencerSignal_22);
+ var main_32=lift3(view_31)(dimensions)(sequencer_29(400)(400))(patternSignal_11);
+ lift(function(v) { var e = document.createEvent('Event');e.initEvent('onGolStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportGol_18);
+ lift(function(v) { var e = document.createEvent('Event');e.initEvent('onSequencerStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportSequencer_23);
  return {$op : {},
  repeat:repeat_0,
  clickLocations:clickLocations_1,
@@ -562,20 +618,27 @@ Elm.Main=function(){
  exploder:exploder_12,
  cycleExploder:cycleExploder_13,
  golAutomaton:golAutomaton_14,
- mainGol:mainGol_15,
- exportGol:exportGol_16,
- gofCell:gofCell_17,
- noCell:noCell_18,
- synthCtrl:synthCtrl_19,
- golCtrl:golCtrl_20,
- presets:presets_21,
- sequencer:sequencer_22,
- percent:percent_23,
- view:view_24,
- main:main_25};}();
+ golSpeed:golSpeed_15,
+ mainGol:mainGol_16,
+ castPointListToJSArray:castPointListToJSArray_17,
+ exportGol:exportGol_18,
+ sequencerSteps:sequencerSteps_19,
+ sequencerSpeed:sequencerSpeed_20,
+ sequencerAutomaton:sequencerAutomaton_21,
+ sequencerSignal:sequencerSignal_22,
+ exportSequencer:exportSequencer_23,
+ gofCell:gofCell_24,
+ noCell:noCell_25,
+ synthCtrl:synthCtrl_26,
+ golCtrl:golCtrl_27,
+ presets:presets_28,
+ sequencer:sequencer_29,
+ percent:percent_30,
+ view:view_31,
+ main:main_32};}();
 Elm.main=function(){
  return Elm.Main.main;};
 } catch (e) {
 Elm.main=function() {
-var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>Failure, GameOfLife.fromList, GameOfLife.step, GameOfLife.toList, JSON.empty, JsonNumber, JsonObject, Success, Waiting, above, clicks, dimensions, every, mapMaybe, position, sendGet</span>');
+var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>Failure, GameOfLife.fromList, GameOfLife.step, GameOfLife.toList, JSON.empty, JsonNumber, JsonObject, Success, Waiting, above, clicks, dimensions, every, fst, mapMaybe, position, sendGet, snd</span>');
 document.body.innerHTML = Elm.Text.monospace(msg);throw e;};}</script><div id="widthChecker" style="width:100%; height:1px; position:absolute; top:-1px;"></div><div id="content"></div><script type="text/javascript">Dispatcher.initialize()</script><noscript><p>pattern</p><p>Sythesizer controls</p><p>GoL controls</p><p>Presets</p></noscript></body></html>

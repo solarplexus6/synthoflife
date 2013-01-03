@@ -59,13 +59,35 @@ golAutomaton =
         gol = GameOfLife.fromList cycleExploder
     in init' gol fstep
 
-mainGol = run golAutomaton $ patternSignal `merge` (lift (\_ -> []) $ every 500)
+golSpeed = 500
+mainGol = run golAutomaton $ patternSignal `merge` (lift (\_ -> []) $ every golSpeed)
 
 foreign export jsevent "onGolStep"
     exportGol :: Signal (JSArray (JSTuple2 JSNumber JSNumber))
 
-exportGol = lift (\gol -> castListToJSArray $
-                            map (\(x,y) -> castTupleToJSTuple2 (castIntToJSNumber x,castIntToJSNumber y) ) gol) mainGol
+castPointListToJSArray xs = castListToJSArray $ map (\(x,y) -> castTupleToJSTuple2 (castIntToJSNumber x,castIntToJSNumber y)) xs
+exportGol = lift castPointListToJSArray mainGol
+
+sequencerSteps = 16
+sequencerSpeed = 1100
+sequencerAutomaton =
+    let fstep input (stateGol, stateStep) =
+        let (gol, step, new) =
+            case input of
+                [] -> (stateGol, (stateStep `mod` sequencerSteps) + 1, True)
+                _  -> (input, stateStep, False)
+        in ( (filter (\(x, _) -> x == step) gol, new), (gol, step) )
+    in init' ([], 0) fstep
+
+sequencerSignal = lift fst
+                    $ keepIf snd ([], True)
+                    $ run sequencerAutomaton
+                    $ mainGol `merge` (lift (\_ -> []) $ every sequencerSpeed)
+
+foreign export jsevent "onSequencerStep"
+    exportSequencer :: Signal (JSArray (JSTuple2 JSNumber JSNumber))
+
+exportSequencer = lift castPointListToJSArray sequencerSignal
 
 --gofCell=   ((filled (rgb 255 102 0) .) .) . rect
 gofCell w h (x,y) =   filled (rgb 255 102 0) $ rect w h (x,y)
@@ -75,11 +97,10 @@ noCell w h (x,y)  = filled (rgb 64 64 64) $ rect w h (x,y)
 synthCtrl w h = placeholder w h blue "Sythesizer controls"
 golCtrl w h = placeholder w h (rgb 56 56 56) "GoL controls"
 presets w h = placeholder w h (rgb 56 56 56) "Presets"
-sequencer w h = let { steps = 16
-                    ; cellSize = toFloat(w)/steps
-                    ; coordinate x = cellSize*toFloat(x) - cellSize*0.5
-                    ; grid = concatMap (\c -> zip (repeat c steps) $ map coordinate [1..steps]) $ map coordinate [1..steps]
-                    ; inactiveCells = map (noCell (cellSize*0.8) (cellSize*0.8)) $ grid }
+sequencer w h = let cellSize = toFloat(w)/sequencerSteps
+                    coordinate x = cellSize*toFloat(x) - cellSize*0.5
+                    grid = concatMap (\c -> zip (repeat c sequencerSteps) $ map coordinate [1..sequencerSteps]) $ map coordinate [1..sequencerSteps]
+                    inactiveCells = map (noCell (cellSize*0.8) (cellSize*0.8)) $ grid
                 in
                     lift (\activeCells -> collage w h $ inactiveCells ++ (map (gofCell (cellSize*0.8) (cellSize*0.8)) $ map (\(x,y) -> (coordinate x, coordinate y)) activeCells))
                     $ mainGol

@@ -1,4 +1,5 @@
 gol = [];
+row = [];
 function initHelper() {
     var e = document.createEvent('Event');
     e.initEvent('provideHost', true, true);
@@ -15,9 +16,16 @@ function initHelper() {
 
     document.addEventListener('onGolStep', function(e) {
         gol = e.value;
-        e = document.createEvent('Event');
-        e.initEvent('Period changed', true, true);
-        e.value = gol.length;
-        document.dispatchEvent(e);
+    });
+
+    document.addEventListener('onSequencerStep', function(e) {
+        row = e.value;
+
+        console.log('Row:', row[0][0], row);
+
+        ep = document.createEvent('Event');
+        ep.initEvent('Period changed', true, true);
+        ep.value = 0.1 + row.length;
+        document.dispatchEvent(ep);
     });
 }
