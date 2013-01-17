@@ -232,6 +232,49 @@ function initHelper() {
 }
 try{
 
+if (Elm.Common) throw "Module name collision, 'Common' is already defined."; 
+Elm.Common=function(){
+ var $op={};
+ for(Elm['i'] in Elm){eval('var '+Elm['i']+'=Elm[Elm.i];');}
+ try{
+  if (!(Elm.Prelude instanceof Object)) throw 'module not found';
+ } catch(e) {
+  throw ("Module 'Prelude' is missing. Compile with --make flag or load missing module in a separate JavaScript file.");
+ }
+ var hiddenVars={};
+ for (Elm['i'] in Elm.Prelude) {
+  if (hiddenVars[Elm['i']]) continue;
+  eval('var ' + Elm['i'] + ' = Elm.Prelude[Elm.i];');}
+ function repeat_0(a_2){
+  return function(n_3){
+   return map(function(__4){
+    return a_2;})(function(){
+    var lo=1;
+    var hi=n_3;
+    var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
+    return lst;}());};}
+ function grid_1(size_5){
+  return concatMap(function(c_6){
+   return zip(repeat_0(c_6)(size_5))(function(){
+    var lo=1;
+    var hi=size_5;
+    var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
+    return lst;}());})(function(){
+   var lo=1;
+   var hi=size_5;
+   var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
+   return lst;}());}
+ return {$op : {},
+ repeat:repeat_0,
+ grid:grid_1};}();
+Elm.main=function(){
+ return Elm.Common.main;};
+} catch (e) {
+Elm.main=function() {
+var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Common module:<br/>' + e + '</span>');
+document.body.innerHTML = Elm.Text.monospace(msg);throw e;};}
+try{
+
 if (Elm.GameOfLife) throw "Module name collision, 'GameOfLife' is already defined."; 
 Elm.GameOfLife=function(){
  var $op={};
@@ -245,50 +288,61 @@ Elm.GameOfLife=function(){
  for (Elm['i'] in Elm.Prelude) {
   if (hiddenVars[Elm['i']]) continue;
   eval('var ' + Elm['i'] + ' = Elm.Prelude[Elm.i];');}
- function countNghb_7(Tuple2$xy_10){
-  return function(gof_11){
+ try{
+  if (!(Elm.Common instanceof Object)) throw 'module not found';
+ } catch(e) {
+  throw ("Module 'Common' is missing. Compile with --make flag or load missing module in a separate JavaScript file.");
+ }
+ var Common=Elm.Common;
+ function countNghb_7(Tuple2$xy_11){
+  return function(gof_12){
    return function(){
-   switch(Tuple2$xy_10[0]){
+   switch(Tuple2$xy_11[0]){
     case 'Tuple2':
-    return length(filter(function(Tuple2$nxny_14){
+    return length(filter(function(Tuple2$nxny_15){
      return function(){
-     switch(Tuple2$nxny_14[0]){
+     switch(Tuple2$nxny_15[0]){
       case 'Tuple2':
-      return alive_0(['Tuple2',(Tuple2$xy_10[1]+Tuple2$nxny_14[1]),(Tuple2$xy_10[2]+Tuple2$nxny_14[2])])(gof_11);
+      return alive_0(['Tuple2',(Tuple2$xy_11[1]+Tuple2$nxny_15[1]),(Tuple2$xy_11[2]+Tuple2$nxny_15[2])])(gof_12);
      }
      throw "Non-exhaustive pattern match in case";}();})(adjacentOffsets_6));
    }
    throw "Non-exhaustive pattern match in case";}();};}
- function emptyNghb_8(Tuple2$xy_17){
-  return function(gof_18){
+ function emptyNghb_8(Tuple2$xy_18){
+  return function(gof_19){
    return function(){
-   switch(Tuple2$xy_17[0]){
+   switch(Tuple2$xy_18[0]){
     case 'Tuple2':
     return filter(function(x){
-     return not(flip(alive_0)(gof_18)(x));})(map(function(Tuple2$nxny_21){
+     return not(flip(alive_0)(gof_19)(x));})(map(function(Tuple2$nxny_22){
      return function(){
-     switch(Tuple2$nxny_21[0]){
+     switch(Tuple2$nxny_22[0]){
       case 'Tuple2':
-      return ['Tuple2',(Tuple2$xy_17[1]+Tuple2$nxny_21[1]),(Tuple2$xy_17[2]+Tuple2$nxny_21[2])];
+      return ['Tuple2',(Tuple2$xy_18[1]+Tuple2$nxny_22[1]),(Tuple2$xy_18[2]+Tuple2$nxny_22[2])];
      }
      throw "Non-exhaustive pattern match in case";}();})(adjacentOffsets_6));
    }
    throw "Non-exhaustive pattern match in case";}();};}
- function step_9(initGof_24){
+ function step_9(initGof_25){
   return function(){
-   var emptyCells_26=fromList_2(concatMap(flip(emptyNghb_8)(initGof_24))(toList_3(initGof_24)));
-   var survived_27=Set.foldl(function(cell_32){
-    return function(gof__33){
-     return (survives_25(cell_32)(initGof_24)?insert_4(cell_32)(gof__33):gof__33);};})(empty_1)(initGof_24);
-   var newborn_28=Set.foldl(function(cell_34){
-    return function(gof__35){
-     return (eq(countNghb_7(cell_34)(initGof_24),3)?insert_4(cell_34)(gof__35):gof__35);};})(empty_1)(emptyCells_26);
-   function survives_25(cell_29){
-    return function(gof_30){
+   var emptyCells_27=fromList_2(concatMap(flip(emptyNghb_8)(initGof_25))(toList_3(initGof_25)));
+   var survived_28=Set.foldl(function(cell_33){
+    return function(gof__34){
+     return (survives_26(cell_33)(initGof_25)?insert_4(cell_33)(gof__34):gof__34);};})(empty_1)(initGof_25);
+   var newborn_29=Set.foldl(function(cell_35){
+    return function(gof__36){
+     return (eq(countNghb_7(cell_35)(initGof_25),3)?insert_4(cell_35)(gof__36):gof__36);};})(empty_1)(emptyCells_27);
+   function survives_26(cell_30){
+    return function(gof_31){
      return function(){
-      var count_31=countNghb_7(cell_29)(gof_30);
-      return (eq(count_31,2)||eq(count_31,3));}();};}
-   return Set.union(survived_27)(newborn_28);}();}
+      var count_32=countNghb_7(cell_30)(gof_31);
+      return (eq(count_32,2)||eq(count_32,3));}();};}
+   return Set.union(survived_28)(newborn_29);}();}
+ function limit_10(gof_37){
+  return function(size_38){
+   return function(){
+    var mask_39=Set.fromList(Common.grid(size_38));
+    return Set.intersect(gof_37)(mask_39);}();};}
  var alive_0=Set.member;
  var empty_1=Set.empty;
  var fromList_2=Set.fromList;
@@ -303,12 +357,13 @@ Elm.GameOfLife=function(){
  toList:toList_3,
  insert:insert_4,
  remove:remove_5,
- step:step_9};}();
+ step:step_9,
+ limit:limit_10};}();
 Elm.main=function(){
  return Elm.GameOfLife.main;};
 } catch (e) {
 Elm.main=function() {
-var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in GameOfLife module:<br/>' + e + '</span>');
+var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in GameOfLife module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>Common.grid</span>');
 document.body.innerHTML = Elm.Text.monospace(msg);throw e;};}
 try{
 
@@ -386,44 +441,44 @@ Elm.Main=function(){
   throw ("Module 'GameOfLife' is missing. Compile with --make flag or load missing module in a separate JavaScript file.");
  }
  var GameOfLife=Elm.GameOfLife;
- function Preset_7(a1){
+ function Preset_16(a1){
   return function(a2){
    return function(a3){
     return ['Preset',a1,a2,a3];};};}
- var jsHost_3=Elm.Signal.constant(castStringToJSString(Value.str('')));
- Value.addListener(document, 'provideHost', function(e) { Dispatcher.notify(jsHost_3.id, e.value); });
- var presetUrl_4=Elm.Signal.constant(castStringToJSString(Value.str('')));
- Value.addListener(document, 'providePresetUrl', function(e) { Dispatcher.notify(presetUrl_4.id, e.value); });
- function repeat_0(a_33){
-  return function(n_34){
-   return map(function(__35){
-    return a_33;})(function(){
+ var jsHost_12=Elm.Signal.constant(castStringToJSString(Value.str('')));
+ Value.addListener(document, 'provideHost', function(e) { Dispatcher.notify(jsHost_12.id, e.value); });
+ var presetUrl_13=Elm.Signal.constant(castStringToJSString(Value.str('')));
+ Value.addListener(document, 'providePresetUrl', function(e) { Dispatcher.notify(presetUrl_13.id, e.value); });
+ function placeholder_1(w_42){
+  return function(h_43){
+   return function(col_44){
+    return function(text_45){
+     return color(col_44)(container(w_42)(h_43)(middle)(plainText(text_45)));};};};}
+ function repeat_2(a_46){
+  return function(n_47){
+   return map(function(__48){
+    return a_46;})(function(){
     var lo=1;
-    var hi=n_34;
+    var hi=n_47;
     var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
     return lst;}());};}
- function placeholder_2(w_38){
-  return function(h_39){
-   return function(col_40){
-    return function(text_41){
-     return color(col_40)(container(w_38)(h_39)(middle)(plainText(text_41)));};};};}
- function getPoint_8(asocList_42){
+ function getPoint_17(asocList_49){
   return function(){
-  switch(asocList_42[0]){
+  switch(asocList_49[0]){
    case 'Cons':
-   switch(asocList_42[1][0]){
+   switch(asocList_49[1][0]){
     case 'Tuple2':
-    switch(asocList_42[1][2][0]){
+    switch(asocList_49[1][2][0]){
      case 'JsonNumber':
-     switch(asocList_42[2][0]){
+     switch(asocList_49[2][0]){
       case 'Cons':
-      switch(asocList_42[2][1][0]){
+      switch(asocList_49[2][1][0]){
        case 'Tuple2':
-       switch(asocList_42[2][1][2][0]){
+       switch(asocList_49[2][1][2][0]){
         case 'JsonNumber':
-        switch(asocList_42[2][2][0]){
+        switch(asocList_49[2][2][0]){
          case 'Nil':
-         return Just(['Tuple2',asocList_42[1][2][1],asocList_42[2][1][2][1]]);
+         return Just(['Tuple2',asocList_49[1][2][1],asocList_49[2][1][2][1]]);
         }break;
        }break;
       }break;
@@ -432,213 +487,250 @@ Elm.Main=function(){
    }break;
   }
   return Nothing;}();}
- function getValue_9(obj_45){
+ function getValue_18(obj_52){
   return function(){
-  switch(obj_45[0]){
+  switch(obj_52[0]){
    case 'JsonObject':
-   return obj_45[1];
+   return obj_52[1];
   }
   return JSON.empty;}();}
- function handleResponse_10(res_47){
+ function handleResponse_19(res_54){
   return function(){
-  switch(res_47[0]){
+  switch(res_54[0]){
    case 'Failure':
    return JSON.empty;
    case 'Success':
-   return JSON.fromString(res_47[1]);
+   return JSON.fromString(res_54[1]);
    case 'Waiting':
    return JSON.empty;
   }
   throw "Non-exhaustive pattern match in case";}();}
- function castPointListToJSArray_17(xs_58){
-  return castListToJSArray(map(function(Tuple2$xy_59){
+ function castPointListToJSArray_26(xs_75){
+  return castListToJSArray(map(function(Tuple2$xy_76){
    return function(){
-   switch(Tuple2$xy_59[0]){
+   switch(Tuple2$xy_76[0]){
     case 'Tuple2':
-    return castTupleToJSTuple2(['Tuple2',castIntToJSNumber(Tuple2$xy_59[1]),castIntToJSNumber(Tuple2$xy_59[2])]);
+    return castTupleToJSTuple2(['Tuple2',castIntToJSNumber(Tuple2$xy_76[1]),castIntToJSNumber(Tuple2$xy_76[2])]);
    }
-   throw "Non-exhaustive pattern match in case";}();})(xs_58));}
- function gofCell_24(w_83){
-  return function(h_84){
-   return function(Tuple2$xy_85){
+   throw "Non-exhaustive pattern match in case";}();})(xs_75));}
+ function gofCell_31(w_100){
+  return function(h_101){
+   return function(Tuple2$xy_102){
     return function(){
-    switch(Tuple2$xy_85[0]){
+    switch(Tuple2$xy_102[0]){
      case 'Tuple2':
-     return filled(rgb(255)(102)(0))(rect(w_83)(h_84)(['Tuple2',Tuple2$xy_85[1],Tuple2$xy_85[2]]));
+     return filled(palColorAccent_8)(rect(w_100)(h_101)(['Tuple2',Tuple2$xy_102[1],Tuple2$xy_102[2]]));
     }
     throw "Non-exhaustive pattern match in case";}();};};}
- function noCell_25(w_88){
-  return function(h_89){
-   return function(Tuple2$xy_90){
+ function noCell_32(w_105){
+  return function(h_106){
+   return function(Tuple2$xy_107){
     return function(){
-    switch(Tuple2$xy_90[0]){
+    switch(Tuple2$xy_107[0]){
      case 'Tuple2':
-     return filled(rgb(64)(64)(64))(rect(w_88)(h_89)(['Tuple2',Tuple2$xy_90[1],Tuple2$xy_90[2]]));
+     return filled(palColor31_7)(rect(w_105)(h_106)(['Tuple2',Tuple2$xy_107[1],Tuple2$xy_107[2]]));
     }
     throw "Non-exhaustive pattern match in case";}();};};}
- function synthCtrl_26(w_93){
-  return function(h_94){
-   return placeholder_2(w_93)(h_94)(blue)(Value.str('Sythesizer controls'));};}
- function golCtrl_27(w_95){
-  return function(h_96){
-   return placeholder_2(w_95)(h_96)(rgb(56)(56)(56))(Value.str('GoL controls'));};}
- function presets_28(w_97){
-  return function(h_98){
-   return placeholder_2(w_97)(h_98)(rgb(56)(56)(56))(Value.str('Presets'));};}
- function sequencer_29(w_99){
-  return function(h_100){
-   return function(){
-    var cellSize_101=(toFloat(w_99)/sequencerSteps_19);
-    var grid_103=concatMap(function(c_106){
-     return zip(repeat_0(c_106)(sequencerSteps_19))(map(coordinate_102)(function(){
+ function synthCtrl_33(w_110){
+  return function(h_111){
+   return placeholder_1(w_110)(h_111)(palColor22_6)(Value.str('Sythesizer controls'));};}
+ function golCtrl_34(w_112){
+  return function(h_113){
+   return placeholder_1(w_112)(h_113)(palColor22_6)(Value.str('GoL controls'));};}
+ function presets_35(w_114){
+  return function(h_115){
+   return function(presetName_116){
+    return placeholder_1(w_114)(h_115)(palColor22_6)(presetName_116);};};}
+ function sequencer_36(w_117){
+  return function(h_118){
+   return function(activeCells_119){
+    return function(){
+     var cellSize_120=(toFloat(w_117)/sequencerSteps_10);
+     var grid_122=concatMap(function(c_125){
+      return zip(repeat_2(c_125)(sequencerSteps_10))(map(coordinate_121)(function(){
+       var lo=1;
+       var hi=sequencerSteps_10;
+       var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
+       return lst;}()));})(map(coordinate_121)(function(){
       var lo=1;
-      var hi=sequencerSteps_19;
+      var hi=sequencerSteps_10;
       var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
-      return lst;}()));})(map(coordinate_102)(function(){
-     var lo=1;
-     var hi=sequencerSteps_19;
-     var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
-     return lst;}()));
-    var inactiveCells_104=map(noCell_25((cellSize_101*0.8))((cellSize_101*0.8)))(grid_103);
-    function coordinate_102(x_105){
-     return ((cellSize_101*toFloat(x_105))-(cellSize_101*0.5));}
-    return lift(function(activeCells_107){
-     return collage(w_99)(h_100)(Value.append(inactiveCells_104,map(gofCell_24((cellSize_101*0.8))((cellSize_101*0.8)))(map(function(Tuple2$xy_108){
+      return lst;}()));
+     var inactiveCells_123=map(noCell_32((cellSize_120*0.8))((cellSize_120*0.8)))(grid_122);
+     function coordinate_121(x_124){
+      return ((cellSize_120*toFloat(x_124))-(cellSize_120*0.5));}
+     return collage(w_117)(h_118)(Value.append(inactiveCells_123,map(gofCell_31((cellSize_120*0.8))((cellSize_120*0.8)))(map(function(Tuple2$xy_126){
       return function(){
-      switch(Tuple2$xy_108[0]){
+      switch(Tuple2$xy_126[0]){
        case 'Tuple2':
-       return ['Tuple2',coordinate_102(Tuple2$xy_108[1]),coordinate_102(Tuple2$xy_108[2])];
+       return ['Tuple2',coordinate_121(Tuple2$xy_126[1]),coordinate_121(Tuple2$xy_126[2])];
       }
-      throw "Non-exhaustive pattern match in case";}();})(activeCells_107))));})(mainGol_16);}();};}
- function percent_30(x_111){
-  return function(p_112){
-   return div((x_111*p_112))(100);};}
- function view_31(Tuple2$wh_113){
-  return function(seqView_114){
-   return function(pattern_115){
+      throw "Non-exhaustive pattern match in case";}();})(activeCells_119))));}();};};}
+ function percent_37(x_129){
+  return function(p_130){
+   return div((x_129*p_130))(100);};}
+ function view_38(Tuple2$wh_131){
+  return function(gol_132){
+   return function(Preset$presetSnpresetNamepresetPattern_133){
     return function(){
-    switch(Tuple2$wh_113[0]){
+    switch(Tuple2$wh_131[0]){
      case 'Tuple2':
      return function(){
-      var layout_w_118=div((5*Tuple2$wh_113[1]))(6);
-      var game_h_119=div((3*Tuple2$wh_113[2]))(5);
-      return container(Tuple2$wh_113[1])(Tuple2$wh_113[2])(middle)(color(grey)(above(above(container(layout_w_118)(game_h_119)(middle)(flow(right)(['Cons',golCtrl_27(percent_30(layout_w_118)(12))(percent_30(game_h_119)(80)),['Cons',seqView_114,['Cons',presets_28(percent_30(layout_w_118)(12))(percent_30(game_h_119)(80)),['Nil']]]])))(synthCtrl_26(layout_w_118)(div(Tuple2$wh_113[2])(6))))(asText(pattern_115))));}();
+     switch(Preset$presetSnpresetNamepresetPattern_133[0]){
+      case 'Preset':
+      return function(){
+       var layout_w_139=div((5*Tuple2$wh_131[1]))(6);
+       var game_h_140=div((3*Tuple2$wh_131[2]))(5);
+       var seqView_141=sequencer_36(percent_37(game_h_140)(90))(percent_37(game_h_140)(90))(gol_132);
+       return color(palColor1_3)(container(Tuple2$wh_131[1])(Tuple2$wh_131[2])(middle)(color(palColor21_5)(above(above(container(layout_w_139)(game_h_140)(middle)(flow(right)(['Cons',golCtrl_34(percent_37(layout_w_139)(12))(percent_37(game_h_140)(80)),['Cons',seqView_141,['Cons',presets_35(percent_37(layout_w_139)(12))(percent_37(game_h_140)(80))(Preset$presetSnpresetNamepresetPattern_133[2]),['Nil']]]])))(synthCtrl_33(layout_w_139)(div(Tuple2$wh_131[2])(6))))(asText(Preset$presetSnpresetNamepresetPattern_133[1])))));}();
+     }
+     throw "Non-exhaustive pattern match in case";}();
     }
     throw "Non-exhaustive pattern match in case";}();};};}
- var clickLocations_1=foldp(function(x_36){
-  return function(y_37){
-   return ['Cons',x_36,y_37];};})(['Nil'])(sampleOn(clicks)(position));
- var host_5=lift(castJSStringToString)(jsHost_3);
- var presetSignal_6=sendGet(lift(castJSStringToString)(presetUrl_4));
- var patternSignal_11=lift(function(preset_49){
-  return mapMaybe(function(obj_50){
-   return getPoint_8(JSON.toList(getValue_9(obj_50)));})(JSON.findArray(Value.str('pattern'))(handleResponse_10(preset_49)));})(presetSignal_6);
- var exploder_12=['Cons',['Tuple2',8,8],['Cons',['Tuple2',7,9],['Cons',['Tuple2',8,9],['Cons',['Tuple2',9,9],['Cons',['Tuple2',7,10],['Cons',['Tuple2',9,10],['Cons',['Tuple2',8,11],['Nil']]]]]]]];
- var cycleExploder_13=['Cons',['Tuple2',8,8],['Cons',['Tuple2',8,12],['Cons',['Tuple2',6,8],['Cons',['Tuple2',6,9],['Cons',['Tuple2',6,10],['Cons',['Tuple2',6,11],['Cons',['Tuple2',6,12],['Cons',['Tuple2',10,8],['Cons',['Tuple2',10,9],['Cons',['Tuple2',10,10],['Cons',['Tuple2',10,11],['Cons',['Tuple2',10,12],['Nil']]]]]]]]]]]]];
- var golAutomaton_14=function(){
-  var gol_52=GameOfLife.fromList(cycleExploder_13);
-  function fstep_51(input_53){
-   return function(stateGol_54){
+ var clickLocations_0=foldp(function(x_40){
+  return function(y_41){
+   return ['Cons',x_40,y_41];};})(['Nil'])(sampleOn(clicks)(position));
+ var palColor1_3=rgb(51)(49)(48);
+ var palColor12_4=rgb(71)(69)(68);
+ var palColor21_5=rgb(30)(27)(32);
+ var palColor22_6=rgb(55)(54)(56);
+ var palColor31_7=rgb(71)(71)(68);
+ var palColorAccent_8=rgb(255)(102)(0);
+ var golSpeed_9=500;
+ var sequencerSteps_10=16;
+ var sequencerSpeed_11=1100;
+ var host_14=lift(castJSStringToString)(jsHost_12);
+ var presetSignal_20=sendGet(lift(castJSStringToString)(presetUrl_13));
+ var presetSignal_20=function(){
+  function deserializePattern_56(preset_60){
+   return mapMaybe(function(obj_61){
+    return getPoint_17(JSON.toList(getValue_18(obj_61)));})(JSON.findArray(Value.str('pattern'))(preset_60));}
+  function deserializeName_57(preset_62){
+   return JSON.findString(Value.str('name'))(preset_62);}
+  function deserializeSn_58(preset_63){
+   return JSON.findString(Value.str('sn'))(preset_63);}
+  function deserializePreset_59(preset_64){
+   return function(){
+    var presetObj_65=handleResponse_19(preset_64);
+    return Preset_16(deserializeSn_58(presetObj_65))(deserializeName_57(presetObj_65))(deserializePattern_56(presetObj_65));}();}
+  return lift(deserializePreset_59)(presetSignal_20);}();
+ var patternSignal_21=lift(function(Preset$__pattern_66){
+  return function(){
+  switch(Preset$__pattern_66[0]){
+   case 'Preset':
+   return Preset$__pattern_66[3];
+  }
+  throw "Non-exhaustive pattern match in case";}();})(presetSignal_20);
+ var exploder_22=['Cons',['Tuple2',8,8],['Cons',['Tuple2',7,9],['Cons',['Tuple2',8,9],['Cons',['Tuple2',9,9],['Cons',['Tuple2',7,10],['Cons',['Tuple2',9,10],['Cons',['Tuple2',8,11],['Nil']]]]]]]];
+ var cycleExploder_23=['Cons',['Tuple2',8,8],['Cons',['Tuple2',8,12],['Cons',['Tuple2',6,8],['Cons',['Tuple2',6,9],['Cons',['Tuple2',6,10],['Cons',['Tuple2',6,11],['Cons',['Tuple2',6,12],['Cons',['Tuple2',10,8],['Cons',['Tuple2',10,9],['Cons',['Tuple2',10,10],['Cons',['Tuple2',10,11],['Cons',['Tuple2',10,12],['Nil']]]]]]]]]]]]];
+ var golAutomaton_24=function(){
+  var gol_69=GameOfLife.fromList(cycleExploder_23);
+  function fstep_68(input_70){
+   return function(stateGol_71){
     return function(){
-     var gol_55=function(){
-     switch(input_53[0]){
+     var gol_72=function(){
+     switch(input_70[0]){
       case 'Nil':
-      return stateGol_54;
+      return stateGol_71;
      }
-     return GameOfLife.fromList(input_53);}();
-     var out_56=GameOfLife.step(gol_55);
-     return ['Tuple2',GameOfLife.toList(out_56),out_56];}();};}
-  return init_(gol_52)(fstep_51);}();
- var golSpeed_15=500;
- var mainGol_16=run(golAutomaton_14)(merge(patternSignal_11)(lift(function(__57){
-  return ['Nil'];})(every(golSpeed_15))));
- var exportGol_18=lift(castPointListToJSArray_17)(mainGol_16);
- var sequencerSteps_19=16;
- var sequencerSpeed_20=1100;
- var sequencerAutomaton_21=function(){
-  function fstep_62(input_63){
-   return function(Tuple2$stateGolstateStep_64){
+     return GameOfLife.fromList(input_70);}();
+     var out_73=GameOfLife.limit(GameOfLife.step(gol_72))(sequencerSteps_10);
+     return ['Tuple2',GameOfLife.toList(out_73),out_73];}();};}
+  return init_(gol_69)(fstep_68);}();
+ var mainGol_25=run(golAutomaton_24)(merge(patternSignal_21)(lift(function(__74){
+  return ['Nil'];})(every(golSpeed_9))));
+ var exportGol_27=lift(castPointListToJSArray_26)(mainGol_25);
+ var sequencerAutomaton_28=function(){
+  function fstep_79(input_80){
+   return function(Tuple2$stateGolstateStep_81){
     return function(){
-    switch(Tuple2$stateGolstateStep_64[0]){
+    switch(Tuple2$stateGolstateStep_81[0]){
      case 'Tuple2':
      return function(){
-      var Tuple3$golstepnew_67=function(){
-      switch(input_63[0]){
+      var Tuple3$golstepnew_84=function(){
+      switch(input_80[0]){
        case 'Nil':
-       return ['Tuple3',Tuple2$stateGolstateStep_64[1],(1+mod(Tuple2$stateGolstateStep_64[2])(sequencerSteps_19)),true];
+       return ['Tuple3',Tuple2$stateGolstateStep_81[1],(1+mod(Tuple2$stateGolstateStep_81[2])(sequencerSteps_10)),true];
       }
-      return ['Tuple3',input_63,Tuple2$stateGolstateStep_64[2],false];}();
-      var gol_68=function(){
-      switch(Tuple3$golstepnew_67[0]){
+      return ['Tuple3',input_80,Tuple2$stateGolstateStep_81[2],false];}();
+      var gol_85=function(){
+      switch(Tuple3$golstepnew_84[0]){
        case 'Tuple3':
-       return Tuple3$golstepnew_67[1];
+       return Tuple3$golstepnew_84[1];
       }
       throw "Non-exhaustive pattern match in case";}();
-      var step_69=function(){
-      switch(Tuple3$golstepnew_67[0]){
+      var step_86=function(){
+      switch(Tuple3$golstepnew_84[0]){
        case 'Tuple3':
-       return Tuple3$golstepnew_67[2];
+       return Tuple3$golstepnew_84[2];
       }
       throw "Non-exhaustive pattern match in case";}();
-      var new_70=function(){
-      switch(Tuple3$golstepnew_67[0]){
+      var new_87=function(){
+      switch(Tuple3$golstepnew_84[0]){
        case 'Tuple3':
-       return Tuple3$golstepnew_67[3];
+       return Tuple3$golstepnew_84[3];
       }
       throw "Non-exhaustive pattern match in case";}();
-      return ['Tuple2',['Tuple2',filter(function(Tuple2$x__80){
+      return ['Tuple2',['Tuple2',filter(function(Tuple2$x__97){
        return function(){
-       switch(Tuple2$x__80[0]){
+       switch(Tuple2$x__97[0]){
         case 'Tuple2':
-        return eq(Tuple2$x__80[1],step_69);
+        return eq(Tuple2$x__97[1],step_86);
        }
-       throw "Non-exhaustive pattern match in case";}();})(gol_68),new_70],['Tuple2',gol_68,step_69]];}();
+       throw "Non-exhaustive pattern match in case";}();})(gol_85),new_87],['Tuple2',gol_85,step_86]];}();
     }
     throw "Non-exhaustive pattern match in case";}();};}
-  return init_(['Tuple2',['Nil'],0])(fstep_62);}();
- var sequencerSignal_22=lift(fst)(keepIf(snd)(['Tuple2',['Nil'],true])(run(sequencerAutomaton_21)(merge(mainGol_16)(lift(function(__82){
-  return ['Nil'];})(every(sequencerSpeed_20))))));
- var exportSequencer_23=lift(castPointListToJSArray_17)(sequencerSignal_22);
- var main_32=lift3(view_31)(dimensions)(sequencer_29(400)(400))(patternSignal_11);
- lift(function(v) { var e = document.createEvent('Event');e.initEvent('onGolStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportGol_18);
- lift(function(v) { var e = document.createEvent('Event');e.initEvent('onSequencerStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportSequencer_23);
+  return init_(['Tuple2',['Nil'],0])(fstep_79);}();
+ var sequencerSignal_29=lift(fst)(keepIf(snd)(['Tuple2',['Nil'],true])(run(sequencerAutomaton_28)(merge(mainGol_25)(lift(function(__99){
+  return ['Nil'];})(every(sequencerSpeed_11))))));
+ var exportSequencer_30=lift(castPointListToJSArray_26)(sequencerSignal_29);
+ var main_39=lift3(view_38)(dimensions)(mainGol_25)(presetSignal_20);
+ lift(function(v) { var e = document.createEvent('Event');e.initEvent('onGolStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportGol_27);
+ lift(function(v) { var e = document.createEvent('Event');e.initEvent('onSequencerStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportSequencer_30);
  return {$op : {},
- repeat:repeat_0,
- clickLocations:clickLocations_1,
- placeholder:placeholder_2,
- jsHost:jsHost_3,
- presetUrl:presetUrl_4,
- host:host_5,
- presetSignal:presetSignal_6,
- Preset:Preset_7,
- getPoint:getPoint_8,
- getValue:getValue_9,
- handleResponse:handleResponse_10,
- patternSignal:patternSignal_11,
- exploder:exploder_12,
- cycleExploder:cycleExploder_13,
- golAutomaton:golAutomaton_14,
- golSpeed:golSpeed_15,
- mainGol:mainGol_16,
- castPointListToJSArray:castPointListToJSArray_17,
- exportGol:exportGol_18,
- sequencerSteps:sequencerSteps_19,
- sequencerSpeed:sequencerSpeed_20,
- sequencerAutomaton:sequencerAutomaton_21,
- sequencerSignal:sequencerSignal_22,
- exportSequencer:exportSequencer_23,
- gofCell:gofCell_24,
- noCell:noCell_25,
- synthCtrl:synthCtrl_26,
- golCtrl:golCtrl_27,
- presets:presets_28,
- sequencer:sequencer_29,
- percent:percent_30,
- view:view_31,
- main:main_32};}();
+ clickLocations:clickLocations_0,
+ placeholder:placeholder_1,
+ repeat:repeat_2,
+ palColor1:palColor1_3,
+ palColor12:palColor12_4,
+ palColor21:palColor21_5,
+ palColor22:palColor22_6,
+ palColor31:palColor31_7,
+ palColorAccent:palColorAccent_8,
+ golSpeed:golSpeed_9,
+ sequencerSteps:sequencerSteps_10,
+ sequencerSpeed:sequencerSpeed_11,
+ jsHost:jsHost_12,
+ presetUrl:presetUrl_13,
+ host:host_14,
+ presetSignal:presetSignal_20,
+ Preset:Preset_16,
+ getPoint:getPoint_17,
+ getValue:getValue_18,
+ handleResponse:handleResponse_19,
+ presetSignal:presetSignal_20,
+ patternSignal:patternSignal_21,
+ exploder:exploder_22,
+ cycleExploder:cycleExploder_23,
+ golAutomaton:golAutomaton_24,
+ mainGol:mainGol_25,
+ castPointListToJSArray:castPointListToJSArray_26,
+ exportGol:exportGol_27,
+ sequencerAutomaton:sequencerAutomaton_28,
+ sequencerSignal:sequencerSignal_29,
+ exportSequencer:exportSequencer_30,
+ gofCell:gofCell_31,
+ noCell:noCell_32,
+ synthCtrl:synthCtrl_33,
+ golCtrl:golCtrl_34,
+ presets:presets_35,
+ sequencer:sequencer_36,
+ percent:percent_37,
+ view:view_38,
+ main:main_39};}();
 Elm.main=function(){
  return Elm.Main.main;};
 } catch (e) {
 Elm.main=function() {
-var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>Failure, GameOfLife.fromList, GameOfLife.step, GameOfLife.toList, JSON.empty, JsonNumber, JsonObject, Success, Waiting, above, clicks, dimensions, every, fst, mapMaybe, position, sendGet, snd</span>');
-document.body.innerHTML = Elm.Text.monospace(msg);throw e;};}</script><div id="widthChecker" style="width:100%; height:1px; position:absolute; top:-1px;"></div><div id="content"></div><script type="text/javascript">Dispatcher.initialize()</script><noscript><p>pattern</p><p>Sythesizer controls</p><p>GoL controls</p><p>Presets</p></noscript></body></html>
+var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>Failure, GameOfLife.fromList, GameOfLife.limit, GameOfLife.step, GameOfLife.toList, JSON.empty, JsonNumber, JsonObject, Success, Waiting, above, clicks, dimensions, every, fst, mapMaybe, position, sendGet, snd</span>');
+document.body.innerHTML = Elm.Text.monospace(msg);throw e;};}</script><div id="widthChecker" style="width:100%; height:1px; position:absolute; top:-1px;"></div><div id="content"></div><script type="text/javascript">Dispatcher.initialize()</script><noscript><p>pattern</p><p>name</p><p>sn</p><p>Sythesizer controls</p><p>GoL controls</p></noscript></body></html>
