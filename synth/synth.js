@@ -1,61 +1,72 @@
 <!-- UI builder -->
 
 function UI(){
-    this.openHorizontalBox = function(label) 
+    this.openHorizontalBox = function(label)
     {
         console.log("openHorizontalBox: " + label);
     }
-    
-    this.openVerticalBox = function(label) 
+
+    this.openVerticalBox = function(label)
     {
         console.log("openVerticalBox: " + label);
     }
-    
-    this.closeBox = function() 
+
+    this.closeBox = function()
     {
         console.log("closeBox");
     }
-    
-    this.addButton = function(label, handler) 
+
+    this.addButton = function(label, handler)
     {
        console.log("addButton: " + label);
+
+       document.addEventListener(label + '-on', function(e) {
+            var btnPushTime = 50;
+
+            handler(1);
+            console.log("on: "+ label)
+            setTimeout(function () {
+                    handler(0);
+                    console.log("off: "+ label)
+                }, btnPushTime);
+        });
     }
-    
-    this.addCheckButton = function(label, handler) 
+
+    this.addCheckButton = function(label, handler)
     {
         console.log("addCheckButton: " + label);
     }
-    
-    this.addVerticalSlider = function(label, handler, init, min, max, step) 
+
+    this.addVerticalSlider = function(label, handler, init, min, max, step)
     {
         console.log("addVerticalSlider: " + label);
     }
-    
-    this.addHorizontalSlider = function(label, handler, init, min, max, step) 
+
+    this.addHorizontalSlider = function(label, handler, init, min, max, step)
     {
         console.log("addHorizontalSlider: " + label);
-        
-        document.addEventListener(label + ' changed', function(e) {
+
+        document.addEventListener(label + '-changed', function(e) {
             handler(e.value);
         });
     }
-    
-    this.addNumEntry = function(label, handler, init, min, max, step) 
+
+    this.addNumEntry = function(label, handler, init, min, max, step)
     {
-        console.log("addNumEntry: " + label);    
+        console.log("addNumEntry: " + label);
     }
 
-    this.addHorizontalBargraph = function(label, handler,  min, max) 
+    this.addHorizontalBargraph = function(label, handler,  min, max)
     {
         console.log("addHorizontalBargraph: " + label);
     }
-    
-    this.addVerticalBargraph = function(label, handler,  min, max) 
+
+    this.addVerticalBargraph = function(label, handler,  min, max)
     {
          console.log("addVerticalBargraph: " + label);
     }
-    
-    this.declare = function(handler, key, value) 
+
+    this.declare = function(handler, key, value)
     {
          console.log("declare");
     }
@@ -69,11 +80,11 @@ function UI(){
 
 function faustpower2_f(value) {
 	return (value * value);
-	
+
 }
 
 function dsp() {
-	
+
 	this.fRec31 = new Float32Array(3);
 	this.fVec31 = new Float32Array(128);
 	this.fRec32 = new Float32Array(2);
@@ -159,307 +170,307 @@ function dsp() {
 	this.fbutton14;
 	this.fbutton15;
 	this.fSamplingFreq;
-	
-	this.metadata = function(m) { 
+
+	this.metadata = function(m) {
 		m.declare("name", "Harpe");
 		m.declare("author", "Grame");
 	}
 
 	this.getNumInputs = function() { return 0; }
 	this.getNumOutputs = function() { return 2; }
-	
+
 	this.classInit = function(samplingFreq) {
 	}
-	
+
 	this.instanceInit = function(samplingFreq) {
 		this.fSamplingFreq = samplingFreq;
 		this.fhslider0 = 0.5;
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.iRec1[i] = 0;
-			
+
 		}
 		this.fbutton0 = 0;
 		this.IOTA = 0;
 		for (var i = 0; (i < 512); i = (i + 1)) {
 			this.fVec0[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec2[i] = 0;
-			
+
 		}
 		this.fhslider1 = 0.005;
 		for (var i = 0; (i < 12); i = (i + 1)) {
 			this.fVec1[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec0[i] = 0;
-			
+
 		}
 		this.fbutton1 = 0;
 		for (var i = 0; (i < 256); i = (i + 1)) {
 			this.fVec2[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec4[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 14); i = (i + 1)) {
 			this.fVec3[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec3[i] = 0;
-			
+
 		}
 		this.fbutton2 = 0;
 		for (var i = 0; (i < 256); i = (i + 1)) {
 			this.fVec4[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec6[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 16); i = (i + 1)) {
 			this.fVec5[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec5[i] = 0;
-			
+
 		}
 		this.fbutton3 = 0;
 		for (var i = 0; (i < 256); i = (i + 1)) {
 			this.fVec6[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec8[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 32); i = (i + 1)) {
 			this.fVec7[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec7[i] = 0;
-			
+
 		}
 		this.fbutton4 = 0;
 		for (var i = 0; (i < 256); i = (i + 1)) {
 			this.fVec8[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec10[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 32); i = (i + 1)) {
 			this.fVec9[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec9[i] = 0;
-			
+
 		}
 		this.fbutton5 = 0;
 		for (var i = 0; (i < 256); i = (i + 1)) {
 			this.fVec10[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec12[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 32); i = (i + 1)) {
 			this.fVec11[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec11[i] = 0;
-			
+
 		}
 		this.fbutton6 = 0;
 		for (var i = 0; (i < 256); i = (i + 1)) {
 			this.fVec12[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec14[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 32); i = (i + 1)) {
 			this.fVec13[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec13[i] = 0;
-			
+
 		}
 		this.fbutton7 = 0;
 		for (var i = 0; (i < 256); i = (i + 1)) {
 			this.fVec14[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec16[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 64); i = (i + 1)) {
 			this.fVec15[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec15[i] = 0;
-			
+
 		}
 		this.fbutton8 = 0;
 		for (var i = 0; (i < 128); i = (i + 1)) {
 			this.fVec16[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec18[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 64); i = (i + 1)) {
 			this.fVec17[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec17[i] = 0;
-			
+
 		}
 		this.fbutton9 = 0;
 		for (var i = 0; (i < 128); i = (i + 1)) {
 			this.fVec18[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec20[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 64); i = (i + 1)) {
 			this.fVec19[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec19[i] = 0;
-			
+
 		}
 		this.fbutton10 = 0;
 		for (var i = 0; (i < 128); i = (i + 1)) {
 			this.fVec20[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec22[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 64); i = (i + 1)) {
 			this.fVec21[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec21[i] = 0;
-			
+
 		}
 		this.fbutton11 = 0;
 		for (var i = 0; (i < 128); i = (i + 1)) {
 			this.fVec22[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec24[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 64); i = (i + 1)) {
 			this.fVec23[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec23[i] = 0;
-			
+
 		}
 		this.fbutton12 = 0;
 		for (var i = 0; (i < 64); i = (i + 1)) {
 			this.fVec24[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec26[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 128); i = (i + 1)) {
 			this.fVec25[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec25[i] = 0;
-			
+
 		}
 		this.fbutton13 = 0;
 		for (var i = 0; (i < 64); i = (i + 1)) {
 			this.fVec26[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec28[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 128); i = (i + 1)) {
 			this.fVec27[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec27[i] = 0;
-			
+
 		}
 		this.fbutton14 = 0;
 		for (var i = 0; (i < 32); i = (i + 1)) {
 			this.fVec28[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec30[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 128); i = (i + 1)) {
 			this.fVec29[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec29[i] = 0;
-			
+
 		}
 		this.fbutton15 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fVec30[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec32[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 128); i = (i + 1)) {
 			this.fVec31[i] = 0;
-			
+
 		}
 		for (var i = 0; (i < 3); i = (i + 1)) {
 			this.fRec31[i] = 0;
-			
+
 		}
-		
+
 	}
-	
+
 	this.init = function(samplingFreq) {
 		this.classInit(samplingFreq);
 		this.instanceInit(samplingFreq);
 	}
-	
+
 	this.buildUserInterface = function(ui_interface) {
 		ui_interface.openVerticalBox("synth");
 		ui_interface.declare("fhslider1", "osc", "/1/fader3");
@@ -484,9 +495,9 @@ function dsp() {
 		ui_interface.declare("fhslider0", "unit", "f");
 		ui_interface.addHorizontalSlider("level", function handler(obj) { function setval(val) { obj.fhslider0 = val; } return setval; }(this), 0.5, 0, 1, 0.01);
 		ui_interface.closeBox();
-		
+
 	}
-	
+
 	this.compute = function(count, inputs, outputs) {
 		var output0 = outputs[0];
 		var output1 = outputs[1];
@@ -581,21 +592,21 @@ function dsp() {
 			this.fRec2[1] = this.fRec2[0];
 			for (var j = 11; (j > 0); j = (j - 1)) {
 				this.fVec1[j] = this.fVec1[(j - 1)];
-				
+
 			}
 			this.fRec0[2] = this.fRec0[1];
 			this.fRec0[1] = this.fRec0[0];
 			this.fRec4[1] = this.fRec4[0];
 			for (var j = 13; (j > 0); j = (j - 1)) {
 				this.fVec3[j] = this.fVec3[(j - 1)];
-				
+
 			}
 			this.fRec3[2] = this.fRec3[1];
 			this.fRec3[1] = this.fRec3[0];
 			this.fRec6[1] = this.fRec6[0];
 			for (var j = 15; (j > 0); j = (j - 1)) {
 				this.fVec5[j] = this.fVec5[(j - 1)];
-				
+
 			}
 			this.fRec5[2] = this.fRec5[1];
 			this.fRec5[1] = this.fRec5[0];
@@ -639,48 +650,48 @@ function dsp() {
 			this.fRec32[1] = this.fRec32[0];
 			this.fRec31[2] = this.fRec31[1];
 			this.fRec31[1] = this.fRec31[0];
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 
 <!-- WebAudio API -->
 
-process_dsp = function(obj) 
+process_dsp = function(obj)
 {
-    function process_aux_dsp(event) 
+    function process_aux_dsp(event)
     {
         var count;
-        
+
         /*
         if (event.inputBuffer.numberOfChannels < dsp.getNumInputs()) {
             console.log("Incorrect number of input %d instead of %d", event.inputBuffer.numberOfChannels, dsp.getNumInputs());
             return;
         }
         */
-        
+
         if (event.outputBuffer.numberOfChannels < obj.dsp.getNumOutputs()) {
             console.log("Incorrect number of output %d instead of %d", event.outputBuffer.numberOfChannels, obj.dsp.getNumOutputs());
             return;
         }
-         
+
         for (var i = 0; i < obj.dsp.getNumInputs(); i++) {
             obj.inputs[i] = event.inputBuffer.getChannelData(i);
             if (obj.inputs[i] != null) {
                 count = obj.inputs[i].length;
             }
         }
-        
+
         for (var i = 0; i < obj.dsp.getNumOutputs(); i++) {
             obj.outputs[i] = event.outputBuffer.getChannelData(i);
             if (obj.outputs[i] != null) {
                 count = obj.outputs[i].length;
             }
         }
-        
+
         obj.dsp.compute(count, obj.inputs, obj.outputs);
 
     }
@@ -690,30 +701,30 @@ process_dsp = function(obj)
 function create_dsp(audio_context, user_interface, meta_interface, buffer_size)
 {
     this.dsp = new dsp();
-    
+
     this.dsp.init(audio_context.sampleRate);
     this.dsp.buildUserInterface(user_interface);
     this.dsp.metadata(meta_interface);
-    
+
     this.inputs = new Array(this.dsp.getNumInputs());
     this.outputs = new Array(this.dsp.getNumOutputs());
-    
+
     console.log(audio_context.sampleRate);
     console.log(this.dsp.getNumInputs());
     console.log(this.dsp.getNumOutputs());
-    
+
     this.processor = audio_context.createJavaScriptNode(buffer_size, this.dsp.getNumInputs(), this.dsp.getNumOutputs());
     this.processor.onaudioprocess = process_dsp(this);
-    
+
     return this;
 }
 
-function initAudio(buffer_size) 
+function initAudio(buffer_size)
 {
     context = new webkitAudioContext();
-    
+
     ui = new UI();
-    meta = null;
+    meta = ui;
 
     faustdsp = new create_dsp(context, ui, meta, buffer_size);
     faustdsp.processor.connect(context.destination);
