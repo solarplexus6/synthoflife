@@ -20,10 +20,11 @@ palColor21 = rgb 30 27 32
 palColor22 = rgb 55 54 56
 palColor31 = rgb 71 71 68
 palColorAccent = rgb 255 102 0
+palColorBlink = rgba 222 222 222 0.5
 
 golSpeed = 500
 sequencerSteps = 16
-sequencerSpeed = 200
+sequencerSpeed = 600
 
 foreign import jsevent "provideHost"
     (castStringToJSString "")
@@ -114,29 +115,36 @@ noCell w h (x,y)  = filled palColor31 $ rect w h (x,y)
 synthCtrl w h = placeholder w h palColor22 "Sythesizer controls"
 golCtrl w h = placeholder w h palColor22 "GoL controls"
 presets w h presetName = placeholder w h palColor22 presetName
-sequencer w h activeCells =
+sequencer w h activeCells seqStep =
                 let cellSize = toFloat(w)/sequencerSteps
                     coordinate x = cellSize*toFloat(x) - cellSize*0.5
                     grid = concatMap (\c -> zip (repeat c sequencerSteps) $ map coordinate [1..sequencerSteps])
                            $ map coordinate [1..sequencerSteps]
                     inactiveCells = map (noCell (cellSize*0.8) (cellSize*0.8)) $ grid
+                    stepIndicator = filled palColorBlink $ rect cellSize h (coordinate seqStep, (h `div` 2))
                 in
-                    collage w h $ inactiveCells ++ (map (gofCell (cellSize*0.8) (cellSize*0.8))
-                                                        $ map (\(x,y) -> (coordinate x, coordinate y)) activeCells)
+                    collage w h $
+                        inactiveCells ++
+                        (stepIndicator :
+                        (map (gofCell (cellSize*0.8) (cellSize*0.8))
+                            $ map (\(x,y) -> (coordinate x, coordinate y)) activeCells))
 
 --                    $ run golAutomaton $ sampleOn clicks position
 percent x p = (x * p) `div` 100
 
-view (w,h) gol (Preset presetSn presetName presetPattern) =
+view (w,h) gol (Preset presetSn presetName presetPattern) seqColumn =
     let
-        layout_w = (w * 5) `div` 6
-        game_h = (h * 3) `div` 5
-        seqView = sequencer (percent game_h 90) (percent game_h 90) gol
+        layout_w = (w * 7) `div` 8
+        game_h = (h * 5) `div` 7
+        seqStep = case seqColumn of { [] -> (0-1); (x, _):_ -> x}
+        seqView = sequencer (percent game_h 90) (percent game_h 90) gol seqStep
     in color palColor1 $ container w h middle $ color palColor21 $
             (container layout_w game_h middle $ flow right
                 [
                     golCtrl (layout_w `percent` 12) (game_h `percent` 80),
+                    spacer (layout_w `percent` 1) (game_h `percent` 80),
                     seqView,
+                    spacer (layout_w `percent` 1) (game_h `percent` 80),
                     presets (layout_w `percent` 12) (game_h `percent` 80) presetName
                 ])
             `above`
@@ -144,4 +152,4 @@ view (w,h) gol (Preset presetSn presetName presetPattern) =
             `above`
             asText presetSn
 
-main = lift3 view dimensions mainGol presetSignal
+main = lift4 view dimensions mainGol presetSignal sequencerSignal
