@@ -1,0 +1,450 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"seq",
+				"seqStep"
+			],
+			[
+				"inser",
+				"insert_sort"
+			],
+			[
+				"tabe",
+				"tablex"
+			],
+			[
+				"array",
+				"array2d"
+			],
+			[
+				"table",
+				"tablex"
+			],
+			[
+				"arra",
+				"array2d"
+			],
+			[
+				"lcs",
+				"lcs_tab"
+			],
+			[
+				"fun",
+				"function	function"
+			],
+			[
+				"pre",
+				"pretty"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "elm/main.elm",
+			"settings":
+			{
+				"buffer_size": 6222,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "make.ps1",
+			"settings":
+			{
+				"buffer_size": 323,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "synthoflife.sublime-build",
+			"settings":
+			{
+				"buffer_size": 82,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/synthoflife.sublime-build",
+	"command_palette":
+	{
+		"height": 81.0,
+		"selected_items":
+		[
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"lua",
+				"SublimeREPL: Lua"
+			],
+			[
+				"repl lua",
+				"SublimeREPL: Lua"
+			],
+			[
+				"repl hask",
+				"SublimeREPL: Haskell Run File"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"user ",
+				"Preferences: Settings - User"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"mark clear",
+				"Mark And Move: Clear"
+			],
+			[
+				"mark and m",
+				"Mark And Move: Recall"
+			],
+			[
+				"mark",
+				"Mark And Move: Save"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"list pa",
+				"Package Control: List Packages"
+			],
+			[
+				"alignme",
+				"Preferences: Alignment File Settings – Syntax Specific – User"
+			],
+			[
+				"align",
+				"Preferences: Alignment File Settings – Default"
+			],
+			[
+				"alignment",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"ip",
+				"Package Control: Install Package"
+			],
+			[
+				"pcip",
+				"Package Control: List Packages"
+			],
+			[
+				"lua run",
+				"SublimeREPL: Lua Run File"
+			],
+			[
+				"run",
+				"SublimeREPL: Lua Run File"
+			],
+			[
+				"subli",
+				"SublimeREPL: Haskell"
+			],
+			[
+				"sub",
+				"SublimeREPL: Lua"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"disco",
+				"Package Control: Discover Packages"
+			],
+			[
+				"Add",
+				"Package Control: Add Repository"
+			]
+		],
+		"width": 528.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/solar_plexus/Moje projekty/synthoflife/elm/GameOfLife.elm",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeHaskell/SublimeHaskell.sublime-settings",
+		"/C/Users/solar_plexus/Moje projekty/synthoflife/synthoflife.sublime-build",
+		"/C/Users/solar_plexus/Documents/ii.uni/neuronowe/bnj_seungMnistPCA.m",
+		"/C/Users/solar_plexus/Moje projekty/ETO/reports/zestaw8_czasy.txt",
+		"/C/Users/solar_plexus/Moje projekty/ETO/reports/zestaw7_czasy.txt",
+		"/C/Users/solar_plexus/Moje projekty/ETO/.gitignore",
+		"/C/Users/solar_plexus/Moje projekty/synthoflife/.gitignore",
+		"/C/Users/solar_plexus/Moje projekty/synthoflife/main.elm",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/Haskell/Haskell.tmLanguage",
+		"/C/sudo/Sublime Text 2.0/Data/Pristine Packages/Haskell.sublime-package",
+		"/C/sudo/Sublime Text 2.0/Pristine Packages/Haskell.sublime-package",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/Default/Preferences.sublime-settings",
+		"/C/tmp/xpiso/menu.lst",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/solar_plexus/Documents/ii.uni/lua/...ers/solar_plexus/Documents/ii.uni/lua/algorithms.lua",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/config/Haskell/Main.sublime-menu",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/config/Lua/Main.sublime-menu",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/config/Lua/Default.sublime-commands",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/config/Haskell/Default.sublime-commands",
+		"/C/Users/solar_plexus/Documents/ii.uni/lua/bst_test.lua",
+		"/C/Users/solar_plexus/Documents/ii.uni/lua/bst.lua",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/User/Lua.sublime-build",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/User/Preferences.sublime-settings",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/User/Lua.sublime-settings",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/Terminal/Base File.sublime-settings",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/Alignment/Default (Windows).sublime-keymap",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/Code Alignment/package-metadata.json",
+		"/C/sudo/Lua/5.1/lua/pl/seq.lua",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/Lua/ParseLua.py",
+		"/C/Users/solar_plexus/Documents/ii.uni/lua/algorithms.lua",
+		"/C/Users/solar_plexus/Documents/ii.uni/lua/lua",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/config/Python/Default.sublime-commands",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/config/Python/Main.sublime-menu",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/Default (Windows).sublime-keymap",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/Main.sublime-menu",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/repls/subprocess_repl.py",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/Context.sublime-menu",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/SublimeREPL/SublimeREPL.sublime-settings",
+		"/C/sudo/Sublime Text 2.0/Data/Packages/User/SublimeREPL.sublime-settings"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"step",
+			"seqStep",
+			"activeRow",
+			"step",
+			"#tab",
+			"tab",
+			"math",
+			"huge",
+			"local newMinC = (C[i, k-1] or 0) + (C[k+1,j] or 0)\n				minC = newMinC < minC and newMinC or minC",
+			"local j = i + l\n			local minC = math.huge",
+			"p",
+			"node",
+			"current",
+			"node",
+			"function",
+			"ist",
+			"function",
+			"kruskal",
+			"lcs",
+			"seq",
+			"foreach",
+			"#B",
+			"#A"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"m",
+			"n"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "elm/main.elm",
+					"settings":
+					{
+						"buffer_size": 6222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4856,
+								4856
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Haskell/Haskell.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1425.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "make.ps1",
+					"settings":
+					{
+						"buffer_size": 323,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								323,
+								323
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "synthoflife.sublime-build",
+					"settings":
+					{
+						"buffer_size": 82,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								82,
+								82
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.haskell_error_checker":
+	{
+		"height": 100.0
+	},
+	"output.haskell_sublime_load":
+	{
+		"height": 100.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 213.0,
+	"status_bar_visible": true
+}

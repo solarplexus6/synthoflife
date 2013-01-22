@@ -1,0 +1,4 @@
+{
+	"cmd": ["powershell", "-File", "make.ps1"],
+	"working_dir": "${project_path}"
+}
