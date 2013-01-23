@@ -1,1 +1,1 @@
-synthoflife: node app/app.js
+synthoflife: node app.js
