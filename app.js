@@ -15,11 +15,11 @@ var express = require('express')
   , app = express();
 
 //MongoDB
-mongoose.connect('mongodb://127.0.0.1/SofDB');
+//mongoose.connect('mongodb://127.0.0.1/SofDB');
 
-mongoose.connection.on('open', function() {
-   console.log('Connected to Mongoose');
-});
+// mongoose.connection.on('open', function() {
+//    console.log('Connected to Mongoose');
+// });
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
