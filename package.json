@@ -10,5 +10,8 @@
     "jade": "*",
     "stylus": "*",
     "mongoose": "*"
+  },
+  "engines": {
+    "node": ">=0.8"
   }
 }
