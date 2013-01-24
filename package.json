@@ -1,9 +1,9 @@
 {
   "name": "synthoflife",
-  "version": "0.0.1",
+  "version": "0.0.1-3",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "app.js"
   },
   "dependencies": {
     "express": "3.0.0",
@@ -14,5 +14,6 @@
   "engines": {
     "node": ">=0.8",
     "npm": ">=1.1.6"
-  }
+  },
+  "subdomain": "synthoflife"
 }

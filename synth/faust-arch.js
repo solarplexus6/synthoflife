@@ -21,11 +21,11 @@ function UI(){
        console.log("addButton: " + label);
 
        document.addEventListener(label + '-on', function(e) {
-            var btnPushTime = 10;
+            var btnPushTime = 50;
 
             handler(1);
             console.log("on: "+ label)
-            setTimeOut(function () {
+            setTimeout(function () {
                     handler(0);
                     console.log("off: "+ label)
                 }, btnPushTime);

@@ -15,11 +15,17 @@ var express = require('express')
   , app = express();
 
 //MongoDB
-//mongoose.connect('mongodb://127.0.0.1/SofDB');
+if (process.env.NODE_ENV === "production"){
+  mongoose.connect('mongodb://nodejitsu:d11b77684cc85b5c1070bb77535834b7@linus.mongohq.com:10042/nodejitsudb6063480114');
+}
+else{
+  mongoose.connect('mongodb://127.0.0.1/SofDB');
+}
 
-// mongoose.connection.on('open', function() {
-//    console.log('Connected to Mongoose');
-// });
+
+mongoose.connection.on('open', function() {
+   console.log('Connected to Mongoose');
+});
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
