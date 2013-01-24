@@ -24,7 +24,7 @@ palColorBlink = rgba 222 222 222 0.5
 
 golSpeed = 500
 sequencerSteps = 16
-sequencerSpeed = 600
+sequencerSpeed = 300
 
 foreign import jsevent "provideHost"
     (castStringToJSString "")

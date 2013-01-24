@@ -1,5 +1,5 @@
 <!-- UI builder -->
-
+ 
 function UI(){
     this.openHorizontalBox = function(label)
     {
