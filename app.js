@@ -15,12 +15,12 @@ var express = require('express')
   , app = express();
 
 //MongoDB
-if (process.env.NODE_ENV === "production"){
+//if (process.env.NODE_ENV === "production"){
   mongoose.connect('mongodb://nodejitsu:d11b77684cc85b5c1070bb77535834b7@linus.mongohq.com:10042/nodejitsudb6063480114');
-}
-else{
-  mongoose.connect('mongodb://127.0.0.1/SofDB');
-}
+//}
+//else{
+//  mongoose.connect('mongodb://127.0.0.1/SofDB');
+//}
 
 
 mongoose.connection.on('open', function() {

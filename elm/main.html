@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style type="text/css">html,head,body { padding:0; margin:0; }body { font-family: helvetica, arial, sans-serif; }</style></head><body><script type="text/javascript" src="..\lib\elm-runtime.js"></script><script type="text/javascript"><!-- UI builder -->
-
+<html><head><meta charset="UTF-8"><title>Main</title><style type="text/css">html,head,body { padding:0; margin:0; }body { font-family: helvetica, arial, sans-serif; }</style></head><body><script type="text/javascript" src="../lib/elm-runtime.js"></script><script type="text/javascript"><!-- UI builder -->
+ 
 function UI(){
     this.openHorizontalBox = function(label)
     {
@@ -1098,6 +1098,12 @@ Elm.Main=function(){
   throw ("Module 'GameOfLife' is missing. Compile with --make flag or load missing module in a separate JavaScript file.");
  }
  var GameOfLife=Elm.GameOfLife;
+ try{
+  if (!(Elm.Input instanceof Object)) throw 'module not found';
+ } catch(e) {
+  throw ("Module 'Input' is missing. Compile with --make flag or load missing module in a separate JavaScript file.");
+ }
+ var checkbox=Elm.Input.checkbox;
  function Preset_17(a1){
   return function(a2){
    return function(a3){
@@ -1106,36 +1112,36 @@ Elm.Main=function(){
  Value.addListener(document, 'provideHost', function(e) { Dispatcher.notify(jsHost_13.id, e.value); });
  var presetUrl_14=Elm.Signal.constant(castStringToJSString(Value.str('')));
  Value.addListener(document, 'providePresetUrl', function(e) { Dispatcher.notify(presetUrl_14.id, e.value); });
- function placeholder_1(w_43){
-  return function(h_44){
-   return function(col_45){
-    return function(text_46){
-     return color(col_45)(container(w_43)(h_44)(middle)(plainText(text_46)));};};};}
- function repeat_2(a_47){
-  return function(n_48){
-   return map(function(__49){
-    return a_47;})(function(){
+ function placeholder_1(w_46){
+  return function(h_47){
+   return function(col_48){
+    return function(text_49){
+     return color(col_48)(container(w_46)(h_47)(middle)(plainText(text_49)));};};};}
+ function repeat_2(a_50){
+  return function(n_51){
+   return map(function(__52){
+    return a_50;})(function(){
     var lo=1;
-    var hi=n_48;
+    var hi=n_51;
     var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
     return lst;}());};}
- function getPoint_18(asocList_50){
+ function getPoint_18(asocList_53){
   return function(){
-  switch(asocList_50[0]){
+  switch(asocList_53[0]){
    case 'Cons':
-   switch(asocList_50[1][0]){
+   switch(asocList_53[1][0]){
     case 'Tuple2':
-    switch(asocList_50[1][2][0]){
+    switch(asocList_53[1][2][0]){
      case 'JsonNumber':
-     switch(asocList_50[2][0]){
+     switch(asocList_53[2][0]){
       case 'Cons':
-      switch(asocList_50[2][1][0]){
+      switch(asocList_53[2][1][0]){
        case 'Tuple2':
-       switch(asocList_50[2][1][2][0]){
+       switch(asocList_53[2][1][2][0]){
         case 'JsonNumber':
-        switch(asocList_50[2][2][0]){
+        switch(asocList_53[2][2][0]){
          case 'Nil':
-         return Just(['Tuple2',asocList_50[1][2][1],asocList_50[2][1][2][1]]);
+         return Just(['Tuple2',asocList_53[1][2][1],asocList_53[2][1][2][1]]);
         }break;
        }break;
       }break;
@@ -1144,123 +1150,123 @@ Elm.Main=function(){
    }break;
   }
   return Nothing;}();}
- function getValue_19(obj_53){
+ function getValue_19(obj_56){
   return function(){
-  switch(obj_53[0]){
+  switch(obj_56[0]){
    case 'JsonObject':
-   return obj_53[1];
+   return obj_56[1];
   }
   return JSON.empty;}();}
- function handleResponse_20(res_55){
+ function handleResponse_20(res_58){
   return function(){
-  switch(res_55[0]){
+  switch(res_58[0]){
    case 'Failure':
    return JSON.empty;
    case 'Success':
-   return JSON.fromString(res_55[1]);
+   return JSON.fromString(res_58[1]);
    case 'Waiting':
    return JSON.empty;
   }
   throw "Non-exhaustive pattern match in case";}();}
- function castPointListToJSArray_27(xs_76){
-  return castListToJSArray(map(function(Tuple2$xy_77){
+ function castPointListToJSArray_30(xs_83){
+  return castListToJSArray(map(function(Tuple2$xy_84){
    return function(){
-   switch(Tuple2$xy_77[0]){
+   switch(Tuple2$xy_84[0]){
     case 'Tuple2':
-    return castTupleToJSTuple2(['Tuple2',castIntToJSNumber(Tuple2$xy_77[1]),castIntToJSNumber(Tuple2$xy_77[2])]);
+    return castTupleToJSTuple2(['Tuple2',castIntToJSNumber(Tuple2$xy_84[1]),castIntToJSNumber(Tuple2$xy_84[2])]);
    }
-   throw "Non-exhaustive pattern match in case";}();})(xs_76));}
- function gofCell_32(w_101){
-  return function(h_102){
-   return function(Tuple2$xy_103){
+   throw "Non-exhaustive pattern match in case";}();})(xs_83));}
+ function gofCell_35(w_108){
+  return function(h_109){
+   return function(Tuple2$xy_110){
     return function(){
-    switch(Tuple2$xy_103[0]){
+    switch(Tuple2$xy_110[0]){
      case 'Tuple2':
-     return filled(palColorAccent_8)(rect(w_101)(h_102)(['Tuple2',Tuple2$xy_103[1],Tuple2$xy_103[2]]));
+     return filled(palColorAccent_8)(rect(w_108)(h_109)(['Tuple2',Tuple2$xy_110[1],Tuple2$xy_110[2]]));
     }
     throw "Non-exhaustive pattern match in case";}();};};}
- function noCell_33(w_106){
-  return function(h_107){
-   return function(Tuple2$xy_108){
-    return function(){
-    switch(Tuple2$xy_108[0]){
-     case 'Tuple2':
-     return filled(palColor31_7)(rect(w_106)(h_107)(['Tuple2',Tuple2$xy_108[1],Tuple2$xy_108[2]]));
-    }
-    throw "Non-exhaustive pattern match in case";}();};};}
- function synthCtrl_34(w_111){
-  return function(h_112){
-   return placeholder_1(w_111)(h_112)(palColor22_6)(Value.str('Sythesizer controls'));};}
- function golCtrl_35(w_113){
+ function noCell_36(w_113){
   return function(h_114){
-   return placeholder_1(w_113)(h_114)(palColor22_6)(Value.str('GoL controls'));};}
- function presets_36(w_115){
-  return function(h_116){
-   return function(presetName_117){
-    return placeholder_1(w_115)(h_116)(palColor22_6)(presetName_117);};};}
- function sequencer_37(w_118){
+   return function(Tuple2$xy_115){
+    return function(){
+    switch(Tuple2$xy_115[0]){
+     case 'Tuple2':
+     return filled(palColor31_7)(rect(w_113)(h_114)(['Tuple2',Tuple2$xy_115[1],Tuple2$xy_115[2]]));
+    }
+    throw "Non-exhaustive pattern match in case";}();};};}
+ function synthCtrl_37(w_118){
   return function(h_119){
-   return function(activeCells_120){
-    return function(seqStep_121){
+   return placeholder_1(w_118)(h_119)(palColor22_6)(Value.str('Sythesizer controls'));};}
+ function golCtrl_38(w_120){
+  return function(h_121){
+   return color(palColor22_6)(container(w_120)(h_121)(middle)(above(plainText('Gof controls'))(beside(plainText('Active'))(golControl_27))));};}
+ function presets_39(w_122){
+  return function(h_123){
+   return function(presetName_124){
+    return placeholder_1(w_122)(h_123)(palColor22_6)(presetName_124);};};}
+ function sequencer_40(w_125){
+  return function(h_126){
+   return function(activeCells_127){
+    return function(seqStep_128){
      return function(){
-      var cellSize_122=(toFloat(w_118)/sequencerSteps_11);
-      var grid_124=concatMap(function(c_128){
-       return zip(repeat_2(c_128)(sequencerSteps_11))(map(coordinate_123)(function(){
+      var cellSize_129=(toFloat(w_125)/sequencerSteps_11);
+      var grid_131=concatMap(function(c_135){
+       return zip(repeat_2(c_135)(sequencerSteps_11))(map(coordinate_130)(function(){
         var lo=1;
         var hi=sequencerSteps_11;
         var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
-        return lst;}()));})(map(coordinate_123)(function(){
+        return lst;}()));})(map(coordinate_130)(function(){
        var lo=1;
        var hi=sequencerSteps_11;
        var lst=["Nil"];if(lo<=hi){do{lst=['Cons',hi,lst]}while(hi-->lo)}
        return lst;}()));
-      var inactiveCells_125=map(noCell_33((cellSize_122*0.8))((cellSize_122*0.8)))(grid_124);
-      var stepIndicator_126=filled(palColorBlink_9)(rect(cellSize_122)(h_119)(['Tuple2',coordinate_123(seqStep_121),div(h_119)(2)]));
-      function coordinate_123(x_127){
-       return ((cellSize_122*toFloat(x_127))-(cellSize_122*0.5));}
-      return collage(w_118)(h_119)(Value.append(inactiveCells_125,['Cons',stepIndicator_126,map(gofCell_32((cellSize_122*0.8))((cellSize_122*0.8)))(map(function(Tuple2$xy_129){
+      var inactiveCells_132=map(noCell_36((cellSize_129*0.8))((cellSize_129*0.8)))(grid_131);
+      var stepIndicator_133=filled(palColorBlink_9)(rect(cellSize_129)(h_126)(['Tuple2',coordinate_130(seqStep_128),div(h_126)(2)]));
+      function coordinate_130(x_134){
+       return ((cellSize_129*toFloat(x_134))-(cellSize_129*0.5));}
+      return collage(w_125)(h_126)(Value.append(inactiveCells_132,['Cons',stepIndicator_133,map(gofCell_35((cellSize_129*0.8))((cellSize_129*0.8)))(map(function(Tuple2$xy_136){
        return function(){
-       switch(Tuple2$xy_129[0]){
+       switch(Tuple2$xy_136[0]){
         case 'Tuple2':
-        return ['Tuple2',coordinate_123(Tuple2$xy_129[1]),coordinate_123(Tuple2$xy_129[2])];
+        return ['Tuple2',coordinate_130(Tuple2$xy_136[1]),coordinate_130(Tuple2$xy_136[2])];
        }
-       throw "Non-exhaustive pattern match in case";}();})(activeCells_120))]));}();};};};}
- function percent_38(x_132){
-  return function(p_133){
-   return div((x_132*p_133))(100);};}
- function view_39(Tuple2$wh_134){
-  return function(gol_135){
-   return function(Preset$presetSnpresetNamepresetPattern_136){
-    return function(seqColumn_137){
+       throw "Non-exhaustive pattern match in case";}();})(activeCells_127))]));}();};};};}
+ function percent_41(x_139){
+  return function(p_140){
+   return div((x_139*p_140))(100);};}
+ function view_42(Tuple2$wh_141){
+  return function(gol_142){
+   return function(Preset$presetSnpresetNamepresetPattern_143){
+    return function(seqColumn_144){
      return function(){
-     switch(Tuple2$wh_134[0]){
+     switch(Tuple2$wh_141[0]){
       case 'Tuple2':
       return function(){
-      switch(Preset$presetSnpresetNamepresetPattern_136[0]){
+      switch(Preset$presetSnpresetNamepresetPattern_143[0]){
        case 'Preset':
        return function(){
-        var layout_w_143=div((7*Tuple2$wh_134[1]))(8);
-        var game_h_144=div((5*Tuple2$wh_134[2]))(7);
-        var seqStep_145=function(){
-        switch(seqColumn_137[0]){
+        var layout_w_150=div((7*Tuple2$wh_141[1]))(8);
+        var game_h_151=div((5*Tuple2$wh_141[2]))(7);
+        var seqStep_152=function(){
+        switch(seqColumn_144[0]){
          case 'Cons':
-         switch(seqColumn_137[1][0]){
+         switch(seqColumn_144[1][0]){
           case 'Tuple2':
-          return seqColumn_137[1][1];
+          return seqColumn_144[1][1];
          }break;
          case 'Nil':
          return -1;
         }
         throw "Non-exhaustive pattern match in case";}();
-        var seqView_146=sequencer_37(percent_38(game_h_144)(90))(percent_38(game_h_144)(90))(gol_135)(seqStep_145);
-        return color(palColor1_3)(container(Tuple2$wh_134[1])(Tuple2$wh_134[2])(middle)(color(palColor21_5)(above(above(container(layout_w_143)(game_h_144)(middle)(flow(right)(['Cons',golCtrl_35(percent_38(layout_w_143)(12))(percent_38(game_h_144)(80)),['Cons',spacer(percent_38(layout_w_143)(1))(percent_38(game_h_144)(80)),['Cons',seqView_146,['Cons',spacer(percent_38(layout_w_143)(1))(percent_38(game_h_144)(80)),['Cons',presets_36(percent_38(layout_w_143)(12))(percent_38(game_h_144)(80))(Preset$presetSnpresetNamepresetPattern_136[2]),['Nil']]]]]])))(synthCtrl_34(layout_w_143)(div(Tuple2$wh_134[2])(6))))(asText(Preset$presetSnpresetNamepresetPattern_136[1])))));}();
+        var seqView_153=sequencer_40(percent_41(game_h_151)(90))(percent_41(game_h_151)(90))(gol_142)(seqStep_152);
+        return color(palColor1_3)(container(Tuple2$wh_141[1])(Tuple2$wh_141[2])(middle)(color(palColor21_5)(above(above(container(layout_w_150)(game_h_151)(middle)(flow(right)(['Cons',golCtrl_38(percent_41(layout_w_150)(12))(percent_41(game_h_151)(80)),['Cons',spacer(percent_41(layout_w_150)(1))(percent_41(game_h_151)(80)),['Cons',seqView_153,['Cons',spacer(percent_41(layout_w_150)(1))(percent_41(game_h_151)(80)),['Cons',presets_39(percent_41(layout_w_150)(12))(percent_41(game_h_151)(80))(Preset$presetSnpresetNamepresetPattern_143[2]),['Nil']]]]]])))(synthCtrl_37(layout_w_150)(div(Tuple2$wh_141[2])(6))))(asText(Preset$presetSnpresetNamepresetPattern_143[1])))));}();
       }
       throw "Non-exhaustive pattern match in case";}();
      }
      throw "Non-exhaustive pattern match in case";}();};};};}
- var clickLocations_0=foldp(function(x_41){
-  return function(y_42){
-   return ['Cons',x_41,y_42];};})(['Nil'])(sampleOn(clicks)(position));
+ var clickLocations_0=foldp(function(x_44){
+  return function(y_45){
+   return ['Cons',x_44,y_45];};})(['Nil'])(sampleOn(clicks)(position));
  var palColor1_3=rgb(51)(49)(48);
  var palColor12_4=rgb(71)(69)(68);
  var palColor21_5=rgb(30)(27)(32);
@@ -1274,91 +1280,104 @@ Elm.Main=function(){
  var host_15=lift(castJSStringToString)(jsHost_13);
  var presetSignal_21=sendGet(lift(castJSStringToString)(presetUrl_14));
  var presetSignal_21=function(){
-  function deserializePattern_57(preset_61){
-   return mapMaybe(function(obj_62){
-    return getPoint_18(JSON.toList(getValue_19(obj_62)));})(JSON.findArray(Value.str('pattern'))(preset_61));}
-  function deserializeName_58(preset_63){
-   return JSON.findString(Value.str('name'))(preset_63);}
-  function deserializeSn_59(preset_64){
-   return JSON.findString(Value.str('sn'))(preset_64);}
-  function deserializePreset_60(preset_65){
+  function deserializePattern_60(preset_64){
+   return mapMaybe(function(obj_65){
+    return getPoint_18(JSON.toList(getValue_19(obj_65)));})(JSON.findArray(Value.str('pattern'))(preset_64));}
+  function deserializeName_61(preset_66){
+   return JSON.findString(Value.str('name'))(preset_66);}
+  function deserializeSn_62(preset_67){
+   return JSON.findString(Value.str('sn'))(preset_67);}
+  function deserializePreset_63(preset_68){
    return function(){
-    var presetObj_66=handleResponse_20(preset_65);
-    return Preset_17(deserializeSn_59(presetObj_66))(deserializeName_58(presetObj_66))(deserializePattern_57(presetObj_66));}();}
-  return lift(deserializePreset_60)(presetSignal_21);}();
- var patternSignal_22=lift(function(Preset$__pattern_67){
+    var presetObj_69=handleResponse_20(preset_68);
+    return Preset_17(deserializeSn_62(presetObj_69))(deserializeName_61(presetObj_69))(deserializePattern_60(presetObj_69));}();}
+  return lift(deserializePreset_63)(presetSignal_21);}();
+ var patternSignal_22=lift(function(Preset$__pattern_70){
   return function(){
-  switch(Preset$__pattern_67[0]){
+  switch(Preset$__pattern_70[0]){
    case 'Preset':
-   return Preset$__pattern_67[3];
+   return Preset$__pattern_70[3];
   }
   throw "Non-exhaustive pattern match in case";}();})(presetSignal_21);
  var exploder_23=['Cons',['Tuple2',8,8],['Cons',['Tuple2',7,9],['Cons',['Tuple2',8,9],['Cons',['Tuple2',9,9],['Cons',['Tuple2',7,10],['Cons',['Tuple2',9,10],['Cons',['Tuple2',8,11],['Nil']]]]]]]];
  var cycleExploder_24=['Cons',['Tuple2',8,8],['Cons',['Tuple2',8,12],['Cons',['Tuple2',6,8],['Cons',['Tuple2',6,9],['Cons',['Tuple2',6,10],['Cons',['Tuple2',6,11],['Cons',['Tuple2',6,12],['Cons',['Tuple2',10,8],['Cons',['Tuple2',10,9],['Cons',['Tuple2',10,10],['Cons',['Tuple2',10,11],['Cons',['Tuple2',10,12],['Nil']]]]]]]]]]]]];
  var golAutomaton_25=function(){
-  var gol_70=GameOfLife.fromList(cycleExploder_24);
-  function fstep_69(input_71){
-   return function(stateGol_72){
+  var gol_73=GameOfLife.fromList(cycleExploder_24);
+  function fstep_72(input_74){
+   return function(stateGol_75){
     return function(){
-     var gol_73=function(){
-     switch(input_71[0]){
+     var gol_76=function(){
+     switch(input_74[0]){
       case 'Nil':
-      return stateGol_72;
+      return stateGol_75;
      }
-     return GameOfLife.fromList(input_71);}();
-     var out_74=GameOfLife.limit(GameOfLife.step(gol_73))(sequencerSteps_11);
-     return ['Tuple2',GameOfLife.toList(out_74),out_74];}();};}
-  return init_(gol_70)(fstep_69);}();
- var mainGol_26=run(golAutomaton_25)(merge(patternSignal_22)(lift(function(__75){
-  return ['Nil'];})(every(golSpeed_10))));
- var exportGol_28=lift(castPointListToJSArray_27)(mainGol_26);
- var sequencerAutomaton_29=function(){
-  function fstep_80(input_81){
-   return function(Tuple2$stateGolstateStep_82){
+     return GameOfLife.fromList(input_74);}();
+     var out_77=GameOfLife.limit(GameOfLife.step(gol_76))(sequencerSteps_11);
+     return ['Tuple2',GameOfLife.toList(out_77),out_77];}();};}
+  return init_(gol_73)(fstep_72);}();
+ var Tuple2$golControlgolActive_26=checkbox(true);
+ var golControl_27=function(){
+ switch(Tuple2$golControlgolActive_26[0]){
+  case 'Tuple2':
+  return Tuple2$golControlgolActive_26[1];
+ }
+ throw "Non-exhaustive pattern match in case";}();
+ var golActive_28=function(){
+ switch(Tuple2$golControlgolActive_26[0]){
+  case 'Tuple2':
+  return Tuple2$golControlgolActive_26[2];
+ }
+ throw "Non-exhaustive pattern match in case";}();
+ var mainGol_29=run(golAutomaton_25)(merge(patternSignal_22)(keepWhen(golActive_28)(['Nil'])(lift(function(__82){
+  return ['Nil'];})(every(golSpeed_10)))));
+ var exportGol_31=lift(castPointListToJSArray_30)(mainGol_29);
+ var sequencerAutomaton_32=function(){
+  function fstep_87(input_88){
+   return function(Tuple2$stateGolstateStep_89){
     return function(){
-    switch(Tuple2$stateGolstateStep_82[0]){
+    switch(Tuple2$stateGolstateStep_89[0]){
      case 'Tuple2':
      return function(){
-      var Tuple3$golstepnew_85=function(){
-      switch(input_81[0]){
+      var Tuple3$golstepnew_92=function(){
+      switch(input_88[0]){
        case 'Nil':
-       return ['Tuple3',Tuple2$stateGolstateStep_82[1],(1+mod(Tuple2$stateGolstateStep_82[2])(sequencerSteps_11)),true];
+       return ['Tuple3',Tuple2$stateGolstateStep_89[1],(1+mod(Tuple2$stateGolstateStep_89[2])(sequencerSteps_11)),true];
       }
-      return ['Tuple3',input_81,Tuple2$stateGolstateStep_82[2],false];}();
-      var gol_86=function(){
-      switch(Tuple3$golstepnew_85[0]){
+      return ['Tuple3',input_88,Tuple2$stateGolstateStep_89[2],false];}();
+      var gol_93=function(){
+      switch(Tuple3$golstepnew_92[0]){
        case 'Tuple3':
-       return Tuple3$golstepnew_85[1];
+       return Tuple3$golstepnew_92[1];
       }
       throw "Non-exhaustive pattern match in case";}();
-      var step_87=function(){
-      switch(Tuple3$golstepnew_85[0]){
+      var step_94=function(){
+      switch(Tuple3$golstepnew_92[0]){
        case 'Tuple3':
-       return Tuple3$golstepnew_85[2];
+       return Tuple3$golstepnew_92[2];
       }
       throw "Non-exhaustive pattern match in case";}();
-      var new_88=function(){
-      switch(Tuple3$golstepnew_85[0]){
+      var new_95=function(){
+      switch(Tuple3$golstepnew_92[0]){
        case 'Tuple3':
-       return Tuple3$golstepnew_85[3];
+       return Tuple3$golstepnew_92[3];
       }
       throw "Non-exhaustive pattern match in case";}();
-      return ['Tuple2',['Tuple2',filter(function(Tuple2$x__98){
+      return ['Tuple2',['Tuple2',filter(function(Tuple2$x__105){
        return function(){
-       switch(Tuple2$x__98[0]){
+       switch(Tuple2$x__105[0]){
         case 'Tuple2':
-        return eq(Tuple2$x__98[1],step_87);
+        return eq(Tuple2$x__105[1],step_94);
        }
-       throw "Non-exhaustive pattern match in case";}();})(gol_86),new_88],['Tuple2',gol_86,step_87]];}();
+       throw "Non-exhaustive pattern match in case";}();})(gol_93),new_95],['Tuple2',gol_93,step_94]];}();
     }
     throw "Non-exhaustive pattern match in case";}();};}
-  return init_(['Tuple2',['Nil'],0])(fstep_80);}();
- var sequencerSignal_30=lift(fst)(keepIf(snd)(['Tuple2',['Nil'],true])(run(sequencerAutomaton_29)(merge(mainGol_26)(lift(function(__100){
+  return init_(['Tuple2',['Nil'],0])(fstep_87);}();
+ var sequencerSignal_33=lift(fst)(keepIf(snd)(['Tuple2',['Nil'],true])(run(sequencerAutomaton_32)(merge(mainGol_29)(lift(function(__107){
   return ['Nil'];})(every(sequencerSpeed_12))))));
- var exportSequencer_31=lift(castPointListToJSArray_27)(sequencerSignal_30);
- var main_40=lift4(view_39)(dimensions)(mainGol_26)(presetSignal_21)(sequencerSignal_30);
- lift(function(v) { var e = document.createEvent('Event');e.initEvent('onGolStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportGol_28);
- lift(function(v) { var e = document.createEvent('Event');e.initEvent('onSequencerStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportSequencer_31);
+ var exportSequencer_34=lift(castPointListToJSArray_30)(sequencerSignal_33);
+ var main_43=lift4(view_42)(dimensions)(mainGol_29)(presetSignal_21)(sequencerSignal_33);
+ lift(function(v) { var e = document.createEvent('Event');e.initEvent('onGolStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportGol_31);
+ lift(function(v) { var e = document.createEvent('Event');e.initEvent('onSequencerStep', true, true);e.value = v;document.dispatchEvent(e); return v; })(exportSequencer_34);
  return {$op : {},
  clickLocations:clickLocations_0,
  placeholder:placeholder_1,
@@ -1386,24 +1405,27 @@ Elm.Main=function(){
  exploder:exploder_23,
  cycleExploder:cycleExploder_24,
  golAutomaton:golAutomaton_25,
- mainGol:mainGol_26,
- castPointListToJSArray:castPointListToJSArray_27,
- exportGol:exportGol_28,
- sequencerAutomaton:sequencerAutomaton_29,
- sequencerSignal:sequencerSignal_30,
- exportSequencer:exportSequencer_31,
- gofCell:gofCell_32,
- noCell:noCell_33,
- synthCtrl:synthCtrl_34,
- golCtrl:golCtrl_35,
- presets:presets_36,
- sequencer:sequencer_37,
- percent:percent_38,
- view:view_39,
- main:main_40};}();
+ Tuple2$golControlgolActive:Tuple2$golControlgolActive_26,
+ golControl:golControl_27,
+ golActive:golActive_28,
+ mainGol:mainGol_29,
+ castPointListToJSArray:castPointListToJSArray_30,
+ exportGol:exportGol_31,
+ sequencerAutomaton:sequencerAutomaton_32,
+ sequencerSignal:sequencerSignal_33,
+ exportSequencer:exportSequencer_34,
+ gofCell:gofCell_35,
+ noCell:noCell_36,
+ synthCtrl:synthCtrl_37,
+ golCtrl:golCtrl_38,
+ presets:presets_39,
+ sequencer:sequencer_40,
+ percent:percent_41,
+ view:view_42,
+ main:main_43};}();
 Elm.main=function(){
  return Elm.Main.main;};
 } catch (e) {
 Elm.main=function() {
-var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>Failure, GameOfLife.fromList, GameOfLife.limit, GameOfLife.step, GameOfLife.toList, JSON.empty, JsonNumber, JsonObject, Success, Waiting, above, clicks, dimensions, every, fst, mapMaybe, position, sendGet, snd</span>');
-document.body.innerHTML = Elm.Text.monospace(msg);throw e;};}</script><div id="widthChecker" style="width:100%; height:1px; position:absolute; top:-1px;"></div><div id="content"></div><script type="text/javascript">Dispatcher.initialize()</script><noscript><p>pattern</p><p>name</p><p>sn</p><p>Sythesizer controls</p><p>GoL controls</p></noscript></body></html>
+var msg = ('<br/><h2>Your browser may not be supported. Are you using a modern browser?</h2>' + '<br/><span style="color:grey">Runtime Error in Main module:<br/>' + e + '<br/><br/>The problem may stem from an improper usage of:<br/>Failure, GameOfLife.fromList, GameOfLife.limit, GameOfLife.step, GameOfLife.toList, JSON.empty, JsonNumber, JsonObject, Success, Waiting, above, beside, checkbox, clicks, dimensions, every, fst, mapMaybe, position, sendGet, snd</span>');
+document.body.innerHTML = Elm.Text.monospace(msg);throw e;};}</script><div id="widthChecker" style="width:100%; height:1px; position:absolute; top:-1px;"></div><div id="content"></div><script type="text/javascript">Dispatcher.initialize()</script><noscript><p>pattern</p><p>name</p><p>sn</p><p>Sythesizer controls</p><p>Gof controls</p><p>Active</p></noscript></body></html>

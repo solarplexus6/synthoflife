@@ -7,6 +7,7 @@ import JavaScript
 import JSON as JSON
 import HTTP(sendGet)
 import GameOfLife as GameOfLife
+import Input (checkbox)
 
 clickLocations = foldp (:) [] (sampleOn clicks position)
 
@@ -80,7 +81,8 @@ golAutomaton =
         gol = GameOfLife.fromList cycleExploder
     in init' gol fstep
 
-mainGol = run golAutomaton $ patternSignal `merge` (lift (\_ -> []) $ every golSpeed)
+(golControl, golActive) = checkbox True
+mainGol = run golAutomaton $ patternSignal `merge` (keepWhen golActive [] $ lift (\_ -> []) $ every golSpeed)
 
 foreign export jsevent "onGolStep"
     exportGol :: Signal (JSArray (JSTuple2 JSNumber JSNumber))
@@ -113,7 +115,8 @@ gofCell w h (x,y) =   filled palColorAccent $ rect w h (x,y)
 noCell w h (x,y)  = filled palColor31 $ rect w h (x,y)
 
 synthCtrl w h = placeholder w h palColor22 "Sythesizer controls"
-golCtrl w h = placeholder w h palColor22 "GoL controls"
+golCtrl w h = color palColor22 $ container w h middle $
+                (plainText "Gof controls") `above` (plainText "Active") `beside` golControl
 presets w h presetName = placeholder w h palColor22 presetName
 sequencer w h activeCells seqStep =
                 let cellSize = toFloat(w)/sequencerSteps
