@@ -1,0 +1,14 @@
+--- 
+applications: 
+- name: synthoflife
+  framework: node
+  runtime: node08
+  memory: 128M
+  instances: 1
+  url: synthoflife.${target-base}
+  path: .
+  services: 
+    mongodb-88b20: 
+      vendor: mongodb
+      version: "2.0"
+      tier: free
