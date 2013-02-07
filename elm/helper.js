@@ -23,13 +23,12 @@ function initHelper() {
 
         if (row[0] == null){
             return;
-        }
-        console.log('Row:', row[0][0], row);
+        }        
         //var note = Math.max.apply(Math, row.map(function (pair) { return pair[1]; }));
         var notes = row.map(function (pair) { return pair[1]; });
         for (var i = 0; i < notes.length; i++) {
             ep = document.createEvent('Event');
-            ep.initEvent('hand'+ (notes[i] - 1) +'-on', true, true);
+            ep.initEvent('hand'+ (notes[i]) +'-on', true, true);
             document.dispatchEvent(ep);
         };
     });

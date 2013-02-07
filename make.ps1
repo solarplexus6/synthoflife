@@ -1,4 +1,4 @@
-$elmRuntime = "../lib/elm-runtime.js"
+$elmRuntime = "/lib/elm-runtime.js"
 $elmFolder = "elm"
 $main = "main"
 $publicPath = ".\public\"

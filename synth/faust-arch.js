@@ -23,11 +23,9 @@ function UI(){
        document.addEventListener(label + '-on', function(e) {
             var btnPushTime = 50;
 
-            handler(1);
-            console.log("on: "+ label)
+            handler(1);            
             setTimeout(function () {
-                    handler(0);
-                    console.log("off: "+ label)
+                    handler(0);                    
                 }, btnPushTime);
         });
     }

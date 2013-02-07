@@ -90,14 +90,12 @@ voiceOsc(i, N, att, lvl) = (hand(i), 0, (oscillator( 440 * 2.0^(i/5.0))))
     };
 
 voiceAdd(i, N, att, lvl) = hand
-                        : adsr(0.1, 0.05, 80, 1)
+                        : adsr(0.1, 0.05, 80, 0.5)
                         : * (partials)
-                        : *(lvl)
-                        : pan((i+0.5)/N)
+                        : *(lvl)                        
     with {
-        partials = par(j, 3, oscillator( 440 * 2.0^(i/5.0) * (j+1)) / (2.0^j)) :> _;
-        hand = button("hand%i");
-        pan(p) = _ <: *(sqrt(1-p)), *(sqrt(p));
+        partials = par(j, 2, oscillator( 220 * 2.0^(i/5.0) * (j+1)) / (j+1) ) :> _;
+        hand = button("hand%i");        
     };
 
 harpe(N) =  par(i, N,  voiceAdd(i, N, att, lvl)) :> _,_

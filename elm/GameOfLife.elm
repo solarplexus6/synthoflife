@@ -1,6 +1,6 @@
 module GameOfLife (empty, step, alive
                    ,toList, fromList
-                   ,insert, remove
+                   ,insert, remove, diff
                    ,limit) where
 
 import Common as Common
@@ -13,6 +13,7 @@ fromList    = Set.fromList
 toList      = Set.toList
 
 insert = Set.insert
+diff = Set.diff
 
 --remove :: (Int, Int) -> GameOfLife -> GameOfLife
 remove = Set.remove

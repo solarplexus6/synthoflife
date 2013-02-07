@@ -23,11 +23,9 @@ function UI(){
        document.addEventListener(label + '-on', function(e) {
             var btnPushTime = 50;
 
-            handler(1);
-            console.log("on: "+ label)
+            handler(1);            
             setTimeout(function () {
-                    handler(0);
-                    console.log("off: "+ label)
+                    handler(0);                    
                 }, btnPushTime);
         });
     }
@@ -155,55 +153,39 @@ function faustpower2_f(value) {
 
 function dsp() {
 	
-	this.fRec72 = new Float32Array(2);
-	this.fRec71 = new Float32Array(2);
-	this.fRec70 = new Float32Array(2);
-	this.iRec69 = new Int32Array(2);
-	this.fRec68 = new Float32Array(2);
-	this.fRec67 = new Float32Array(2);
-	this.fRec66 = new Float32Array(2);
-	this.fRec65 = new Float32Array(2);
-	this.iRec64 = new Int32Array(2);
-	this.fRec63 = new Float32Array(2);
-	this.fRec62 = new Float32Array(2);
-	this.fRec61 = new Float32Array(2);
-	this.iRec60 = new Int32Array(2);
-	this.fRec59 = new Float32Array(2);
-	this.fRec58 = new Float32Array(2);
-	this.fRec57 = new Float32Array(2);
-	this.iRec56 = new Int32Array(2);
+	this.fRec56 = new Float32Array(2);
 	this.fRec55 = new Float32Array(2);
 	this.fRec54 = new Float32Array(2);
-	this.fRec53 = new Float32Array(2);
+	this.iRec53 = new Int32Array(2);
 	this.fRec52 = new Float32Array(2);
-	this.iRec51 = new Int32Array(2);
+	this.fRec51 = new Float32Array(2);
 	this.fRec50 = new Float32Array(2);
-	this.fRec49 = new Float32Array(2);
+	this.iRec49 = new Int32Array(2);
 	this.fRec48 = new Float32Array(2);
 	this.iRec47 = new Int32Array(2);
 	this.fRec46 = new Float32Array(2);
-	this.fRec45 = new Float32Array(2);
+	this.iRec45 = new Int32Array(2);
 	this.fRec44 = new Float32Array(2);
-	this.iRec43 = new Int32Array(2);
-	this.fRec42 = new Float32Array(2);
+	this.fRec43 = new Float32Array(2);
+	this.iRec42 = new Int32Array(2);
 	this.fRec41 = new Float32Array(2);
 	this.fRec40 = new Float32Array(2);
 	this.fRec39 = new Float32Array(2);
 	this.iRec38 = new Int32Array(2);
 	this.fRec37 = new Float32Array(2);
 	this.fRec36 = new Float32Array(2);
-	this.fRec35 = new Float32Array(2);
-	this.iRec34 = new Int32Array(2);
+	this.iRec35 = new Int32Array(2);
+	this.fRec34 = new Float32Array(2);
 	this.fRec33 = new Float32Array(2);
-	this.fRec32 = new Float32Array(2);
+	this.iRec32 = new Int32Array(2);
 	this.fRec31 = new Float32Array(2);
 	this.fRec30 = new Float32Array(2);
-	this.iRec29 = new Int32Array(2);
-	this.fRec28 = new Float32Array(2);
+	this.fRec29 = new Float32Array(2);
+	this.iRec28 = new Int32Array(2);
 	this.fRec27 = new Float32Array(2);
 	this.fRec26 = new Float32Array(2);
-	this.iRec25 = new Int32Array(2);
-	this.fRec24 = new Float32Array(2);
+	this.fRec25 = new Float32Array(2);
+	this.iRec24 = new Int32Array(2);
 	this.fRec23 = new Float32Array(2);
 	this.fRec22 = new Float32Array(2);
 	this.fRec21 = new Float32Array(2);
@@ -211,19 +193,19 @@ function dsp() {
 	this.fRec19 = new Float32Array(2);
 	this.fRec18 = new Float32Array(2);
 	this.fRec17 = new Float32Array(2);
-	this.fRec16 = new Float32Array(2);
-	this.iRec15 = new Int32Array(2);
+	this.iRec16 = new Int32Array(2);
+	this.fRec15 = new Float32Array(2);
 	this.fRec14 = new Float32Array(2);
 	this.fRec13 = new Float32Array(2);
-	this.fRec12 = new Float32Array(2);
+	this.iRec12 = new Int32Array(2);
 	this.fRec11 = new Float32Array(2);
-	this.iRec10 = new Int32Array(2);
+	this.fRec10 = new Float32Array(2);
 	this.fRec9 = new Float32Array(2);
-	this.fRec8 = new Float32Array(2);
+	this.iRec8 = new Int32Array(2);
 	this.fRec7 = new Float32Array(2);
 	this.fRec6 = new Float32Array(2);
-	this.iRec5 = new Int32Array(2);
-	this.fRec4 = new Float32Array(2);
+	this.fRec5 = new Float32Array(2);
+	this.iRec4 = new Int32Array(2);
 	this.fRec3 = new Float32Array(2);
 	this.fRec2 = new Float32Array(2);
 	this.fRec1 = new Float32Array(2);
@@ -276,13 +258,13 @@ function dsp() {
 			this.fRec3[i] = 0;
 			
 		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec4[i] = 0;
-			
-		}
 		this.fbutton1 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec5[i] = 0;
+			this.iRec4[i] = 0;
+			
+		}
+		for (var i = 0; (i < 2); i = (i + 1)) {
+			this.fRec5[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
@@ -293,25 +275,26 @@ function dsp() {
 			this.fRec7[i] = 0;
 			
 		}
+		this.fbutton2 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec8[i] = 0;
+			this.iRec8[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec9[i] = 0;
 			
 		}
-		this.fbutton2 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec10[i] = 0;
+			this.fRec10[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec11[i] = 0;
 			
 		}
+		this.fbutton3 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec12[i] = 0;
+			this.iRec12[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
@@ -322,13 +305,13 @@ function dsp() {
 			this.fRec14[i] = 0;
 			
 		}
-		this.fbutton3 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec15[i] = 0;
+			this.fRec15[i] = 0;
 			
 		}
+		this.fbutton4 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec16[i] = 0;
+			this.iRec16[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
@@ -343,7 +326,7 @@ function dsp() {
 			this.fRec19[i] = 0;
 			
 		}
-		this.fbutton4 = 0;
+		this.fbutton5 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.iRec20[i] = 0;
 			
@@ -360,13 +343,13 @@ function dsp() {
 			this.fRec23[i] = 0;
 			
 		}
+		this.fbutton6 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec24[i] = 0;
+			this.iRec24[i] = 0;
 			
 		}
-		this.fbutton5 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec25[i] = 0;
+			this.fRec25[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
@@ -377,13 +360,13 @@ function dsp() {
 			this.fRec27[i] = 0;
 			
 		}
+		this.fbutton7 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec28[i] = 0;
+			this.iRec28[i] = 0;
 			
 		}
-		this.fbutton6 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec29[i] = 0;
+			this.fRec29[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
@@ -394,21 +377,22 @@ function dsp() {
 			this.fRec31[i] = 0;
 			
 		}
+		this.fbutton8 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec32[i] = 0;
+			this.iRec32[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec33[i] = 0;
 			
 		}
-		this.fbutton7 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec34[i] = 0;
+			this.fRec34[i] = 0;
 			
 		}
+		this.fbutton9 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec35[i] = 0;
+			this.iRec35[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
@@ -419,7 +403,7 @@ function dsp() {
 			this.fRec37[i] = 0;
 			
 		}
-		this.fbutton8 = 0;
+		this.fbutton10 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.iRec38[i] = 0;
 			
@@ -436,28 +420,29 @@ function dsp() {
 			this.fRec41[i] = 0;
 			
 		}
+		this.fbutton11 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec42[i] = 0;
+			this.iRec42[i] = 0;
 			
 		}
-		this.fbutton9 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec43[i] = 0;
+			this.fRec43[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec44[i] = 0;
 			
 		}
+		this.fbutton12 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec45[i] = 0;
+			this.iRec45[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec46[i] = 0;
 			
 		}
-		this.fbutton10 = 0;
+		this.fbutton13 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.iRec47[i] = 0;
 			
@@ -466,25 +451,26 @@ function dsp() {
 			this.fRec48[i] = 0;
 			
 		}
+		this.fbutton14 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec49[i] = 0;
+			this.iRec49[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec50[i] = 0;
 			
 		}
-		this.fbutton11 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec51[i] = 0;
+			this.fRec51[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
 			this.fRec52[i] = 0;
 			
 		}
+		this.fbutton15 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec53[i] = 0;
+			this.iRec53[i] = 0;
 			
 		}
 		for (var i = 0; (i < 2); i = (i + 1)) {
@@ -495,76 +481,8 @@ function dsp() {
 			this.fRec55[i] = 0;
 			
 		}
-		this.fbutton12 = 0;
 		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec56[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec57[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec58[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec59[i] = 0;
-			
-		}
-		this.fbutton13 = 0;
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec60[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec61[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec62[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec63[i] = 0;
-			
-		}
-		this.fbutton14 = 0;
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec64[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec65[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec66[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec67[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec68[i] = 0;
-			
-		}
-		this.fbutton15 = 0;
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.iRec69[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec70[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec71[i] = 0;
-			
-		}
-		for (var i = 0; (i < 2); i = (i + 1)) {
-			this.fRec72[i] = 0;
+			this.fRec56[i] = 0;
 			
 		}
 		
@@ -577,22 +495,22 @@ function dsp() {
 	
 	this.buildUserInterface = function(ui_interface) {
 		ui_interface.openVerticalBox("synth");
-		ui_interface.addButton("hand0", function handler(obj) { function setval(val) { obj.fbutton1 = val; } return setval; }(this));
-		ui_interface.addButton("hand1", function handler(obj) { function setval(val) { obj.fbutton0 = val; } return setval; }(this));
-		ui_interface.addButton("hand10", function handler(obj) { function setval(val) { obj.fbutton10 = val; } return setval; }(this));
-		ui_interface.addButton("hand11", function handler(obj) { function setval(val) { obj.fbutton11 = val; } return setval; }(this));
-		ui_interface.addButton("hand12", function handler(obj) { function setval(val) { obj.fbutton12 = val; } return setval; }(this));
-		ui_interface.addButton("hand13", function handler(obj) { function setval(val) { obj.fbutton13 = val; } return setval; }(this));
-		ui_interface.addButton("hand14", function handler(obj) { function setval(val) { obj.fbutton14 = val; } return setval; }(this));
-		ui_interface.addButton("hand15", function handler(obj) { function setval(val) { obj.fbutton15 = val; } return setval; }(this));
-		ui_interface.addButton("hand2", function handler(obj) { function setval(val) { obj.fbutton2 = val; } return setval; }(this));
-		ui_interface.addButton("hand3", function handler(obj) { function setval(val) { obj.fbutton3 = val; } return setval; }(this));
-		ui_interface.addButton("hand4", function handler(obj) { function setval(val) { obj.fbutton4 = val; } return setval; }(this));
-		ui_interface.addButton("hand5", function handler(obj) { function setval(val) { obj.fbutton5 = val; } return setval; }(this));
-		ui_interface.addButton("hand6", function handler(obj) { function setval(val) { obj.fbutton6 = val; } return setval; }(this));
-		ui_interface.addButton("hand7", function handler(obj) { function setval(val) { obj.fbutton7 = val; } return setval; }(this));
-		ui_interface.addButton("hand8", function handler(obj) { function setval(val) { obj.fbutton8 = val; } return setval; }(this));
-		ui_interface.addButton("hand9", function handler(obj) { function setval(val) { obj.fbutton9 = val; } return setval; }(this));
+		ui_interface.addButton("hand0", function handler(obj) { function setval(val) { obj.fbutton7 = val; } return setval; }(this));
+		ui_interface.addButton("hand1", function handler(obj) { function setval(val) { obj.fbutton15 = val; } return setval; }(this));
+		ui_interface.addButton("hand10", function handler(obj) { function setval(val) { obj.fbutton2 = val; } return setval; }(this));
+		ui_interface.addButton("hand11", function handler(obj) { function setval(val) { obj.fbutton10 = val; } return setval; }(this));
+		ui_interface.addButton("hand12", function handler(obj) { function setval(val) { obj.fbutton1 = val; } return setval; }(this));
+		ui_interface.addButton("hand13", function handler(obj) { function setval(val) { obj.fbutton9 = val; } return setval; }(this));
+		ui_interface.addButton("hand14", function handler(obj) { function setval(val) { obj.fbutton0 = val; } return setval; }(this));
+		ui_interface.addButton("hand15", function handler(obj) { function setval(val) { obj.fbutton8 = val; } return setval; }(this));
+		ui_interface.addButton("hand2", function handler(obj) { function setval(val) { obj.fbutton6 = val; } return setval; }(this));
+		ui_interface.addButton("hand3", function handler(obj) { function setval(val) { obj.fbutton14 = val; } return setval; }(this));
+		ui_interface.addButton("hand4", function handler(obj) { function setval(val) { obj.fbutton5 = val; } return setval; }(this));
+		ui_interface.addButton("hand5", function handler(obj) { function setval(val) { obj.fbutton13 = val; } return setval; }(this));
+		ui_interface.addButton("hand6", function handler(obj) { function setval(val) { obj.fbutton4 = val; } return setval; }(this));
+		ui_interface.addButton("hand7", function handler(obj) { function setval(val) { obj.fbutton12 = val; } return setval; }(this));
+		ui_interface.addButton("hand8", function handler(obj) { function setval(val) { obj.fbutton3 = val; } return setval; }(this));
+		ui_interface.addButton("hand9", function handler(obj) { function setval(val) { obj.fbutton11 = val; } return setval; }(this));
 		ui_interface.declare("fhslider0", "osc", "/accxyz/0 -10 10");
 		ui_interface.declare("fhslider0", "unit", "f");
 		ui_interface.addHorizontalSlider("level", function handler(obj) { function setval(val) { obj.fhslider0 = val; } return setval; }(this), 0.6, 0, 1, 0.01);
@@ -655,135 +573,103 @@ function dsp() {
 		for (var i = 0; (i < count); i = (i + 1)) {
 			this.iRec0[0] = (iSlow2 & (this.iRec0[1] | (this.fRec1[1] >= 1)));
 			var iTemp0 = (iSlow3 & (this.fRec1[1] > 0));
-			this.fRec1[0] = (((iTemp0 == 0) | (this.fRec1[1] >= 1e-06)) * ((0.000226757 * (((this.iRec0[1] == 0) & iSlow2) & (this.fRec1[1] < 1))) + (this.fRec1[1] * ((1 - (0 - (0.00198929 * (this.iRec0[1] & (this.fRec1[1] > 80))))) - (0.000255971 * iTemp0)))));
-			this.fRec2[0] = function fmod(a,b) {return a % b }((0.0114609 + this.fRec2[1]), 1);
-			this.fRec3[0] = function fmod(a,b) {return a % b }((0.0343828 + this.fRec3[1]), 1);
-			this.fRec4[0] = function fmod(a,b) {return a % b }((0.0229219 + this.fRec4[1]), 1);
-			var fTemp1 = (this.fRec1[0] * (Math.sin((6.28319 * this.fRec2[0])) + ((0.25 * Math.sin((6.28319 * this.fRec3[0]))) + (0.5 * Math.sin((6.28319 * this.fRec4[0]))))));
-			this.iRec5[0] = (iSlow5 & (this.iRec5[1] | (this.fRec6[1] >= 1)));
-			var iTemp2 = (iSlow6 & (this.fRec6[1] > 0));
-			this.fRec6[0] = (((iTemp2 == 0) | (this.fRec6[1] >= 1e-06)) * ((0.000226757 * (((this.iRec5[1] == 0) & iSlow5) & (this.fRec6[1] < 1))) + (this.fRec6[1] * ((1 - (0 - (0.00198929 * (this.iRec5[1] & (this.fRec6[1] > 80))))) - (0.000255971 * iTemp2)))));
-			this.fRec7[0] = function fmod(a,b) {return a % b }((0.00997732 + this.fRec7[1]), 1);
-			this.fRec8[0] = function fmod(a,b) {return a % b }((0.029932 + this.fRec8[1]), 1);
-			this.fRec9[0] = function fmod(a,b) {return a % b }((0.0199546 + this.fRec9[1]), 1);
-			var fTemp3 = Math.sin((6.28319 * this.fRec9[0]));
-			var fTemp4 = (this.fRec6[0] * (Math.sin((6.28319 * this.fRec7[0])) + ((0.25 * Math.sin((6.28319 * this.fRec8[0]))) + (0.5 * fTemp3))));
-			this.iRec10[0] = (iSlow8 & (this.iRec10[1] | (this.fRec11[1] >= 1)));
-			var iTemp5 = (iSlow9 & (this.fRec11[1] > 0));
-			this.fRec11[0] = (((iTemp5 == 0) | (this.fRec11[1] >= 1e-06)) * ((0.000226757 * (((this.iRec10[1] == 0) & iSlow8) & (this.fRec11[1] < 1))) + (this.fRec11[1] * ((1 - (0 - (0.00198929 * (this.iRec10[1] & (this.fRec11[1] > 80))))) - (0.000255971 * iTemp5)))));
-			this.fRec12[0] = function fmod(a,b) {return a % b }((0.0131652 + this.fRec12[1]), 1);
-			this.fRec13[0] = function fmod(a,b) {return a % b }((0.0394955 + this.fRec13[1]), 1);
-			this.fRec14[0] = function fmod(a,b) {return a % b }((0.0263303 + this.fRec14[1]), 1);
-			var fTemp6 = Math.sin((6.28319 * this.fRec14[0]));
-			var fTemp7 = (this.fRec11[0] * (Math.sin((6.28319 * this.fRec12[0])) + ((0.25 * Math.sin((6.28319 * this.fRec13[0]))) + (0.5 * fTemp6))));
-			this.iRec15[0] = (iSlow11 & (this.iRec15[1] | (this.fRec16[1] >= 1)));
-			var iTemp8 = (iSlow12 & (this.fRec16[1] > 0));
-			this.fRec16[0] = (((iTemp8 == 0) | (this.fRec16[1] >= 1e-06)) * ((0.000226757 * (((this.iRec15[1] == 0) & iSlow11) & (this.fRec16[1] < 1))) + (this.fRec16[1] * ((1 - (0 - (0.00198929 * (this.iRec15[1] & (this.fRec16[1] > 80))))) - (0.000255971 * iTemp8)))));
-			this.fRec17[0] = function fmod(a,b) {return a % b }((0.0151228 + this.fRec17[1]), 1);
-			this.fRec18[0] = function fmod(a,b) {return a % b }((0.0453684 + this.fRec18[1]), 1);
-			this.fRec19[0] = function fmod(a,b) {return a % b }((0.0302456 + this.fRec19[1]), 1);
-			var fTemp9 = (this.fRec16[0] * (Math.sin((6.28319 * this.fRec17[0])) + ((0.25 * Math.sin((6.28319 * this.fRec18[0]))) + (0.5 * Math.sin((6.28319 * this.fRec19[0]))))));
-			this.iRec20[0] = (iSlow14 & (this.iRec20[1] | (this.fRec21[1] >= 1)));
-			var iTemp10 = (iSlow15 & (this.fRec21[1] > 0));
-			this.fRec21[0] = (((iTemp10 == 0) | (this.fRec21[1] >= 1e-06)) * ((0.000226757 * (((this.iRec20[1] == 0) & iSlow14) & (this.fRec21[1] < 1))) + (this.fRec21[1] * ((1 - (0 - (0.00198929 * (this.iRec20[1] & (this.fRec21[1] > 80))))) - (0.000255971 * iTemp10)))));
+			this.fRec1[0] = (((iTemp0 == 0) | (this.fRec1[1] >= 1e-06)) * ((0.000226757 * (((this.iRec0[1] == 0) & iSlow2) & (this.fRec1[1] < 1))) + (this.fRec1[1] * ((1 - (0 - (0.00198929 * (this.iRec0[1] & (this.fRec1[1] > 80))))) - (0.000511877 * iTemp0)))));
+			this.fRec2[0] = function fmod(a,b) {return a % b }((0.0694861 + this.fRec2[1]), 1);
+			this.fRec3[0] = function fmod(a,b) {return a % b }((0.0347431 + this.fRec3[1]), 1);
+			this.iRec4[0] = (iSlow5 & (this.iRec4[1] | (this.fRec5[1] >= 1)));
+			var iTemp1 = (iSlow6 & (this.fRec5[1] > 0));
+			this.fRec5[0] = (((iTemp1 == 0) | (this.fRec5[1] >= 1e-06)) * ((0.000226757 * (((this.iRec4[1] == 0) & iSlow5) & (this.fRec5[1] < 1))) + (this.fRec5[1] * ((1 - (0 - (0.00198929 * (this.iRec4[1] & (this.fRec5[1] > 80))))) - (0.000511877 * iTemp1)))));
+			this.fRec6[0] = function fmod(a,b) {return a % b }((0.0263303 + this.fRec6[1]), 1);
+			var fTemp2 = Math.sin((6.28319 * this.fRec6[0]));
+			this.fRec7[0] = function fmod(a,b) {return a % b }((0.0526606 + this.fRec7[1]), 1);
+			this.iRec8[0] = (iSlow8 & (this.iRec8[1] | (this.fRec9[1] >= 1)));
+			var iTemp3 = (iSlow9 & (this.fRec9[1] > 0));
+			this.fRec9[0] = (((iTemp3 == 0) | (this.fRec9[1] >= 1e-06)) * ((0.000226757 * (((this.iRec8[1] == 0) & iSlow8) & (this.fRec9[1] < 1))) + (this.fRec9[1] * ((1 - (0 - (0.00198929 * (this.iRec8[1] & (this.fRec9[1] > 80))))) - (0.000511877 * iTemp3)))));
+			this.fRec10[0] = function fmod(a,b) {return a % b }((0.0199546 + this.fRec10[1]), 1);
+			var fTemp4 = Math.sin((6.28319 * this.fRec10[0]));
+			this.fRec11[0] = function fmod(a,b) {return a % b }((0.0399093 + this.fRec11[1]), 1);
+			var fTemp5 = Math.sin((6.28319 * this.fRec11[0]));
+			this.iRec12[0] = (iSlow11 & (this.iRec12[1] | (this.fRec13[1] >= 1)));
+			var iTemp6 = (iSlow12 & (this.fRec13[1] > 0));
+			this.fRec13[0] = (((iTemp6 == 0) | (this.fRec13[1] >= 1e-06)) * ((0.000226757 * (((this.iRec12[1] == 0) & iSlow11) & (this.fRec13[1] < 1))) + (this.fRec13[1] * ((1 - (0 - (0.00198929 * (this.iRec12[1] & (this.fRec13[1] > 80))))) - (0.000511877 * iTemp6)))));
+			this.fRec14[0] = function fmod(a,b) {return a % b }((0.0302456 + this.fRec14[1]), 1);
+			var fTemp7 = Math.sin((6.28319 * this.fRec14[0]));
+			this.fRec15[0] = function fmod(a,b) {return a % b }((0.0151228 + this.fRec15[1]), 1);
+			this.iRec16[0] = (iSlow14 & (this.iRec16[1] | (this.fRec17[1] >= 1)));
+			var iTemp8 = (iSlow15 & (this.fRec17[1] > 0));
+			this.fRec17[0] = (((iTemp8 == 0) | (this.fRec17[1] >= 1e-06)) * ((0.000226757 * (((this.iRec16[1] == 0) & iSlow14) & (this.fRec17[1] < 1))) + (this.fRec17[1] * ((1 - (0 - (0.00198929 * (this.iRec16[1] & (this.fRec17[1] > 80))))) - (0.000511877 * iTemp8)))));
+			this.fRec18[0] = function fmod(a,b) {return a % b }((0.0229219 + this.fRec18[1]), 1);
+			this.fRec19[0] = function fmod(a,b) {return a % b }((0.0114609 + this.fRec19[1]), 1);
+			this.iRec20[0] = (iSlow17 & (this.iRec20[1] | (this.fRec21[1] >= 1)));
+			var iTemp9 = (iSlow18 & (this.fRec21[1] > 0));
+			this.fRec21[0] = (((iTemp9 == 0) | (this.fRec21[1] >= 1e-06)) * ((0.000226757 * (((this.iRec20[1] == 0) & iSlow17) & (this.fRec21[1] < 1))) + (this.fRec21[1] * ((1 - (0 - (0.00198929 * (this.iRec20[1] & (this.fRec21[1] > 80))))) - (0.000511877 * iTemp9)))));
 			this.fRec22[0] = function fmod(a,b) {return a % b }((0.0173715 + this.fRec22[1]), 1);
-			this.fRec23[0] = function fmod(a,b) {return a % b }((0.0521146 + this.fRec23[1]), 1);
-			this.fRec24[0] = function fmod(a,b) {return a % b }((0.0347431 + this.fRec24[1]), 1);
-			var fTemp11 = Math.sin((6.28319 * this.fRec24[0]));
-			var fTemp12 = (this.fRec21[0] * (Math.sin((6.28319 * this.fRec22[0])) + ((0.25 * Math.sin((6.28319 * this.fRec23[0]))) + (0.5 * fTemp11))));
-			this.iRec25[0] = (iSlow17 & (this.iRec25[1] | (this.fRec26[1] >= 1)));
-			var iTemp13 = (iSlow18 & (this.fRec26[1] > 0));
-			this.fRec26[0] = (((iTemp13 == 0) | (this.fRec26[1] >= 1e-06)) * ((0.000226757 * (((this.iRec25[1] == 0) & iSlow17) & (this.fRec26[1] < 1))) + (this.fRec26[1] * ((1 - (0 - (0.00198929 * (this.iRec25[1] & (this.fRec26[1] > 80))))) - (0.000255971 * iTemp13)))));
-			this.fRec27[0] = function fmod(a,b) {return a % b }((0.0598639 + this.fRec27[1]), 1);
-			this.fRec28[0] = function fmod(a,b) {return a % b }((0.0399093 + this.fRec28[1]), 1);
-			var fTemp14 = Math.sin((6.28319 * this.fRec28[0]));
-			var fTemp15 = (this.fRec26[0] * (fTemp3 + ((0.25 * Math.sin((6.28319 * this.fRec27[0]))) + (0.5 * fTemp14))));
-			this.iRec29[0] = (iSlow20 & (this.iRec29[1] | (this.fRec30[1] >= 1)));
-			var iTemp16 = (iSlow21 & (this.fRec30[1] > 0));
-			this.fRec30[0] = (((iTemp16 == 0) | (this.fRec30[1] >= 1e-06)) * ((0.000226757 * (((this.iRec29[1] == 0) & iSlow20) & (this.fRec30[1] < 1))) + (this.fRec30[1] * ((1 - (0 - (0.00198929 * (this.iRec29[1] & (this.fRec30[1] > 80))))) - (0.000255971 * iTemp16)))));
-			this.fRec31[0] = function fmod(a,b) {return a % b }((0.0229219 + this.fRec31[1]), 1);
-			this.fRec32[0] = function fmod(a,b) {return a % b }((0.0687656 + this.fRec32[1]), 1);
-			this.fRec33[0] = function fmod(a,b) {return a % b }((0.0458437 + this.fRec33[1]), 1);
-			var fTemp17 = (this.fRec30[0] * (Math.sin((6.28319 * this.fRec31[0])) + ((0.25 * Math.sin((6.28319 * this.fRec32[0]))) + (0.5 * Math.sin((6.28319 * this.fRec33[0]))))));
-			this.iRec34[0] = (iSlow23 & (this.iRec34[1] | (this.fRec35[1] >= 1)));
-			var iTemp18 = (iSlow24 & (this.fRec35[1] > 0));
-			this.fRec35[0] = (((iTemp18 == 0) | (this.fRec35[1] >= 1e-06)) * ((0.000226757 * (((this.iRec34[1] == 0) & iSlow23) & (this.fRec35[1] < 1))) + (this.fRec35[1] * ((1 - (0 - (0.00198929 * (this.iRec34[1] & (this.fRec35[1] > 80))))) - (0.000255971 * iTemp18)))));
-			this.fRec36[0] = function fmod(a,b) {return a % b }((0.0526606 + this.fRec36[1]), 1);
-			var fTemp19 = Math.sin((6.28319 * this.fRec36[0]));
-			this.fRec37[0] = function fmod(a,b) {return a % b }((0.078991 + this.fRec37[1]), 1);
-			var fTemp20 = (this.fRec35[0] * (fTemp6 + ((0.5 * fTemp19) + (0.25 * Math.sin((6.28319 * this.fRec37[0]))))));
-			this.iRec38[0] = (iSlow26 & (this.iRec38[1] | (this.fRec39[1] >= 1)));
-			var iTemp21 = (iSlow27 & (this.fRec39[1] > 0));
-			this.fRec39[0] = (((iTemp21 == 0) | (this.fRec39[1] >= 1e-06)) * ((0.000226757 * (((this.iRec38[1] == 0) & iSlow26) & (this.fRec39[1] < 1))) + (this.fRec39[1] * ((1 - (0 - (0.00198929 * (this.iRec38[1] & (this.fRec39[1] > 80))))) - (0.000255971 * iTemp21)))));
-			this.fRec40[0] = function fmod(a,b) {return a % b }((0.0302456 + this.fRec40[1]), 1);
-			this.fRec41[0] = function fmod(a,b) {return a % b }((0.0907368 + this.fRec41[1]), 1);
-			this.fRec42[0] = function fmod(a,b) {return a % b }((0.0604912 + this.fRec42[1]), 1);
-			var fTemp22 = Math.sin((6.28319 * this.fRec42[0]));
-			var fTemp23 = (this.fRec39[0] * (Math.sin((6.28319 * this.fRec40[0])) + ((0.25 * Math.sin((6.28319 * this.fRec41[0]))) + (0.5 * fTemp22))));
-			this.iRec43[0] = (iSlow29 & (this.iRec43[1] | (this.fRec44[1] >= 1)));
-			var iTemp24 = (iSlow30 & (this.fRec44[1] > 0));
-			this.fRec44[0] = (((iTemp24 == 0) | (this.fRec44[1] >= 1e-06)) * ((0.000226757 * (((this.iRec43[1] == 0) & iSlow29) & (this.fRec44[1] < 1))) + (this.fRec44[1] * ((1 - (0 - (0.00198929 * (this.iRec43[1] & (this.fRec44[1] > 80))))) - (0.000255971 * iTemp24)))));
-			this.fRec45[0] = function fmod(a,b) {return a % b }((0.104229 + this.fRec45[1]), 1);
-			this.fRec46[0] = function fmod(a,b) {return a % b }((0.0694861 + this.fRec46[1]), 1);
-			var fTemp25 = (this.fRec44[0] * (fTemp11 + ((0.25 * Math.sin((6.28319 * this.fRec45[0]))) + (0.5 * Math.sin((6.28319 * this.fRec46[0]))))));
-			this.iRec47[0] = (iSlow32 & (this.iRec47[1] | (this.fRec48[1] >= 1)));
-			var iTemp26 = (iSlow33 & (this.fRec48[1] > 0));
-			this.fRec48[0] = (((iTemp26 == 0) | (this.fRec48[1] >= 1e-06)) * ((0.000226757 * (((this.iRec47[1] == 0) & iSlow32) & (this.fRec48[1] < 1))) + (this.fRec48[1] * ((1 - (0 - (0.00198929 * (this.iRec47[1] & (this.fRec48[1] > 80))))) - (0.000255971 * iTemp26)))));
-			this.fRec49[0] = function fmod(a,b) {return a % b }((0.119728 + this.fRec49[1]), 1);
-			this.fRec50[0] = function fmod(a,b) {return a % b }((0.0798186 + this.fRec50[1]), 1);
-			var fTemp27 = Math.sin((6.28319 * this.fRec50[0]));
-			var fTemp28 = (this.fRec48[0] * (fTemp14 + ((0.25 * Math.sin((6.28319 * this.fRec49[0]))) + (0.5 * fTemp27))));
-			this.iRec51[0] = (iSlow35 & (this.iRec51[1] | (this.fRec52[1] >= 1)));
-			var iTemp29 = (iSlow36 & (this.fRec52[1] > 0));
-			this.fRec52[0] = (((iTemp29 == 0) | (this.fRec52[1] >= 1e-06)) * ((0.000226757 * (((this.iRec51[1] == 0) & iSlow35) & (this.fRec52[1] < 1))) + (this.fRec52[1] * ((1 - (0 - (0.00198929 * (this.iRec51[1] & (this.fRec52[1] > 80))))) - (0.000255971 * iTemp29)))));
-			this.fRec53[0] = function fmod(a,b) {return a % b }((0.0458437 + this.fRec53[1]), 1);
-			this.fRec54[0] = function fmod(a,b) {return a % b }((0.137531 + this.fRec54[1]), 1);
-			this.fRec55[0] = function fmod(a,b) {return a % b }((0.0916875 + this.fRec55[1]), 1);
-			var fTemp30 = (this.fRec52[0] * (Math.sin((6.28319 * this.fRec53[0])) + ((0.25 * Math.sin((6.28319 * this.fRec54[0]))) + (0.5 * Math.sin((6.28319 * this.fRec55[0]))))));
-			this.iRec56[0] = (iSlow38 & (this.iRec56[1] | (this.fRec57[1] >= 1)));
-			var iTemp31 = (iSlow39 & (this.fRec57[1] > 0));
-			this.fRec57[0] = (((iTemp31 == 0) | (this.fRec57[1] >= 1e-06)) * ((0.000226757 * (((this.iRec56[1] == 0) & iSlow38) & (this.fRec57[1] < 1))) + (this.fRec57[1] * ((1 - (0 - (0.00198929 * (this.iRec56[1] & (this.fRec57[1] > 80))))) - (0.000255971 * iTemp31)))));
-			this.fRec58[0] = function fmod(a,b) {return a % b }((0.157982 + this.fRec58[1]), 1);
-			this.fRec59[0] = function fmod(a,b) {return a % b }((0.105321 + this.fRec59[1]), 1);
-			var fTemp32 = (this.fRec57[0] * (fTemp19 + ((0.25 * Math.sin((6.28319 * this.fRec58[0]))) + (0.5 * Math.sin((6.28319 * this.fRec59[0]))))));
-			this.iRec60[0] = (iSlow41 & (this.iRec60[1] | (this.fRec61[1] >= 1)));
-			var iTemp33 = (iSlow42 & (this.fRec61[1] > 0));
-			this.fRec61[0] = (((iTemp33 == 0) | (this.fRec61[1] >= 1e-06)) * ((0.000226757 * (((this.iRec60[1] == 0) & iSlow41) & (this.fRec61[1] < 1))) + (this.fRec61[1] * ((1 - (0 - (0.00198929 * (this.iRec60[1] & (this.fRec61[1] > 80))))) - (0.000255971 * iTemp33)))));
-			this.fRec62[0] = function fmod(a,b) {return a % b }((0.181474 + this.fRec62[1]), 1);
-			this.fRec63[0] = function fmod(a,b) {return a % b }((0.120982 + this.fRec63[1]), 1);
-			var fTemp34 = (this.fRec61[0] * (fTemp22 + ((0.25 * Math.sin((6.28319 * this.fRec62[0]))) + (0.5 * Math.sin((6.28319 * this.fRec63[0]))))));
-			this.iRec64[0] = (iSlow44 & (this.iRec64[1] | (this.fRec65[1] >= 1)));
-			var iTemp35 = (iSlow45 & (this.fRec65[1] > 0));
-			this.fRec65[0] = (((iTemp35 == 0) | (this.fRec65[1] >= 1e-06)) * ((0.000226757 * (((this.iRec64[1] == 0) & iSlow44) & (this.fRec65[1] < 1))) + (this.fRec65[1] * ((1 - (0 - (0.00198929 * (this.iRec64[1] & (this.fRec65[1] > 80))))) - (0.000255971 * iTemp35)))));
-			this.fRec66[0] = function fmod(a,b) {return a % b }((0.0694861 + this.fRec66[1]), 1);
-			this.fRec67[0] = function fmod(a,b) {return a % b }((0.208458 + this.fRec67[1]), 1);
-			this.fRec68[0] = function fmod(a,b) {return a % b }((0.138972 + this.fRec68[1]), 1);
-			var fTemp36 = (this.fRec65[0] * (Math.sin((6.28319 * this.fRec66[0])) + ((0.25 * Math.sin((6.28319 * this.fRec67[0]))) + (0.5 * Math.sin((6.28319 * this.fRec68[0]))))));
-			this.iRec69[0] = (iSlow47 & (this.iRec69[1] | (this.fRec70[1] >= 1)));
-			var iTemp37 = (iSlow48 & (this.fRec70[1] > 0));
-			this.fRec70[0] = (((iTemp37 == 0) | (this.fRec70[1] >= 1e-06)) * ((0.000226757 * (((this.iRec69[1] == 0) & iSlow47) & (this.fRec70[1] < 1))) + (this.fRec70[1] * ((1 - (0 - (0.00198929 * (this.iRec69[1] & (this.fRec70[1] > 80))))) - (0.000255971 * iTemp37)))));
-			this.fRec71[0] = function fmod(a,b) {return a % b }((0.239456 + this.fRec71[1]), 1);
-			this.fRec72[0] = function fmod(a,b) {return a % b }((0.159637 + this.fRec72[1]), 1);
-			var fTemp38 = (this.fRec70[0] * (fTemp27 + ((0.25 * Math.sin((6.28319 * this.fRec71[0]))) + (0.5 * Math.sin((6.28319 * this.fRec72[0]))))));
-			output0[i] = (fSlow0 * ((((((((((((((((0.951972 * fTemp1) + (0.984251 * fTemp4)) + (0.918559 * fTemp7)) + (0.883883 * fTemp9)) + (0.847791 * fTemp12)) + (0.810093 * fTemp15)) + (0.770552 * fTemp17)) + (0.728869 * fTemp20)) + (0.684653 * fTemp23)) + (0.637377 * fTemp25)) + (0.586302 * fTemp28)) + (0.53033 * fTemp30)) + (0.467707 * fTemp32)) + (0.395285 * fTemp34)) + (0.306186 * fTemp36)) + (0.176777 * fTemp38)));
-			output1[i] = (fSlow0 * ((((((((((((((((0.306186 * fTemp1) + (0.176777 * fTemp4)) + (0.395285 * fTemp7)) + (0.467707 * fTemp9)) + (0.53033 * fTemp12)) + (0.586302 * fTemp15)) + (0.637377 * fTemp17)) + (0.684653 * fTemp20)) + (0.728869 * fTemp23)) + (0.770552 * fTemp25)) + (0.810093 * fTemp28)) + (0.847791 * fTemp30)) + (0.883883 * fTemp32)) + (0.918559 * fTemp34)) + (0.951972 * fTemp36)) + (0.984251 * fTemp38)));
+			var fTemp10 = Math.sin((6.28319 * this.fRec22[0]));
+			this.fRec23[0] = function fmod(a,b) {return a % b }((0.00868576 + this.fRec23[1]), 1);
+			this.iRec24[0] = (iSlow20 & (this.iRec24[1] | (this.fRec25[1] >= 1)));
+			var iTemp11 = (iSlow21 & (this.fRec25[1] > 0));
+			this.fRec25[0] = (((iTemp11 == 0) | (this.fRec25[1] >= 1e-06)) * ((0.000226757 * (((this.iRec24[1] == 0) & iSlow20) & (this.fRec25[1] < 1))) + (this.fRec25[1] * ((1 - (0 - (0.00198929 * (this.iRec24[1] & (this.fRec25[1] > 80))))) - (0.000511877 * iTemp11)))));
+			this.fRec26[0] = function fmod(a,b) {return a % b }((0.0131652 + this.fRec26[1]), 1);
+			var fTemp12 = Math.sin((6.28319 * this.fRec26[0]));
+			this.fRec27[0] = function fmod(a,b) {return a % b }((0.00658258 + this.fRec27[1]), 1);
+			this.iRec28[0] = (iSlow23 & (this.iRec28[1] | (this.fRec29[1] >= 1)));
+			var iTemp13 = (iSlow24 & (this.fRec29[1] > 0));
+			this.fRec29[0] = (((iTemp13 == 0) | (this.fRec29[1] >= 1e-06)) * ((0.000226757 * (((this.iRec28[1] == 0) & iSlow23) & (this.fRec29[1] < 1))) + (this.fRec29[1] * ((1 - (0 - (0.00198929 * (this.iRec28[1] & (this.fRec29[1] > 80))))) - (0.000511877 * iTemp13)))));
+			this.fRec30[0] = function fmod(a,b) {return a % b }((0.00997732 + this.fRec30[1]), 1);
+			var fTemp14 = Math.sin((6.28319 * this.fRec30[0]));
+			this.fRec31[0] = function fmod(a,b) {return a % b }((0.00498866 + this.fRec31[1]), 1);
+			output0[i] = (fSlow0 * ((this.fRec1[0] * ((0.5 * Math.sin((6.28319 * this.fRec2[0]))) + Math.sin((6.28319 * this.fRec3[0])))) + ((this.fRec5[0] * (fTemp2 + (0.5 * Math.sin((6.28319 * this.fRec7[0]))))) + ((this.fRec9[0] * (fTemp4 + (0.5 * fTemp5))) + ((this.fRec13[0] * ((0.5 * fTemp7) + Math.sin((6.28319 * this.fRec15[0])))) + ((this.fRec17[0] * ((0.5 * Math.sin((6.28319 * this.fRec18[0]))) + Math.sin((6.28319 * this.fRec19[0])))) + ((this.fRec21[0] * ((0.5 * fTemp10) + Math.sin((6.28319 * this.fRec23[0])))) + ((this.fRec25[0] * ((0.5 * fTemp12) + Math.sin((6.28319 * this.fRec27[0])))) + (this.fRec29[0] * ((0.5 * fTemp14) + Math.sin((6.28319 * this.fRec31[0]))))))))))));
+			this.iRec32[0] = (iSlow26 & (this.iRec32[1] | (this.fRec33[1] >= 1)));
+			var iTemp15 = (iSlow27 & (this.fRec33[1] > 0));
+			this.fRec33[0] = (((iTemp15 == 0) | (this.fRec33[1] >= 1e-06)) * ((0.000226757 * (((this.iRec32[1] == 0) & iSlow26) & (this.fRec33[1] < 1))) + (this.fRec33[1] * ((1 - (0 - (0.00198929 * (this.iRec32[1] & (this.fRec33[1] > 80))))) - (0.000511877 * iTemp15)))));
+			this.fRec34[0] = function fmod(a,b) {return a % b }((0.0798186 + this.fRec34[1]), 1);
+			this.iRec35[0] = (iSlow29 & (this.iRec35[1] | (this.fRec36[1] >= 1)));
+			var iTemp16 = (iSlow30 & (this.fRec36[1] > 0));
+			this.fRec36[0] = (((iTemp16 == 0) | (this.fRec36[1] >= 1e-06)) * ((0.000226757 * (((this.iRec35[1] == 0) & iSlow29) & (this.fRec36[1] < 1))) + (this.fRec36[1] * ((1 - (0 - (0.00198929 * (this.iRec35[1] & (this.fRec36[1] > 80))))) - (0.000511877 * iTemp16)))));
+			this.fRec37[0] = function fmod(a,b) {return a % b }((0.0604912 + this.fRec37[1]), 1);
+			this.iRec38[0] = (iSlow32 & (this.iRec38[1] | (this.fRec39[1] >= 1)));
+			var iTemp17 = (iSlow33 & (this.fRec39[1] > 0));
+			this.fRec39[0] = (((iTemp17 == 0) | (this.fRec39[1] >= 1e-06)) * ((0.000226757 * (((this.iRec38[1] == 0) & iSlow32) & (this.fRec39[1] < 1))) + (this.fRec39[1] * ((1 - (0 - (0.00198929 * (this.iRec38[1] & (this.fRec39[1] > 80))))) - (0.000511877 * iTemp17)))));
+			this.fRec40[0] = function fmod(a,b) {return a % b }((0.0458437 + this.fRec40[1]), 1);
+			this.fRec41[0] = function fmod(a,b) {return a % b }((0.0229219 + this.fRec41[1]), 1);
+			this.iRec42[0] = (iSlow35 & (this.iRec42[1] | (this.fRec43[1] >= 1)));
+			var iTemp18 = (iSlow36 & (this.fRec43[1] > 0));
+			this.fRec43[0] = (((iTemp18 == 0) | (this.fRec43[1] >= 1e-06)) * ((0.000226757 * (((this.iRec42[1] == 0) & iSlow35) & (this.fRec43[1] < 1))) + (this.fRec43[1] * ((1 - (0 - (0.00198929 * (this.iRec42[1] & (this.fRec43[1] > 80))))) - (0.000511877 * iTemp18)))));
+			this.fRec44[0] = function fmod(a,b) {return a % b }((0.0347431 + this.fRec44[1]), 1);
+			this.iRec45[0] = (iSlow38 & (this.iRec45[1] | (this.fRec46[1] >= 1)));
+			var iTemp19 = (iSlow39 & (this.fRec46[1] > 0));
+			this.fRec46[0] = (((iTemp19 == 0) | (this.fRec46[1] >= 1e-06)) * ((0.000226757 * (((this.iRec45[1] == 0) & iSlow38) & (this.fRec46[1] < 1))) + (this.fRec46[1] * ((1 - (0 - (0.00198929 * (this.iRec45[1] & (this.fRec46[1] > 80))))) - (0.000511877 * iTemp19)))));
+			this.iRec47[0] = (iSlow41 & (this.iRec47[1] | (this.fRec48[1] >= 1)));
+			var iTemp20 = (iSlow42 & (this.fRec48[1] > 0));
+			this.fRec48[0] = (((iTemp20 == 0) | (this.fRec48[1] >= 1e-06)) * ((0.000226757 * (((this.iRec47[1] == 0) & iSlow41) & (this.fRec48[1] < 1))) + (this.fRec48[1] * ((1 - (0 - (0.00198929 * (this.iRec47[1] & (this.fRec48[1] > 80))))) - (0.000511877 * iTemp20)))));
+			this.iRec49[0] = (iSlow44 & (this.iRec49[1] | (this.fRec50[1] >= 1)));
+			var iTemp21 = (iSlow45 & (this.fRec50[1] > 0));
+			this.fRec50[0] = (((iTemp21 == 0) | (this.fRec50[1] >= 1e-06)) * ((0.000226757 * (((this.iRec49[1] == 0) & iSlow44) & (this.fRec50[1] < 1))) + (this.fRec50[1] * ((1 - (0 - (0.00198929 * (this.iRec49[1] & (this.fRec50[1] > 80))))) - (0.000511877 * iTemp21)))));
+			this.fRec51[0] = function fmod(a,b) {return a % b }((0.0151228 + this.fRec51[1]), 1);
+			this.fRec52[0] = function fmod(a,b) {return a % b }((0.0075614 + this.fRec52[1]), 1);
+			this.iRec53[0] = (iSlow47 & (this.iRec53[1] | (this.fRec54[1] >= 1)));
+			var iTemp22 = (iSlow48 & (this.fRec54[1] > 0));
+			this.fRec54[0] = (((iTemp22 == 0) | (this.fRec54[1] >= 1e-06)) * ((0.000226757 * (((this.iRec53[1] == 0) & iSlow47) & (this.fRec54[1] < 1))) + (this.fRec54[1] * ((1 - (0 - (0.00198929 * (this.iRec53[1] & (this.fRec54[1] > 80))))) - (0.000511877 * iTemp22)))));
+			this.fRec55[0] = function fmod(a,b) {return a % b }((0.0114609 + this.fRec55[1]), 1);
+			this.fRec56[0] = function fmod(a,b) {return a % b }((0.00573047 + this.fRec56[1]), 1);
+			output1[i] = (fSlow0 * ((this.fRec33[0] * ((0.5 * Math.sin((6.28319 * this.fRec34[0]))) + fTemp5)) + ((this.fRec36[0] * ((0.5 * Math.sin((6.28319 * this.fRec37[0]))) + fTemp7)) + ((this.fRec39[0] * ((0.5 * Math.sin((6.28319 * this.fRec40[0]))) + Math.sin((6.28319 * this.fRec41[0])))) + ((this.fRec43[0] * ((0.5 * Math.sin((6.28319 * this.fRec44[0]))) + fTemp10)) + ((this.fRec46[0] * ((0.5 * fTemp2) + fTemp12)) + ((this.fRec48[0] * ((0.5 * fTemp4) + fTemp14)) + ((this.fRec50[0] * ((0.5 * Math.sin((6.28319 * this.fRec51[0]))) + Math.sin((6.28319 * this.fRec52[0])))) + (this.fRec54[0] * ((0.5 * Math.sin((6.28319 * this.fRec55[0]))) + Math.sin((6.28319 * this.fRec56[0]))))))))))));
 			this.iRec0[1] = this.iRec0[0];
 			this.fRec1[1] = this.fRec1[0];
 			this.fRec2[1] = this.fRec2[0];
 			this.fRec3[1] = this.fRec3[0];
-			this.fRec4[1] = this.fRec4[0];
-			this.iRec5[1] = this.iRec5[0];
+			this.iRec4[1] = this.iRec4[0];
+			this.fRec5[1] = this.fRec5[0];
 			this.fRec6[1] = this.fRec6[0];
 			this.fRec7[1] = this.fRec7[0];
-			this.fRec8[1] = this.fRec8[0];
+			this.iRec8[1] = this.iRec8[0];
 			this.fRec9[1] = this.fRec9[0];
-			this.iRec10[1] = this.iRec10[0];
+			this.fRec10[1] = this.fRec10[0];
 			this.fRec11[1] = this.fRec11[0];
-			this.fRec12[1] = this.fRec12[0];
+			this.iRec12[1] = this.iRec12[0];
 			this.fRec13[1] = this.fRec13[0];
 			this.fRec14[1] = this.fRec14[0];
-			this.iRec15[1] = this.iRec15[0];
-			this.fRec16[1] = this.fRec16[0];
+			this.fRec15[1] = this.fRec15[0];
+			this.iRec16[1] = this.iRec16[0];
 			this.fRec17[1] = this.fRec17[0];
 			this.fRec18[1] = this.fRec18[0];
 			this.fRec19[1] = this.fRec19[0];
@@ -791,55 +677,39 @@ function dsp() {
 			this.fRec21[1] = this.fRec21[0];
 			this.fRec22[1] = this.fRec22[0];
 			this.fRec23[1] = this.fRec23[0];
-			this.fRec24[1] = this.fRec24[0];
-			this.iRec25[1] = this.iRec25[0];
+			this.iRec24[1] = this.iRec24[0];
+			this.fRec25[1] = this.fRec25[0];
 			this.fRec26[1] = this.fRec26[0];
 			this.fRec27[1] = this.fRec27[0];
-			this.fRec28[1] = this.fRec28[0];
-			this.iRec29[1] = this.iRec29[0];
+			this.iRec28[1] = this.iRec28[0];
+			this.fRec29[1] = this.fRec29[0];
 			this.fRec30[1] = this.fRec30[0];
 			this.fRec31[1] = this.fRec31[0];
-			this.fRec32[1] = this.fRec32[0];
+			this.iRec32[1] = this.iRec32[0];
 			this.fRec33[1] = this.fRec33[0];
-			this.iRec34[1] = this.iRec34[0];
-			this.fRec35[1] = this.fRec35[0];
+			this.fRec34[1] = this.fRec34[0];
+			this.iRec35[1] = this.iRec35[0];
 			this.fRec36[1] = this.fRec36[0];
 			this.fRec37[1] = this.fRec37[0];
 			this.iRec38[1] = this.iRec38[0];
 			this.fRec39[1] = this.fRec39[0];
 			this.fRec40[1] = this.fRec40[0];
 			this.fRec41[1] = this.fRec41[0];
-			this.fRec42[1] = this.fRec42[0];
-			this.iRec43[1] = this.iRec43[0];
+			this.iRec42[1] = this.iRec42[0];
+			this.fRec43[1] = this.fRec43[0];
 			this.fRec44[1] = this.fRec44[0];
-			this.fRec45[1] = this.fRec45[0];
+			this.iRec45[1] = this.iRec45[0];
 			this.fRec46[1] = this.fRec46[0];
 			this.iRec47[1] = this.iRec47[0];
 			this.fRec48[1] = this.fRec48[0];
-			this.fRec49[1] = this.fRec49[0];
+			this.iRec49[1] = this.iRec49[0];
 			this.fRec50[1] = this.fRec50[0];
-			this.iRec51[1] = this.iRec51[0];
+			this.fRec51[1] = this.fRec51[0];
 			this.fRec52[1] = this.fRec52[0];
-			this.fRec53[1] = this.fRec53[0];
+			this.iRec53[1] = this.iRec53[0];
 			this.fRec54[1] = this.fRec54[0];
 			this.fRec55[1] = this.fRec55[0];
-			this.iRec56[1] = this.iRec56[0];
-			this.fRec57[1] = this.fRec57[0];
-			this.fRec58[1] = this.fRec58[0];
-			this.fRec59[1] = this.fRec59[0];
-			this.iRec60[1] = this.iRec60[0];
-			this.fRec61[1] = this.fRec61[0];
-			this.fRec62[1] = this.fRec62[0];
-			this.fRec63[1] = this.fRec63[0];
-			this.iRec64[1] = this.iRec64[0];
-			this.fRec65[1] = this.fRec65[0];
-			this.fRec66[1] = this.fRec66[0];
-			this.fRec67[1] = this.fRec67[0];
-			this.fRec68[1] = this.fRec68[0];
-			this.iRec69[1] = this.iRec69[0];
-			this.fRec70[1] = this.fRec70[0];
-			this.fRec71[1] = this.fRec71[0];
-			this.fRec72[1] = this.fRec72[0];
+			this.fRec56[1] = this.fRec56[0];
 			
 		}
 		
