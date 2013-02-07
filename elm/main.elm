@@ -13,6 +13,11 @@ placeholder w h col text = color col $ container w h middle $ plainText text
 repeat a n = map (\_ -> a) [1..n]
 -- TODO: move to Common
 percent x p = (x * p) `div` 100
+remove e l = case l of    
+    (x:xs) -> if (x == e) 
+              then xs
+              else x:(remove e xs)    
+    [] -> []
 
 -- http://colorschemedesigner.com/#0p32P1B6p6q6q
 palColor1 = rgb 51 49 48
@@ -86,7 +91,9 @@ golAutomaton =
             let out =
                 case input of
                     [] -> GameOfLife.limit (GameOfLife.step stateGol) sequencerSteps
-                    clickCoord:[] -> GameOfLife.insert clickCoord stateGol
+                    clickCoord:[] -> if GameOfLife.alive clickCoord stateGol
+                                     then GameOfLife.fromList $ remove clickCoord $ GameOfLife.toList stateGol
+                                     else GameOfLife.insert clickCoord stateGol
                     _ -> GameOfLife.fromList input
             in (GameOfLife.toList out, out)
         gol = GameOfLife.fromList cycleExploder
