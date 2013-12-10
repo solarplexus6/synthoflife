@@ -5,7 +5,7 @@ $publicPath = ".\public\"
 
 echo "Build started"
 Push-Location $elmFolder
-&elm --make ($main+".elm") -r $elmRuntime -i ..\synth\synth.js -i helper.js -i init.js
+&elm --make ($main+".elm") -r $elmRuntime --scripts=..\synth\synth.js --scripts=helper.js --scripts=init.js
 Pop-Location
 Copy-Item (".\$elmFolder\$main.html") $publicPath
 

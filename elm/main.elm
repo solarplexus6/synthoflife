@@ -1,22 +1,24 @@
 import Window (dimensions)
-import Mouse (clicks,position)
-import Maybe (mapMaybe)
+import Mouse
+import Maybe (maybe, Just, Nothing)
 import Time (every)
 import Automaton
 import JavaScript
-import JSON as JSON
-import HTTP(sendGet)
+import JavaScript (JSString, JSArray, JSNumber)
+import Json
+import Http
+import Dict
 import GameOfLife as GameOfLife
-import Input (checkbox)
+import Graphics.Input (checkbox)
 
-placeholder w h col text = color col $ container w h middle $ plainText text
+placeholder w h col text = color col <| container w h middle <| plainText text
 repeat a n = map (\_ -> a) [1..n]
 -- TODO: move to Common
 percent x p = (x * p) `div` 100
-remove e l = case l of    
-    (x:xs) -> if (x == e) 
-              then xs
-              else x:(remove e xs)    
+remove e l = case l of
+    (x::xs) -> if (x == e)
+               then xs
+               else x::(remove e xs)
     [] -> []
 
 -- http://colorschemedesigner.com/#0p32P1B6p6q6q
@@ -33,54 +35,54 @@ sequencerSteps = 16
 sequencerSpeed = 300
 
 foreign import jsevent "provideHost"
-    (castStringToJSString "")
-        jsHost :: Signal JSString
+    (Json.fromString "")
+        jsHost : Signal JSString
 
 foreign import jsevent "providePresetUrl"
-    (castStringToJSString "")
-        presetUrl :: Signal JSString
+    (Json.fromString "")
+        presetUrl : Signal JSString
 
-host = lift castJSStringToString jsHost
-presetSignal = sendGet $ lift castJSStringToString presetUrl
+host = lift Json.toString jsHost
+presetRequest = Http.sendGet <| lift Json.toString presetUrl
 
 data Preset = Preset String String [(Int, Int)]
 
 getPoint asocList =
     case asocList of
-        (_, JsonNumber x):[(_, JsonNumber y)] -> Just (x,y)
+        (_, Json.Number x)::[(_, Json.Number y)] -> Just (x,y)
         _ -> Nothing
 getValue obj =
     case obj of
-        JsonObject a -> a
-        _ -> JSON.empty
+        Json.Object a -> a
+        _ -> Json.Null
 handleResponse res =
     case res of {
-        Success obj -> JSON.fromString obj
-    ;   Waiting -> JSON.empty
-    ;   Failure _ _ -> JSON.empty }
-presetSignal =  let deserializePattern preset = mapMaybe (\obj ->getPoint $ JSON.toList $ getValue obj)
-                                                       (JSON.findArray "pattern" preset)
-                    deserializeName preset = JSON.findString "name" preset
-                    deserializeSn preset = JSON.findString "sn" preset
+        Http.Success obj -> Json.fromString obj
+    ;   Http.Waiting -> Json.Null
+    ;   Http.Failure _ _ -> Json.Null }
+presetSignal =  let deserializePattern preset = map (\obj ->getPoint <| Json.fromJSObject obj <| maybe Nothing)
+                                                       (Dict.lookup "pattern" preset)
+                    deserializeName preset = Dict.lookup "name" preset
+                    deserializeSn preset = Dict.lookup "sn" preset
                     deserializePreset preset = let presetObj = handleResponse preset
                                               in Preset
                                                     (deserializeSn presetObj)
                                                     (deserializeName presetObj)
                                                     (deserializePattern presetObj)
-                in lift deserializePreset presetSignal
+                in lift deserializePreset presetRequest
 patternSignal = lift (\(Preset _ _ pattern) -> pattern) presetSignal
 
 --klikanie
 layoutDimensions = lift (\(w, h) -> (w, h, (w * 7) `div` 8, (h * 7) `div` 8)) dimensions
-seqMousePosition = lift2 (\(w, h, _, gameHeight) (mouseX, mouseY) -> 
+seqMousePosition = lift2 (\(w, h, _, gameHeight) (mouseX, mouseY) ->
         ( mouseX - (w * 1) `div` 2 + (gameHeight `percent` 45), mouseY - (h * 1) `div` 16 - (gameHeight `percent` 1) ))
     layoutDimensions Mouse.position
 
 -- TODO: extract cellSize, use seqView size
-cellClickCoord = 
-    lift (\(x, y, gameHeight) -> let cellSize = (gameHeight `percent` 90) `div` sequencerSteps in 
-            (x `div` cellSize + 1, y `div` cellSize + 1) ) 
-         $ sampleOn clicks $ lift2 (\(x, y) (_, _, _, gameHeight) -> (x, y, gameHeight)) seqMousePosition layoutDimensions
+cellClickCoord =
+    lift (\(x, y, gameHeight) -> let cellSize = (gameHeight `percent` 90) `div` sequencerSteps in
+            (x `div` cellSize + 1, y `div` cellSize + 1) )
+         <| sampleOn Mouse.clicks <| lift2 (\(x, y) (_, _, _, gameHeight) -> (x, y, gameHeight)) seqMousePosition layoutDimensions
 
 --standard patterns
 exploder = [(8,8), (7,9), (8,9), (9,9), (7,10), (9,10), (8,11)]
@@ -91,23 +93,20 @@ golAutomaton =
             let out =
                 case input of
                     [] -> GameOfLife.limit (GameOfLife.step stateGol) sequencerSteps
-                    clickCoord:[] -> if GameOfLife.alive clickCoord stateGol
-                                     then GameOfLife.fromList $ remove clickCoord $ GameOfLife.toList stateGol
+                    clickCoord::[] -> if GameOfLife.alive clickCoord stateGol
+                                     then GameOfLife.fromList <| remove clickCoord <| GameOfLife.toList stateGol
                                      else GameOfLife.insert clickCoord stateGol
                     _ -> GameOfLife.fromList input
             in (GameOfLife.toList out, out)
         gol = GameOfLife.fromList cycleExploder
-    in init' gol fstep
+    in Automaton.state gol fstep
 
 (golControl, golActive) = checkbox True
-mainGol = run golAutomaton $ patternSignal `merge` 
-                             (lift (\cell -> [cell]) cellClickCoord) `merge` 
-                             (keepWhen golActive [] $ lift (\_ -> []) $ every golSpeed)
+mainGol = Automaton.run golAutomaton <| patternSignal `merge`
+                                        (lift (\cell -> [cell]) cellClickCoord) `merge`
+                                        (keepWhen golActive [] <| lift (\_ -> []) <| every golSpeed)
 
-foreign export jsevent "onGolStep"
-    exportGol :: Signal (JSArray (JSTuple2 JSNumber JSNumber))
-
-castPointListToJSArray xs = castListToJSArray $ map (\(x,y) -> castTupleToJSTuple2 (castIntToJSNumber x,castIntToJSNumber y)) xs
+castPointListToJSArray xs = JavaScript.fromList <| map (\(x,y) -> JavaScript.fromList [JavaScript.fromInt x, JavaScript.fromInt y]) xs
 exportGol = lift castPointListToJSArray mainGol
 
 sequencerAutomaton =
@@ -117,50 +116,47 @@ sequencerAutomaton =
                 [] -> (stateGol, (stateStep `mod` sequencerSteps) + 1, True)
                 _  -> (input, stateStep, False)
         in ( (filter (\(x, _) -> x == step) gol, new), (gol, step) )
-    in init' ([], 0) fstep
+    in Automaton.state ([], 0) fstep
 
-sequencerSignal = lift (\seq -> map (\(x,y) -> (x, sequencerSteps - y)) $ fst seq)
-                    $ keepIf snd ([], True)
-                    $ run sequencerAutomaton
-                    $ mainGol `merge` (lift (\_ -> []) $ every sequencerSpeed)
-
-foreign export jsevent "onSequencerStep"
-    exportSequencer :: Signal (JSArray (JSTuple2 JSNumber JSNumber))
+sequencerSignal = lift (\seq -> map (\(x,y) -> (x, sequencerSteps - y)) <| fst seq)
+                    <| keepIf snd ([], True)
+                    <| Automaton.run sequencerAutomaton
+                    <| mainGol `merge` (lift (\_ -> []) <| every sequencerSpeed)
 
 exportSequencer = lift castPointListToJSArray sequencerSignal
 
 --gofCell=   ((filled (rgb 255 102 0) .) .) . rect
-gofCell w h (x,y) =   filled palColorAccent $ rect w h (x,y)
+gofCell w h (x,y) =   filled palColorAccent <| rect w h (x,y)
 --noCell =   ((filled (rgb 64 64 64) .) .) . rect
-noCell w h (x,y)  = filled palColor31 $ rect w h (x,y)
+noCell w h (x,y)  = filled palColor31 <| rect w h (x,y)
 
 synthCtrl w h = placeholder w h palColor22 "Sythesizer controls"
-golCtrl w h = color palColor22 $ container w h middle $
+golCtrl w h = color palColor22 <| container w h middle <|
                 (plainText "Gof controls") `above` (plainText "Active") `beside` golControl
 presets w h presetName = placeholder w h palColor22 presetName
 
 sequencer w h activeCells seqStep =
                 let cellSize = toFloat(h)/sequencerSteps
                     coordinate x = cellSize*toFloat(x) - cellSize*0.5
-                    grid = concatMap (\c -> zip (repeat c sequencerSteps) $ map coordinate [1..sequencerSteps])
-                           $ map coordinate [1..sequencerSteps]
-                    inactiveCells = map (noCell (cellSize*0.8) (cellSize*0.8)) $ grid
-                    stepIndicator = filled palColorBlink $ rect cellSize h (coordinate seqStep, (h `div` 2))
+                    grid = concatMap (\c -> zip (repeat c sequencerSteps) <| map coordinate [1..sequencerSteps])
+                           <| map coordinate [1..sequencerSteps]
+                    inactiveCells = map (noCell (cellSize*0.8) (cellSize*0.8)) <| grid
+                    stepIndicator = filled palColorBlink <| rect cellSize h (coordinate seqStep, (h `div` 2))
                 in
-                    collage w h $
+                    collage w h <|
                         inactiveCells ++
-                        (stepIndicator :
+                        (stepIndicator ::
                         (map (gofCell (cellSize*0.8) (cellSize*0.8))
-                            $ map (\(x,y) -> (coordinate x, coordinate y)) activeCells))
+                            <| map (\(x,y) -> (coordinate x, coordinate y)) activeCells))
 
---                    $ run golAutomaton $ sampleOn clicks position
+--                    <| run golAutomaton <| sampleOn clicks position
 
 view (w, h, layoutWidth, gameHeight) (mouseX, mouseY) gol (Preset presetSn presetName presetPattern) seqColumn =
-    let         
-        seqStep = case seqColumn of { [] -> (0-1); (x, _):_ -> x}
+    let
+        seqStep = case seqColumn of { [] -> (0-1); (x, _)::_ -> x}
         seqView = sequencer (percent gameHeight 90) (percent gameHeight 90) gol seqStep
-    in layers [(color palColor1 $ container w h middle $ 
-                    color palColor21 $ container layoutWidth gameHeight middle $ (flow right
+    in layers [(color palColor1 <| container w h middle <|
+                    color palColor21 <| container layoutWidth gameHeight middle <| (flow right
                         [
                             golCtrl (layoutWidth `percent` 12) (gameHeight `percent` 80),
                             spacer (layoutWidth `percent` 1) (gameHeight `percent` 80),
@@ -173,3 +169,9 @@ view (w, h, layoutWidth, gameHeight) (mouseX, mouseY) gol (Preset presetSn prese
                 asText (presetSn, w, h, mouseX, mouseY)]
 
 main = lift5 view layoutDimensions cellClickCoord mainGol presetSignal sequencerSignal
+
+foreign export jsevent "onGolStep"
+    exportGol : Signal (JSArray (JSArray JSNumber ))
+
+foreign export jsevent "onSequencerStep"
+    exportSequencer : Signal (JSArray (JSArray JSNumber))
